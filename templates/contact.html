@@ -1,0 +1,88 @@
+{% extends "layouts/master.html" %}
+{% load i18n %}
+
+{% block 'title' %}Contact{% endblock 'title' %}
+
+{% block "contenu" %}
+<section class="contact-section">
+    <div class="contact-container">
+        <h2>{% trans "Contactez-nous" %}</h2>
+        {% if message_envoye %}
+            <div style="color: green; text-align: center; margin-bottom: 1rem;">
+                {% trans "Your message has been sent to the LoveMeet team!" %}
+            </div>
+        {% endif %}
+        {% if erreur %}
+            <div style="color: red; text-align: center; margin-bottom: 1rem;">
+                {{ erreur }}
+            </div>
+        {% endif %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">{% trans "Name" %}</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">{% trans "Email" %}</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">{% trans "Message" %}</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary-con">{% trans "Send" %}</button>
+        </form>
+    </div>
+</section>
+<style>
+.contact-section {
+    padding: 2rem;
+    background: #f3f4f6;
+    min-height: 60vh;
+}
+.contact-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-top: 10vh;
+}
+.contact-container h2 {
+    text-align: center;
+    color: #aa3073;
+    margin-bottom: 2rem;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+.btn-primary-con {
+    width: 100%;
+    height: 50px;
+    background-color: #aa3073;
+    color: white;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+}
+.btn-primary-con:hover {
+    background-color: #c790aecc;
+}
+</style>
+{% endblock "contenu" %}

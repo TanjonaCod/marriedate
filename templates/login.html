@@ -1,0 +1,201 @@
+{% extends "layouts/master.html" %}
+{% load i18n %}
+{% block 'title' %}
+  {% trans "Connexion" %}
+{% endblock 'title' %}
+{% load static %}
+{% block "contenu" %}
+<div class="connex_tete">
+    <a href="{% url 'aff_accueil' %}">
+        <img src="{% static 'images/logo1.png' %}" alt="" style="width: 7rem;">
+    </a>
+    <button><a href="{% url 'aff_register' %}">{% trans "S'inscrire" %}</a></button>
+</div>
+<section class="login-section" style="overflow-x: hidden;">
+    <div class="login-container">
+        <div class="login-form-container">
+            {% if message %}
+              <h2 class="erreur" style="color: red;">
+                {% if message %}
+                  {% translate message %}
+                {% endif %}
+              </h2>
+            {% endif %}
+            <h2 class="login-title">{% trans "Connectez vous!" %}</h2>
+            <form class="login-form" action="{% url 'connexion_membre' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="email" class="form-label">{% trans "Email" %}</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="Ex: marie@gmail.com..." required />
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">{% trans "Mot de passe" %}</label>
+                    <div style="position:relative;">
+                        <input type="password" id="password" name="password" class="form-input" placeholder="******" required />
+                        <span id="togglePassword" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;">
+                            <i class="fa fa-eye" id="eyeIcon"></i>
+                        </span>
+                    </div>
+                    <a href="{% url 'mot_de_passe_oublie' %}" class="forgot-password">{% trans "Mot de passe oublié ?" %}</a>
+                </div>
+                <button type="submit" class="btn-primary-con">{% trans "Se Connecter" %}</button>
+            </form>
+            <div class="register-link">
+                <a href="{% url 'aff_register' %}" class="register-text">{% trans "Je n'ai pas de compte" %}</a>
+            </div>
+        </div>
+        <div class="login-images">
+            <div class="image-container">
+                <img class="login-image" src="{% static 'images/2148019887.jpg' %}" alt="">
+            </div>
+            <div class="image-container">
+                <img class="login-image" src="{% static 'images/2149162015.jpg' %}" alt="">
+            </div>
+            <div class="image-container">
+                <img class="login-image" src="{% static 'images/6704019_270.jpg' %}" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .erreur{
+        font-size:2vw;
+        color:red"
+    }
+    .btn-primary-con{
+        width: 50%;
+        height: 50px;
+        background-color: #aa3073;
+        color: white;
+        font-size: 20px;
+        border-radius: 15px;
+        cursor: pointer;
+        margin-left: 25%;
+    }
+    .btn-primary-con:hover{
+        background-color: #c790aecc;
+        color: red;
+    }
+    .connex_tete{
+        background-color: pink;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        /* justify-content: end; */
+        /* padding-right: 6%; */
+        justify-content: space-between;
+        padding-right: 6%;
+        padding-left: 6%;
+    }
+    .connex_tete button{
+        background-color: #e11584;
+        color: white;
+        border-radius: 25px;
+        width: 10%;
+        height: 40px;
+        border: none;
+        animation: transform 1s linear;
+    }
+    .connex_tete a{
+            text-decoration: none;
+            color: white;
+            font-size: 1.5vw;
+        }
+    @keyframes transform {
+            from{
+                transform: translateX(10rem);
+                opacity: 0;
+            }
+            to{
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    header .connex{
+        display: none;
+    }
+    .inscri_tete button{
+        display: none;
+    }
+    .top-header{
+        display: none;
+    }
+    @media  (max-width:768px) {
+        .erreur{
+            font-size: 5vw !important;
+            width: 68%;
+        }
+        .connex_tete{
+            height: 75px;
+        }
+        .connex_tete button{
+        background-color: #e11584;
+        color: white;
+        /* border: 2px solid #710193; */
+        border-radius: 25px;
+        width: 30%;
+        height: 40px;
+        border: none;
+        margin-top: 1vh;
+        /* margin-left: 60%; */
+        animation: transform 1s linear;
+        }
+        .connex_tete a{
+            text-decoration: none;
+            color: white;
+            font-size: 5vw;
+        }
+        @keyframes transform {
+            from{
+                transform: translateX(10rem);
+                opacity: 0;
+            }
+            to{
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        .display{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            /* width: 100%; */
+            grid-template-columns: 2fr,2fr;
+            grid-template: 2fr 2fr 2fr;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        footer{
+            margin-top: 14vh !important;
+        }
+    }
+    
+</style>
+<script>
+    
+
+document.getElementById('togglePassword').onclick = function() {
+
+    const pwd = document.getElementById('password');
+    const icon = document.getElementById('eyeIcon');
+    if (pwd.type === "password") {
+        pwd.type = "text";
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        pwd.type = "password";
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+};
+</script>
+
+{% if request.session.client %}
+<script>
+  window.location.href = "{% url 'condition_admi' %}"
+</script>
+{% endif %}
+
+{% endblock "contenu" %}

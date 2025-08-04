@@ -1,0 +1,39 @@
+{% extends "layouts/master.html" %}
+{% block "contenu" %}
+<section class="friends-section">
+    <h2>Liste d'amis</h2>
+    <ul>
+        {% for friend in friends %}
+            <li>
+                <img src="{{ friend.profil.images.url }}" alt="Photo de {{ friend.pseudo }}" width="50">
+                <strong>{{ friend.pseudo }}</strong>
+                <p>{{ friend.city }}, {{ friend.country }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+<style>
+    .friends-section {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .friends-section ul {
+        list-style: none;
+        padding: 0;
+    }
+    .friends-section li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock "contenu" %}

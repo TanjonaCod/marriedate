@@ -1,0 +1,160 @@
+{% extends "layouts/master.html" %}
+
+{% block 'title' %}
+  Valider Photo
+{% endblock 'title' %}
+
+{% block "contenu" %}
+    <section>
+        <h2>Envoyer votre photo</h2>
+        <div class="selfie_cam">
+            <p style="margin: 20px;color: white;">Sourier</p>
+            <div class="camera-container">
+                <video id="video" autoplay playsinline ></video>
+            </div>
+            <canvas id="canvas"></canvas>
+            
+            <div class="capture_btn">
+                <!-- <img id="capturedImage" src="" alt="Captured Image" style=" max-width: 100%; border: 2px solid #333; border-radius: 5px;"> -->
+                <button id="takePhoto"></button>
+                
+                <button id="retour">X</button>
+                <form id="photoForm" method="post" action="{% url 'envoyer_photo' membre.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="photo" id="photoInput">
+                    <input type="hidden" name="membre_id" value="{{ membre.id }}">
+                    <button type="submit" class="btn btn-primary" disabled><i class="fas fa-paper-plane"></i></button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+    <script>
+        const selfie = document.querySelector(".selfie_cam");
+        const photoButton = document.getElementById('takePhoto');
+        const btn_primary = document.querySelector(".btn-primary");
+        // Le bouton est désactivé par défaut
+        btn_primary.disabled = true;
+        let capturedImage = document.getElementById('capturedImage');
+        if (!capturedImage) {
+            capturedImage = document.createElement('img');
+            // capturedImage.id = 'capturedImage';
+            // capturedImage.alt = 'Captured Image';
+            // capturedImage.style.maxWidth = '100%';
+            // capturedImage.style.border = '2px solid #333';
+            // capturedImage.style.borderRadius = '5px';
+            capturedImage.style.display = 'none';
+            document.querySelector('.capture_btn').prepend(capturedImage);
+        }
+        let retour = document.getElementById('retour');
+        let canvas = document.getElementById('canvas');
+        let photoInput = document.getElementById('photoInput');
+        let video = document.getElementById('video');
+        let stream;
+
+        retour.style.display = "none";
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: true,
+                    audio: false
+                });
+                video.srcObject = stream;
+            } catch (err) {
+                console.error('Error accessing camera:', err);
+                alert('Erreur d\'accès à la caméra. Veuillez autoriser l\'accès à la caméra.');
+            }
+        });
+
+        photoButton.addEventListener('click', () => {
+            if (stream) {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                const photo = canvas.toDataURL('image/png');
+                photoInput.value = photo;
+                capturedImage.src = photo;
+                capturedImage.style.display = 'none';
+                canvas.style.display = 'block';
+                retour.style.display = "block";
+                btn_primary.disabled = false;
+            }
+        });
+
+        retour.addEventListener('click', () => {
+            capturedImage.style.display = 'none';
+            retour.style.display = "none";
+            canvas.style.display = 'none';
+            capturedImage.src = "";
+            btn_primary.disabled = true;
+        });
+    </script>
+    <style>
+        section{
+                background: black;
+                height: 84vh;
+                color: white;
+                text-align: center;
+                width: 50%;
+                margin-left: 25%;
+        }
+        #canvas {
+            margin-top: -30vh;
+            width: 67%;
+            margin-bottom: -16vh;
+            margin-left: 16%;
+        }
+        @media screen and (max-width: 768px) {
+            section{
+                background: black;
+                height: 84vh;
+                color: white;
+                text-align: center;
+                width: 100%;
+                margin-left: 0 !important;
+
+            }
+            #canvas{
+                margin-top: -29vh !important;
+                width: 100%;
+                margin-bottom: -19vh;
+                margin-left: 0 !important;
+                height: 47vh;
+
+            }
+            
+        }
+        .camera-container{
+            height: 30vh;
+        }
+        #video{
+            width: 100%;
+            height: 50vh;
+            object-fit: contain;
+        }
+        footer{
+            margin-top: 0 !important;
+        }
+        #takePhoto{
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            border: 2px #251e1e;
+            box-shadow: 1px 0px 3px 6px #7979a1;
+        }
+        
+        .capture_btn{
+            margin-top: 23vh;
+            display: flex;
+            justify-content: center;
+            gap: 51px;
+        }
+        #retour{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    </style>
+  
+{% endblock "contenu" %}

@@ -1,0 +1,348 @@
+{% extends "layouts/master.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block 'title' %}
+    Site rencontre
+{% endblock 'title' %}
+
+{% block "contenu" %}
+ <section class="hero">
+        <div class="container">
+            <h2>{% trans "Rencontrez votre âme sœur aujourd'hui !" %}</h2>
+            <p>{% trans "Lovelimeet est la plateforme idéale pour faire des rencontres sérieuses, sincères et durables." %}</p>
+            <a href="{% url 'aff_register' %}"><p class="inscrip">{% trans "Créer mon compte gratuit" %}</p></a>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="container">
+            <h2>{% trans "Les avantages exclusifs des membres Lovelimeet" %}</h2>
+            <div class="btavantage">
+                <img src="{% static 'images/img1.png' %}" alt="" width="310px">
+                <div>
+                    <h2 class="titledesc">{% trans "Pour quoi Lovelimeet" %}</h2>
+                    <p class="intro">
+                        {% trans "Devenir membre de Lovelimeet, c’est rejoindre une communauté bienveillante, active et authentique. Voici tout ce que vous gagnez en créant un compte gratuit :" %}
+                    </p>
+                </div>
+            </div>
+    
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="display2">
+                        <i class="fab fa-internet-explorer success1"></i>
+                        <h3> {% trans "Matching intelligent" %}</h3>
+                    </div>
+                    <p>
+                        {% trans "Notre algorithme analyse vos préférences, vos intérêts et votre personnalité pour vous proposer des profils réellement compatibles. Moins de recherches, plus de résultats !" %}
+                    </p>
+                </div>
+                <div class="advantage-card">
+                    <div class="display2">
+                        <i class="fas fa-circle-check success"></i>
+                        <h3> {% trans "Profils 100% vérifiés" %}</h3>
+                    </div>
+                    <p>
+                        {% trans "Tous nos membres sont contrôlés manuellement pour garantir une expérience authentique. Pas de faux profils, pas de robots. Vous échangez avec de vraies personnes." %}
+                    </p>
+                </div>
+                <div class="advantage-card">
+                    <div class="display2">
+                        <i class="fas fa-comments sms"></i>
+                        <h3> {% trans "Messagerie gratuite et illimitée" %}</h3>
+                    </div>
+                    <p>
+                        {% trans "Une fois connecté avec un profil, vous pouvez discuter sans limites. Partagez, échangez, approfondissez… sans stress ni frais cachés." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+     <section class="sexion3">
+        <div class="display contenaire">
+            <img src="{% static 'images/couple1.png' %}" alt="" width="300px">
+            <div class="blocsection3">
+                 <h3 class="titledesc"> {% trans "Rencontres locales et internationales" %}</h3>
+                    <p>
+                        {% trans "Que vous cherchiez l’amour dans votre région ou à l’autre bout du monde, vous avez le choix. Filtrez selon la distance, la langue, ou les objectifs relationnels." %}
+                    </p>
+            </div>
+        </div>
+    </section>
+    <section class="about">
+        <div class="container">
+            <div class="advantages-grid">
+                <!-- <div class="advantage-card">
+                    <img src="img/gb5.jpg" class="image" alt="">
+                    <h3> Rencontres locales et internationales</h3>
+                    <p>
+                        Que vous cherchiez l’amour dans votre région ou à l’autre bout du monde, vous avez le choix. Filtrez selon la distance, la langue, ou les objectifs relationnels.
+                    </p>
+                </div> -->
+                <div class="advantage-card">
+                    <img src="{% static 'images/ligne.png' %}" class="image" alt="">
+                    <h3>{% trans "Événements & activités en ligne" %}</h3>
+                    <p>
+                        {% trans "Participez à des speed-datings virtuels, des soirées thématiques ou des jeux interactifs pour faire des rencontres naturelles et amusantes." %}
+                    </p>
+                </div>
+                <div class="advantage-card">
+                    <img src="{% static 'images/security.jpg' %}" class="image" alt="">
+                    <h3> {% trans "Confidentialité & sécurité" %}</h3>
+                    <p>
+                        {% trans "Vos données sont cryptées, votre vie privée est respectée. Vous avez le contrôle total sur votre profil et qui peut vous contacter." %}
+                    </p>
+                </div>
+                <div class="advantage-card">
+                    <img src="{% static 'images/prem.jpg' %}" class="image" alt="">
+                    <h3>{% trans "Fonctionnalités premium à découvrir" %}</h3>
+                    <p>
+                        {% trans "LoveMeet propose une version gratuite très complète, mais aussi des options premium pour aller encore plus loin dans votre recherche (visibilité boostée, filtres avancés, etc.)." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="sexion3">
+        <div class="contenaire">
+            <div class="display">
+            <div class="blocsection3">
+                 <h3 class="titledesc"> {% trans "Compatible mobile, tablette & PC" %}</h3>
+                    <p>
+                        {% trans "Où que vous soyez, vous avez accès à LoveMeet. Notre interface s’adapte à tous vos appareils pour ne jamais rater une opportunité de connexion." %}
+                    </p>
+            </div>
+            <img src="{% static 'images/respe.png' %}" alt="" width="350px">
+        </div>
+        </div>
+    </section>
+
+<style>
+    .entete{
+        /* background: url(/static/images/2149162015.jpg) no-repeat; */
+        /* background-size: cover; */
+        background-position: center;
+        /* position: absolute; */
+        top: 0;
+    }
+    .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    /* background: url("/static/images/2149162015.jpg") no-repeat; */
+    /* background-size: cover; */
+    padding: 4rem 0;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.hero-text {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: var(--background);
+    margin-bottom: 2rem;
+    margin-left: 30px;
+}
+.hero-image {
+    background-color: none;
+}
+/* Hero Section */
+.hero {
+    /* background: url('img/bg.jpeg') center/cover no-repeat; */
+    background: url(../static/images/bg66.png) no-repeat;
+    background-attachment: fixed;
+    height: 30rem;
+    position: relative;
+    z-index: 1;
+    background-size: cover;
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    margin-top: 25px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* À propos */
+.titledesc{
+    color: #e11584;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1rem;
+}
+.about {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+}
+
+.about h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #e11584;
+    text-align: center;
+}
+
+.about ul.advantages {
+    list-style: none;
+    padding-left: 0;
+}
+
+.about ul li {
+    margin: 15px 0;
+    font-size: 1.1em;
+}
+.about .intro {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    max-width: 800px;
+    line-height: 1.7;
+    color: #555;
+}
+.btavantage{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    /* padding:2rem 0; */
+}
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+    gap: 25px;
+}
+
+.advantage-card {
+    background-color: white;
+    border: 1px solid #eee;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.advantage-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.advantage-card h3 {
+    color: #e11584;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    padding-top: 9px;
+    text-align: center;
+}
+
+.advantage-card p {
+    color: #444;
+    line-height: 1.6;
+}
+.image {
+    width: 16rem;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    height: 25vh;
+    margin-left: 15px;
+}
+
+/* SEXION 3 */
+.sexion3{
+    /* background: linear-gradient(rgb(255, 189, 242), rgb(255, 255, 255)); */
+  width: 100%;
+  height: auto;
+  padding:2rem 0;
+}
+.display{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.contenaire{
+    width: 80%;
+    margin: auto;
+}
+.blocsection3{
+    width: 50%;
+}
+.titledesc {
+    color: #e11584;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 40px;
+}
+
+/* FONTAWOSOME */
+.display2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 15rem;
+}
+.success1{
+    color: #007fff;
+    font-size: 2.5rem;
+}
+.success{
+    color: #007fff;
+    font-size: 2.5rem;
+}
+.sms{
+    color: #028a0f;
+    font-size: 2.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .top-header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-buttons {
+        margin-top: 10px;
+    }
+
+    .hero h2 {
+        font-size: 2em;
+        margin-bottom: 10px;
+        margin-top: 15px;
+    }
+
+    .about h2 {
+        font-size: 1.6em;
+    }
+    .about {
+    padding: 9px 20px;
+    background-color: #f9f9f9;
+    }
+    .blocsection3{
+    width: 100% !important;
+    }
+    .titledesc {
+        color: #e11584;
+        text-align: center;
+        font-size: 1.5rem;
+        padding-top: 20px;
+    }
+}
+
+</style>
+
+{% endblock "contenu" %}

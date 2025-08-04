@@ -1,0 +1,124 @@
+{% extends "layouts/master.html" %}
+
+{% block "contenu" %}
+<div class="password-reset-container">
+    <div class="password-reset-form">
+        <h2>Mot de passe oublié</h2>
+        
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <button type="submit" class="reset-button">Réinitialiser mon mot de passe</button>
+        </form>
+
+        <div class="links">
+            <a href="{% url 'aff_login' %}">Retour à la connexion</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .password-reset-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f5f5;
+        padding: 20px;
+    }
+
+    .password-reset-form {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #666;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .reset-button {
+        width: 100%;
+        padding: 12px;
+        background: #4361ee;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .reset-button:hover {
+        background: #3651d8;
+    }
+
+    .links {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .links a {
+        color: #4361ee;
+        text-decoration: none;
+    }
+
+    .links a:hover {
+        text-decoration: underline;
+    }
+
+    .message {
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .error {
+        background: #ffe6e6;
+        color: #d63031;
+    }
+
+    .success {
+        background: #e6ffe6;
+        color: #27ae60;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,1959 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-14 13:00+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\templates\a_propos.html:5
+msgid "a_propos de lovelimeet"
+msgstr ""
+
+#: .\templates\a_propos.html:12
+msgid "Bienvenue sur Lovelimeet"
+msgstr "Bienvenue sur Lovelimeet"
+
+#: .\templates\a_propos.html:13
+msgid "Là où les coeurs 💖 se connectent et les âmes se rencontrent."
+msgstr "Là où les coeurs 💖 se connectent et les âmes se rencontrent."
+
+#: .\templates\a_propos.html:14
+msgid "Trouve l'amour que tu mérites"
+msgstr ""
+
+#: .\templates\a_propos.html:14
+msgid ""
+"Sur Lovelimeet, nous croyons que chaque rencontre peut être le début d'une "
+"belle histoire. Notre plateforme sécurisée et intuitive  te permet de te "
+"connecter avec des personnes partageant tes valeurs et tes aspirations."
+msgstr ""
+
+#: .\templates\a_propos.html:16
+msgid "Pourquoi choisir Lovelimeet?"
+msgstr "Pourquoi choisir Lovelimeet?"
+
+#: .\templates\a_propos.html:18
+msgid "Profils authentiques :"
+msgstr "Profils authentiques :"
+
+#: .\templates\a_propos.html:18
+msgid "Rencontres basées sur la sincérité et l'échange."
+msgstr "Rencontres basées sur la sincérité et l'échange."
+
+#: .\templates\a_propos.html:19
+msgid "Match intelligent :"
+msgstr "Match intelligent :"
+
+#: .\templates\a_propos.html:19
+msgid "Trouve des affinités grâce à notre algorithme avncé."
+msgstr "Trouve des affinités grâce à notre algorithme avncé."
+
+#: .\templates\a_propos.html:20
+msgid "Discutions en toute sécurité"
+msgstr "Discutions en toute sécurité"
+
+#: .\templates\a_propos.html:21
+msgid "Une communauté bienveillante :"
+msgstr "Une communauté bienveillante :"
+
+#: .\templates\a_propos.html:21
+msgid ""
+"échanger avec des personnes qui cherchent une relation sérieuse ou amicale"
+msgstr "Connect with people looking for a serious or friendly relationship."
+
+#: .\templates\a_propos.html:23
+msgid "Prêt à faire une belle rencontre ?"
+msgstr "Prêt à faire une belle rencontre ?"
+
+#: .\templates\a_propos.html:23
+msgid ""
+"Inscris-toi dès aujourd'hui et fais le premier pas vers une connexion "
+"sincèere. Parce que l'amour commence ici ! 💖"
+msgstr ""
+"Inscris-toi dès aujourd'hui et fais le premier pas vers une connexion "
+"sincèere. Parce que l'amour commence ici ! 💖"
+
+#: .\templates\attente_validation.html:6
+msgid "Nous vous souhaitons la bienvenue sur"
+msgstr "Nous vous souhaitons la bienvenue sur"
+
+#: .\templates\attente_validation.html:11
+msgid "Votre compte est actuellement en"
+msgstr "Votre compte est actuellement en"
+
+#: .\templates\attente_validation.html:11
+msgid "cours de révision"
+msgstr "cours de révision"
+
+#: .\templates\attente_validation.html:11
+msgid " Nous vous remercions de votre patience pendant que nous procédons à l’examen de votre profil, ce qui ne devrait prendre que peu de temps. Nous vous invitons à réessayer ultérieurement."
+msgstr " Nous vous remercions de votre patience pendant que nous procédons à l’examen de votre profil, ce qui ne devrait prendre que peu de temps. Nous vous invitons à réessayer ultérieurement."
+
+#: .\templates\attente_validation.html:14
+msgid "Ressayer"
+msgstr "Ressayer"
+
+#: .\templates\attente_validation.html:15
+msgid "Deconnectez"
+msgstr "Déconnectez"
+
+#: .\templates\attente_validation.html:17
+msgid "Ou contactez par :"
+msgstr "Ou contactez par :"
+
+#: .\templates\blocked_members.html:6
+msgid "Blocked members"
+msgstr ""
+
+#: .\templates\blocked_members.html:11
+msgid "Photo of"
+msgstr ""
+
+#: .\templates\blocked_members.html:16 .\templates\detail_profil.html:67
+#: .\templates\message_priver.html:94
+msgid "Unblock"
+msgstr ""
+
+#: .\templates\blocked_members.html:22
+msgid "You have not blocked any members."
+msgstr ""
+
+#: .\templates\blocked_members.html:25
+msgid "Back to members list"
+msgstr ""
+
+#: .\templates\blocked_members.html:34 .\templates\detail_profil.html:1004
+msgid "Do you really want to unblock this member?"
+msgstr ""
+
+#: .\templates\blocked_members.html:48
+msgid "Member unblocked."
+msgstr ""
+
+#: .\templates\blocked_members.html:51 .\templates\blocked_members.html:54
+msgid "Error while unblocking."
+msgstr ""
+
+#: .\templates\conditions_util.html:6
+#, fuzzy
+#| msgid "Conditions d'utilisation"
+msgid "condition utilisations"
+msgstr "Terms and Conditions"
+
+#: .\templates\conditions_util.html:11
+msgid "Conditions Générales d'Utilisation - Lovelimeet"
+msgstr "Conditions Générales d'Utilisation - Lovelimeet"
+
+#: .\templates\conditions_util.html:13
+msgid "1.Présentation du Service"
+msgstr "1.Présentation du Service"
+
+#: .\templates\conditions_util.html:14
+msgid ""
+"Lovelimeet est une plateforme de rencontre en ligne permettant aux "
+"utilisateurs de se connecter, d'échanger et de créer des relations. En "
+"utilisant notre site, vous acceptez les présentes"
+msgstr ""
+
+#: .\templates\conditions_util.html:14
+#, fuzzy
+#| msgid "Conditions d'utilisation"
+msgid "Conditions Générales d'utilisation"
+msgstr "Terms and Conditions"
+
+#: .\templates\conditions_util.html:18
+msgid "2. Inscription et Compte"
+msgstr ""
+
+#: .\templates\conditions_util.html:19
+msgid "Vous devez avoir"
+msgstr ""
+
+#: .\templates\conditions_util.html:19
+msgid "18 ans ou plus"
+msgstr ""
+
+#: .\templates\conditions_util.html:19
+msgid "pour vous inscrire"
+msgstr ""
+
+#: .\templates\conditions_util.html:20
+msgid ""
+"Vous êts responsable des informations fournies et de la sécurité de votre "
+"compte"
+msgstr ""
+
+#: .\templates\conditions_util.html:21
+msgid ""
+"Lovelimeet se réserve le droit de suspendre ou supprimer tout compte en cas "
+"de non-respect"
+msgstr ""
+
+#: .\templates\conditions_util.html:26
+#, fuzzy
+#| msgid "Confidentiality:"
+msgid "3. Confidentialité et Sécurité"
+msgstr "Confidentialité :"
+
+#: .\templates\conditions_util.html:27
+msgid "Vos données personnelles sont protégées conformément à notre"
+msgstr ""
+
+#: .\templates\conditions_util.html:27
+#, fuzzy
+#| msgid "Politique de confidentialité"
+msgid "Politique de Confidentialité"
+msgstr "Politique de confidentialité"
+
+#: .\templates\conditions_util.html:28
+msgid "Nous ne partageons pas vos informations sans votre consentement"
+msgstr ""
+
+#: .\templates\conditions_util.html:29
+msgid ""
+"Tout comportement abusif ou contraire à la loi entraînera la suppression du "
+"compte"
+msgstr ""
+
+#: .\templates\conditions_util.html:34
+msgid "4. Comportement des Utilisateurs"
+msgstr ""
+
+#: .\templates\conditions_util.html:35
+msgid "Il est interdit de publier du contenu offensant, illégal ou trompeur"
+msgstr ""
+
+#: .\templates\conditions_util.html:36
+msgid ""
+"Le harcèlement, les arnaques et tout comportement inapproprié ne sont pas "
+"tolérés"
+msgstr ""
+
+#: .\templates\conditions_util.html:37
+msgid "Les utilisateurs doivent"
+msgstr ""
+
+#: .\templates\conditions_util.html:37
+msgid "respecter les autres"
+msgstr ""
+
+#: .\templates\conditions_util.html:37
+msgid "et adopter une attitude bienveillante"
+msgstr ""
+
+#: .\templates\conditions_util.html:42
+msgid "5. Responsabilité de Lovelimeet"
+msgstr ""
+
+#: .\templates\conditions_util.html:43
+msgid ""
+"Lovelimeet ne garantit pas que les rencontres se transformeront en relation"
+msgstr ""
+
+#: .\templates\conditions_util.html:44
+msgid "Nous ne sommes pas responsables des interactions entre utilisateurs"
+msgstr ""
+
+#: .\templates\conditions_util.html:45
+msgid "Le site peut être temporairement indisponible en cas de maintenance"
+msgstr ""
+
+#: .\templates\conditions_util.html:50
+#, fuzzy
+#| msgid "Conditions d'utilisation"
+msgid "6. Modification des Conditions Générales d'utilisation"
+msgstr "Terms and Conditions"
+
+#: .\templates\conditions_util.html:51
+msgid "Nous nous réservons le droit de"
+msgstr ""
+
+#: .\templates\conditions_util.html:51
+msgid "modifier ces conditions"
+msgstr ""
+
+#: .\templates\conditions_util.html:51
+msgid ""
+"à tout moment. Les utilisateurs seront informés des mis à jour importantes"
+msgstr ""
+
+#: .\templates\contact.html:9
+msgid "Contactez-nous"
+msgstr "Contactez-nous"
+
+#: .\templates\contact.html:12
+msgid "Your message has been sent to the LoveMeet team!"
+msgstr "Votre message a bien été envoyé à l'équipe LoveMeet !"
+
+#: .\templates\contact.html:23
+msgid "Name"
+msgstr "Nom"
+
+
+#: .\templates\contact.html:31 .\templates\detail_profil.html:44
+#: .\templates\detail_profil.html:47 .\templates\visitors_list.html:21
+msgid "Message"
+msgstr "Message"
+
+#: .\templates\contact.html:34
+msgid "Send"
+msgstr "Envoyer"
+
+#: .\templates\detail_profil.html:41
+msgid "Waiting for validation"
+msgstr "Attente validation"
+
+#: .\templates\detail_profil.html:48
+msgid ""
+"You must send a photo validated by the administrator to access private "
+"messages."
+msgstr ""
+"Vous devez envoyer une photo validée par l'administrateur pour accéder aux "
+"messages privés."
+
+#: .\templates\detail_profil.html:52
+msgid "Ne suivre pas"
+msgstr "Ne suivre pas"
+
+#: .\templates\detail_profil.html:54
+msgid "Suivre"
+msgstr "Suivre"
+
+#: .\templates\detail_profil.html:60
+msgid "Blocked"
+msgstr ""
+
+#: .\templates\detail_profil.html:62
+msgid "Block"
+msgstr ""
+
+#: .\templates\detail_profil.html:92
+msgid "Vérification Faciale – Étape de Sécurité Obligatoire"
+msgstr "Vérification Faciale – Étape de Sécurité Obligatoire"
+
+#: .\templates\detail_profil.html:93
+msgid "Dans le souci de garantir l’authenticité des profils et d’assurer la sécurité de notre communauté, une vérification faciale unique est requise."
+msgstr "Dans le souci de garantir l’authenticité des profils et d’assurer la sécurité de notre communauté, une vérification faciale unique est requise."
+
+#: .\templates\detail_profil.html:94
+msgid "Cette procédure, simple et rapide, est indispensable pour :"
+msgstr "Cette procédure, simple et rapide, est indispensable pour :"
+
+#: .\templates\detail_profil.html:96
+msgid "Confirmer que chaque profil correspond à une personne réelle."
+msgstr "Confirmer que chaque profil correspond à une personne réelle."
+
+#: .\templates\detail_profil.html:97
+msgid "Prévenir les faux comptes, les tentatives d’escroquerie et les comportements inappropriés."
+msgstr "Prévenir les faux comptes, les tentatives d’escroquerie et les comportements inappropriés."
+
+#: .\templates\detail_profil.html:98
+msgid "Favoriser un environnement de rencontre fiable, respectueux et sécurisé."
+msgstr "Favoriser un environnement de rencontre fiable, respectueux et sécurisé."
+
+#: .\templates\detail_profil.html:100
+msgid "Avant de procéder à la vérification, merci de respecter les consignes suivantes :"
+msgstr "Avant de procéder à la vérification, merci de respecter les consignes suivantes :"
+
+#: .\templates\detail_profil.html:102
+msgid "Installez-vous dans un endroit bien éclairé."
+msgstr "Installez-vous dans un endroit bien éclairé."
+
+#: .\templates\detail_profil.html:102
+msgid "Évitez les contre-jours ainsi que les pièces trop sombres."
+msgstr "Évitez les contre-jours ainsi que les pièces trop sombres."
+
+#: .\templates\detail_profil.html:103
+msgid "Assurez-vous d’être seul(e) sur la photo.Aucune autre personne ne doit apparaître à l’image."
+msgstr "Assurez-vous d’être seul(e) sur la photo.Aucune autre personne ne doit apparaître à l’image."
+
+#: .\templates\detail_profil.html:104
+msgid "Veuillez dégager votre visage.Retirez tout accessoire susceptible de le dissimuler (lunettes de soleil, masque, couvre-chef, etc.)."
+msgstr "Veuillez dégager votre visage.Retirez tout accessoire susceptible de le dissimuler (lunettes de soleil, masque, couvre-chef, etc.)."
+
+#: .\templates\detail_profil.html:105
+msgid "Adoptez une apparence naturelle, sans filtres ni effets visuels.L’objectif est de permettre une reconnaissance claire de votre visage."
+msgstr "Adoptez une apparence naturelle, sans filtres ni effets visuels.L’objectif est de permettre une reconnaissance claire de votre visage."
+
+#: .\templates\detail_profil.html:106
+msgid "Regardez directement la caméra.Votre visage doit être centré et entièrement visible"
+msgstr "Regardez directement la caméra.Votre visage doit être centré et entièrement visible"
+
+#: .\templates\detail_profil.html:110
+msgid "Votre profil sera identifié comme « Vérifié », renforçant ainsi la confiance auprès des autres membres."
+msgstr "Votre profil sera identifié comme « Vérifié », renforçant ainsi la confiance auprès des autres membres."
+
+#: .\templates\detail_profil.html:111
+msgid "Vos données biométriques seront utilisées uniquement à des fins de vérification. Elles ne seront ni conservées au-delà du processus, ni partagées, conformément à notre [Politique de Confidentialité]"
+msgstr "Vos données biométriques seront utilisées uniquement à des fins de vérification. Elles ne seront ni conservées au-delà du processus, ni partagées, conformément à notre [Politique de Confidentialité]"
+
+#: .\templates\detail_profil.html:114
+msgid "Quit"
+msgstr "Quitter"
+
+#: .\templates\detail_profil.html:116
+msgid "Validate my photo"
+msgstr "Valider ma photo"
+
+#: .\templates\detail_profil.html:125
+msgid "Personal Information"
+msgstr "Informations Personnelles"
+
+#: .\templates\detail_profil.html:128
+msgid "Country:"
+msgstr ""
+
+#: .\templates\detail_profil.html:129
+#, fuzzy
+#| msgid "City"
+msgid "City:"
+msgstr "Ville"
+
+#: .\templates\detail_profil.html:130
+msgid "Gender:"
+msgstr "Genre:"
+
+#: .\templates\detail_profil.html:131
+msgid "Looking for:"
+msgstr "Recherche:"
+
+#: .\templates\detail_profil.html:136
+msgid "Appearance"
+msgstr "Apparence"
+
+#: .\templates\detail_profil.html:138
+msgid "Hair:"
+msgstr "Cheveux:"
+
+#: .\templates\detail_profil.html:139
+msgid "Eyes:"
+msgstr "Yeux:"
+
+#: .\templates\detail_profil.html:140
+msgid "Height:"
+msgstr "Taille:"
+
+#: .\templates\detail_profil.html:141
+msgid "Weight:"
+msgstr "Poids:"
+
+#: .\templates\detail_profil.html:146
+msgid "Lifestyle"
+msgstr "Mode de Vie"
+
+#: .\templates\detail_profil.html:148
+msgid "Alcohol consumption:"
+msgstr "Consommation d'Alcool:"
+
+#: .\templates\detail_profil.html:149
+msgid "Tobacco consumption:"
+msgstr "Consommation de Tabac:"
+
+#: .\templates\detail_profil.html:150
+msgid "Marital status:"
+msgstr "Situation Matrimoniale:"
+
+#: .\templates\detail_profil.html:151
+msgid "Number of children:"
+msgstr "Nombre d'Enfants:"
+
+#: .\templates\detail_profil.html:157 .\templates\mon_profil.html:624
+msgid "Description"
+msgstr "Description"
+
+#: .\templates\detail_profil.html:159
+msgid "About:"
+msgstr "À propos :"
+
+#: .\templates\detail_profil.html:160
+msgid "About the person sought:"
+msgstr "À propos de la personne recherchée:"
+
+#: .\templates\detail_profil.html:167
+msgid "Additional Information"
+msgstr "Informations Supplémentaires"
+
+#: .\templates\detail_profil.html:169
+msgid "Ethnicity:"
+msgstr "Ethnicité:"
+
+#: .\templates\detail_profil.html:170
+msgid "Body art:"
+msgstr "Art corporel:"
+
+#: .\templates\detail_profil.html:171
+msgid "Children wanted:"
+msgstr "Enfants souhaités:"
+
+#: .\templates\detail_profil.html:172 .\templates\mon_profil.html:634
+msgid "Profession:"
+msgstr "Profession:"
+
+#: .\templates\detail_profil.html:173
+msgid "Living situation:"
+msgstr "Situation de vie:"
+
+#: .\templates\detail_profil.html:174
+msgid "Willing to move:"
+msgstr "Prêt à déménager:"
+
+#: .\templates\detail_profil.html:175
+msgid "Relationship sought:"
+msgstr "Relation recherchée:"
+
+#: .\templates\detail_profil.html:176
+msgid "Education level:"
+msgstr "Niveau d'étude:"
+
+#: .\templates\detail_profil.html:177 .\templates\mon_profil.html:639
+msgid "Religion:"
+msgstr "Religion:"
+
+#: .\templates\detail_profil.html:178
+msgid "Astrological sign:"
+msgstr "Signe astrologique:"
+
+#: .\templates\detail_profil.html:196
+msgid "View all followers"
+msgstr "Voir tous les abonnés"
+
+#: .\templates\detail_profil.html:980
+msgid "Do you really want to block this member?"
+msgstr ""
+
+#: .\templates\index.html:12
+msgid "Rencontrez votre âme sœur aujourd'hui !"
+msgstr ""
+
+#: .\templates\index.html:13
+msgid ""
+"Lovelimeet est la plateforme idéale pour faire des rencontres sérieuses, "
+"sincères et durables."
+msgstr ""
+
+#: .\templates\index.html:14
+msgid "Créer mon compte gratuit"
+msgstr ""
+
+#: .\templates\index.html:20
+msgid "Les avantages exclusifs des membres Lovelimeet"
+msgstr ""
+
+#: .\templates\index.html:24
+msgid "Pour quoi Lovelimeet"
+msgstr ""
+
+#: .\templates\index.html:26
+msgid ""
+"Devenir membre de Lovelimeet, c’est rejoindre une communauté bienveillante, "
+"active et authentique. Voici tout ce que vous gagnez en créant un compte "
+"gratuit :"
+msgstr ""
+
+#: .\templates\index.html:35
+msgid "Matching intelligent"
+msgstr ""
+
+#: .\templates\index.html:38
+msgid ""
+"Notre algorithme analyse vos préférences, vos intérêts et votre personnalité "
+"pour vous proposer des profils réellement compatibles. Moins de recherches, "
+"plus de résultats !"
+msgstr ""
+
+#: .\templates\index.html:44
+#, python-format
+msgid "Profils 100%% vérifiés"
+msgstr ""
+
+#: .\templates\index.html:47
+msgid ""
+"Tous nos membres sont contrôlés manuellement pour garantir une expérience "
+"authentique. Pas de faux profils, pas de robots. Vous échangez avec de "
+"vraies personnes."
+msgstr ""
+
+#: .\templates\index.html:53
+msgid "Messagerie gratuite et illimitée"
+msgstr ""
+
+#: .\templates\index.html:56
+msgid ""
+"Une fois connecté avec un profil, vous pouvez discuter sans limites. "
+"Partagez, échangez, approfondissez… sans stress ni frais cachés."
+msgstr ""
+
+#: .\templates\index.html:66
+msgid "Rencontres locales et internationales"
+msgstr ""
+
+#: .\templates\index.html:68
+msgid ""
+"Que vous cherchiez l’amour dans votre région ou à l’autre bout du monde, "
+"vous avez le choix. Filtrez selon la distance, la langue, ou les objectifs "
+"relationnels."
+msgstr ""
+
+#: .\templates\index.html:85
+msgid "Événements & activités en ligne"
+msgstr ""
+
+#: .\templates\index.html:87
+msgid ""
+"Participez à des speed-datings virtuels, des soirées thématiques ou des jeux "
+"interactifs pour faire des rencontres naturelles et amusantes."
+msgstr ""
+
+#: .\templates\index.html:92
+#, fuzzy
+#| msgid "Confidentiality:"
+msgid "Confidentialité & sécurité"
+msgstr "Confidentialité :"
+
+#: .\templates\index.html:94
+msgid ""
+"Vos données sont cryptées, votre vie privée est respectée. Vous avez le "
+"contrôle total sur votre profil et qui peut vous contacter."
+msgstr ""
+
+#: .\templates\index.html:99
+msgid "Fonctionnalités premium à découvrir"
+msgstr ""
+
+#: .\templates\index.html:101
+msgid ""
+"LoveMeet propose une version gratuite très complète, mais aussi des options "
+"premium pour aller encore plus loin dans votre recherche (visibilité "
+"boostée, filtres avancés, etc.)."
+msgstr ""
+
+#: .\templates\index.html:111
+msgid "Compatible mobile, tablette & PC"
+msgstr ""
+
+#: .\templates\index.html:113
+msgid ""
+"Où que vous soyez, vous avez accès à LoveMeet. Notre interface s’adapte à "
+"tous vos appareils pour ne jamais rater une opportunité de connexion."
+msgstr ""
+
+#: .\templates\layouts\footer.html:6
+msgid "A Propos"
+msgstr "A Propos"
+
+#: .\templates\layouts\footer.html:7
+msgid "Termes et confidentialité"
+msgstr "Termes et confidentialité"
+
+#: .\templates\layouts\footer.html:11
+msgid "Politique de confidentialité"
+msgstr "Politique de confidentialité"
+
+#: .\templates\layouts\footer.html:22
+msgid "Tous droits réservés."
+msgstr ""
+
+#: .\templates\layouts\header.html:52 .\templates\layouts\header.html:73
+msgid "My profile"
+msgstr "Mon Profil"
+
+#: .\templates\layouts\header.html:53
+msgid "Online"
+msgstr "En ligne"
+
+#: .\templates\layouts\header.html:55
+msgid "Language"
+msgstr "Langue"
+
+#: .\templates\layouts\header.html:60
+msgid "French"
+msgstr "Français"
+
+#: .\templates\layouts\header.html:66
+msgid "English"
+msgstr "Anglais"
+
+#: .\templates\layouts\header.html:71
+msgid "Messages"
+msgstr "Messages"
+
+#: .\templates\layouts\header.html:74
+msgid "Who visited my profile"
+msgstr "Qui a visité mon profil"
+
+#: .\templates\layouts\header.html:75
+msgid "Who followed my profile"
+msgstr "Qui a suivi mon profil"
+
+#: .\templates\layouts\header.html:76
+msgid "Settings"
+msgstr "Paramètres"
+
+#: .\templates\layouts\header.html:78
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: .\templates\layouts\header.html:102
+msgid "Sign up"
+msgstr "S'inscrire"
+
+#: .\templates\layouts\header.html:103 .\templates\register.html:13
+msgid "Login"
+msgstr "Se Connecter"
+
+#: .\templates\login.html:4
+msgid "Connexion"
+msgstr ""
+
+#: .\templates\login.html:12
+#, fuzzy
+#| msgid "Description"
+msgid "S'inscrire"
+msgstr "Description"
+
+#: .\templates\login.html:20
+msgid "Connectez vous!"
+msgstr "Connectez vous!"
+
+#: .\templates\login.html:28 .\templates\register.html:179
+msgid "Mot de passe"
+msgstr "Mode de passe"
+
+#: .\templates\login.html:35
+msgid "Mot de passe oublié ?"
+msgstr ""
+
+#: .\templates\login.html:37
+msgid "Se Connecter"
+msgstr ""
+
+#: .\templates\login.html:40
+msgid "Je n'ai pas de compte"
+msgstr ""
+
+#: .\templates\membres.html:10
+msgid "All countries"
+msgstr "Tous les pays"
+
+#: .\templates\membres.html:11
+msgid "Madagascar"
+msgstr ""
+
+#: .\templates\membres.html:12
+#, fuzzy
+#| msgid "Appearance"
+msgid "France"
+msgstr "Apparence"
+
+#: .\templates\membres.html:13
+msgid "Greece"
+msgstr ""
+
+#: .\templates\membres.html:14
+msgid "Hungary"
+msgstr ""
+
+#: .\templates\membres.html:15
+msgid "Ireland"
+msgstr ""
+
+#: .\templates\membres.html:16
+msgid "Iceland"
+msgstr ""
+
+#: .\templates\membres.html:17
+msgid "Italy"
+msgstr ""
+
+#: .\templates\membres.html:18
+msgid "Kosovo"
+msgstr ""
+
+#: .\templates\membres.html:19
+msgid "Latvia"
+msgstr ""
+
+#: .\templates\membres.html:20
+msgid "Liechtenstein"
+msgstr ""
+
+#: .\templates\membres.html:21
+msgid "Lithuania"
+msgstr ""
+
+#: .\templates\membres.html:22
+msgid "Luxembourg"
+msgstr ""
+
+#: .\templates\membres.html:23
+msgid "North Macedonia"
+msgstr ""
+
+#: .\templates\membres.html:24
+msgid "Malta"
+msgstr ""
+
+#: .\templates\membres.html:25
+msgid "Moldova"
+msgstr ""
+
+#: .\templates\membres.html:26
+msgid "Monaco"
+msgstr ""
+
+#: .\templates\membres.html:27
+msgid "Montenegro"
+msgstr ""
+
+#: .\templates\membres.html:28
+msgid "Norway"
+msgstr ""
+
+#: .\templates\membres.html:29
+msgid "Netherlands"
+msgstr ""
+
+#: .\templates\membres.html:30
+msgid "Poland"
+msgstr ""
+
+#: .\templates\membres.html:31
+msgid "Portugal"
+msgstr ""
+
+#: .\templates\membres.html:32
+msgid "Czech Republic"
+msgstr ""
+
+#: .\templates\membres.html:33
+msgid "Romania"
+msgstr ""
+
+#: .\templates\membres.html:34
+msgid "United Kingdom"
+msgstr ""
+
+#: .\templates\membres.html:35
+msgid "Russia"
+msgstr ""
+
+#: .\templates\membres.html:36
+msgid "San Marino"
+msgstr ""
+
+#: .\templates\membres.html:37
+msgid "Serbia"
+msgstr ""
+
+#: .\templates\membres.html:38
+msgid "Slovakia"
+msgstr ""
+
+#: .\templates\membres.html:39
+msgid "Slovenia"
+msgstr ""
+
+#: .\templates\membres.html:40
+msgid "Sweden"
+msgstr ""
+
+#: .\templates\membres.html:41
+msgid "Switzerland"
+msgstr ""
+
+#: .\templates\membres.html:42
+msgid "Ukraine"
+msgstr ""
+
+#: .\templates\membres.html:43
+msgid "Vatican"
+msgstr ""
+
+#: .\templates\membres.html:44
+msgid "Albania"
+msgstr ""
+
+#: .\templates\membres.html:45
+msgid "Germany"
+msgstr ""
+
+#: .\templates\membres.html:46
+msgid "Andorra"
+msgstr ""
+
+#: .\templates\membres.html:47
+msgid "Austria"
+msgstr ""
+
+#: .\templates\membres.html:48
+msgid "Belgium"
+msgstr ""
+
+#: .\templates\membres.html:49
+msgid "Belarus"
+msgstr ""
+
+#: .\templates\membres.html:50
+msgid "Bosnia and Herzegovina"
+msgstr ""
+
+#: .\templates\membres.html:51
+msgid "Bulgaria"
+msgstr ""
+
+#: .\templates\membres.html:52
+msgid "Cyprus"
+msgstr ""
+
+#: .\templates\membres.html:53
+msgid "Croatia"
+msgstr ""
+
+#: .\templates\membres.html:54
+msgid "Denmark"
+msgstr ""
+
+#: .\templates\membres.html:55
+msgid "Spain"
+msgstr ""
+
+#: .\templates\membres.html:56
+msgid "Estonia"
+msgstr ""
+
+#: .\templates\membres.html:57
+msgid "Finland"
+msgstr ""
+
+#: .\templates\membres.html:60
+msgid "Morocco"
+msgstr ""
+
+#: .\templates\membres.html:61
+msgid "Algeria"
+msgstr ""
+
+#: .\templates\membres.html:62
+msgid "Tunisia"
+msgstr ""
+
+#: .\templates\membres.html:63
+msgid "Senegal"
+msgstr ""
+
+#: .\templates\membres.html:64
+msgid "Ivory Coast"
+msgstr ""
+
+#: .\templates\membres.html:65
+msgid "Cameroon"
+msgstr ""
+
+#: .\templates\membres.html:66
+msgid "Nigeria"
+msgstr ""
+
+#: .\templates\membres.html:67
+msgid "Kenya"
+msgstr ""
+
+#: .\templates\membres.html:68
+msgid "South Africa"
+msgstr ""
+
+#: .\templates\membres.html:69
+msgid "Egypt"
+msgstr ""
+
+#: .\templates\membres.html:70
+msgid "Reunion"
+msgstr ""
+
+#: .\templates\membres.html:71
+msgid "Seychelles"
+msgstr ""
+
+#: .\templates\membres.html:72
+msgid "Mauritius"
+msgstr ""
+
+#: .\templates\membres.html:73
+msgid "Comoros"
+msgstr ""
+
+#: .\templates\membres.html:78
+msgid "Min age"
+msgstr "age min"
+
+#: .\templates\membres.html:94 .\templates\membres.html:113
+msgid "80 and above"
+msgstr "80 et plus"
+
+#: .\templates\membres.html:97
+msgid "Max age"
+msgstr "age max"
+
+#: .\templates\membres.html:116
+msgid "Filter"
+msgstr "Filtrer"
+
+#: .\templates\membres.html:135
+msgid "looking for"
+msgstr "cherchant"
+
+#: .\templates\membres.html:135
+msgid "age between"
+msgstr "age entre"
+
+#: .\templates\membres.html:157
+msgid "All profiles"
+msgstr "Tous les profils"
+
+#: .\templates\membres.html:167
+msgid "I'm online"
+msgstr "Je suis en ligne"
+
+#: .\templates\membres.html:173
+#, python-format
+msgid ""
+"looking for: age between %(profile.age_debut)s - %(profile.age_fin)s years"
+msgstr ""
+
+#: .\templates\membres.html:196
+msgid "Previous"
+msgstr ""
+
+#: .\templates\membres.html:206
+msgid "Next"
+msgstr ""
+
+#: .\templates\message_priver.html:91
+msgid "You have blocked this member."
+msgstr ""
+
+#: .\templates\message_priver.html:92
+msgid "Unblock them to chat again."
+msgstr ""
+
+#: .\templates\message_priver.html:97
+msgid "You cannot chat with this member because they have blocked you."
+msgstr ""
+
+#: .\templates\messages_tous.html:7
+msgid "Enter your search"
+msgstr "Entrer votre recherche"
+
+#: .\templates\messages_tous.html:8
+msgid "Search"
+msgstr "Rechercher"
+
+#: .\templates\messages_tous.html:12
+msgid "All conversations"
+msgstr "Tous les conversations"
+
+#: .\templates\messages_tous.html:13
+msgid "Message requests"
+msgstr "Demandes de message"
+
+#: .\templates\messages_tous.html:24
+#, fuzzy, python-format
+#| msgid "Sent at %(timestamp)s"
+msgid "Sent at %(message.timestamp)s"
+msgstr "Envoyé à %(timestamp)s"
+
+#: .\templates\messages_tous.html:30
+#, fuzzy
+#| msgid ""
+#| "You must send a photo validated by the administrator to access private "
+#| "messages."
+msgid "You must have a validated profile photo to access private messaging."
+msgstr ""
+"Vous devez envoyer une photo validée par l'administrateur pour accéder aux "
+"messages privés."
+
+#: .\templates\messages_tous.html:41
+#, fuzzy, python-format
+#| msgid "Request sent at %(timestamp)s"
+msgid "Request sent at %(request.timestamp)s"
+msgstr "Demande envoyée à %(timestamp)s"
+
+#: .\templates\mon_profil.html:574
+#, fuzzy
+#| msgid "Membres en ligne"
+msgid "en ligne"
+msgstr "Membres en ligne"
+
+#: .\templates\mon_profil.html:579
+msgid "Photo"
+msgstr ""
+
+#: .\templates\mon_profil.html:602
+msgid "Ajouter"
+msgstr ""
+
+#: .\templates\mon_profil.html:607
+msgid "Informations du Profil"
+msgstr "Informations du Profil"
+
+#: .\templates\mon_profil.html:610
+msgid "Apparence"
+msgstr "Apparence"
+
+#: .\templates\mon_profil.html:611
+msgid "Couleur des Yeux:"
+msgstr "Couleur des Yeux:"
+
+#: .\templates\mon_profil.html:612
+msgid "Couleur des Cheveux:"
+msgstr "Couleur des Cheveux:"
+
+#: .\templates\mon_profil.html:613
+msgid "Taille:"
+msgstr "Taille:"
+
+#: .\templates\mon_profil.html:614
+msgid "Poids:"
+msgstr "Poids:"
+
+#: .\templates\mon_profil.html:617
+#, fuzzy
+#| msgid "Mot de passe"
+msgid "Mode de Vie"
+msgstr "Mode de passe"
+
+#: .\templates\mon_profil.html:618
+msgid "Consommation d'Alcool:"
+msgstr "Consommation d'Alcool:"
+
+#: .\templates\mon_profil.html:619
+msgid "Consommation de Tabac:"
+msgstr "Consommation de Tabac:"
+
+#: .\templates\mon_profil.html:620
+msgid "Situation Matrimoniale:"
+msgstr "Situation Matrimoniale:"
+
+#: .\templates\mon_profil.html:621
+msgid "Nombre d'Enfants:"
+msgstr "Nombre d'Enfants:"
+
+#: .\templates\mon_profil.html:625
+#, fuzzy
+#| msgid "À propos de vous:"
+msgid "À propos de vous:"
+msgstr "À propos de nous"
+
+#: .\templates\mon_profil.html:626
+msgid "À propos de la personne recherchée:"
+msgstr "À propos de la personne recherchée:"
+
+#: .\templates\mon_profil.html:630
+msgid "Plus d'informations"
+msgstr "Plus d'informations"
+
+#: .\templates\mon_profil.html:631
+msgid "Ethnicité:"
+msgstr "Ethnicité:"
+
+#: .\templates\mon_profil.html:632
+msgid "Art corporel:"
+msgstr "Art corporel:"
+
+#: .\templates\mon_profil.html:633
+msgid "Enfants souhaités:"
+msgstr "Enfants souhaités:"
+
+msgid "Situation de vie"
+msgstr "Situation de vie"
+
+#: .\templates\mon_profil.html:636
+msgid "Prêt à déménager:"
+msgstr "Prêt à déménager:"
+
+#: .\templates\mon_profil.html:637
+msgid "Relation recherchée:"
+msgstr "Relation recherchée:"
+
+#: .\templates\mon_profil.html:638
+msgid "Niveau d'étude:"
+msgstr "Niveau d'étude:"
+
+#: .\templates\mon_profil.html:642
+msgid ""
+"Vous n'avez pas encore complété les informations additionnelles de votre "
+"profil."
+msgstr ""
+"Vous n'avez pas encore complété les informations additionnelles de votre "
+"profil."
+
+#: .\templates\mon_profil.html:647
+msgid "Compléter le profil"
+msgstr "Compléter le profil"
+
+
+#: .\templates\mon_profil.html:649
+msgid "Paramètres"
+msgstr "Paramètres"
+
+#: .\templates\notifications.html:6
+msgid "Mes notifications"
+msgstr ""
+
+#: .\templates\notifications.html:30
+msgid "Aucune notification pour le moment."
+msgstr ""
+
+#: .\templates\online_members.html:6
+msgid "Membres en ligne"
+msgstr "Membres en ligne"
+
+
+msgid "Voir le profil"
+msgstr "Voir le profil"
+
+#: .\templates\online_members.html:22
+
+
+#: .\templates\parametres.html:23 .\templates\parametres.html:510
+msgid "Modifier mon mot de passe"
+msgstr "Modifier mon mot de passe"
+
+#: .\templates\parametres.html:33 .\templates\parametres.html:511
+#, fuzzy
+#| msgid "Compléter votre profil"
+msgid "Désactiver mon profil"
+msgstr "Compléter votre profil"
+
+#: .\templates\parametres.html:43 .\templates\parametres.html:512
+msgid "Supprimer"
+msgstr "Supprimer"
+
+#: .\templates\parametres.html:50 .\templates\parametres.html:513
+msgid "Membres bloqués"
+msgstr "Membres bloqués"
+
+#: .\templates\parametres.html:60 .\templates\parametres.html:514
+msgid "Confirmation de suppression"
+msgstr "Confirmation de suppression"
+
+#: .\templates\parametres.html:79 .\templates\parametres.html:515
+msgid "Cette action est définitive et ne pourra pas être annulée."
+msgstr "Cette action est définitive et ne pourra pas être annulée."
+
+#: .\templates\parametres.html:80 .\templates\parametres.html:516
+msgid "Toutes vos données seront supprimées, y compris :"
+msgstr "Toutes vos données seront supprimées, y compris :"
+
+#: .\templates\parametres.html:82 .\templates\parametres.html:517
+msgid "Votre profil et vos photos"
+msgstr "Votre profil et vos photos"
+
+#: .\templates\parametres.html:83 .\templates\parametres.html:518
+msgid "Vos messages et conversations"
+msgstr "Vos messages et conversations"
+
+#: .\templates\parametres.html:84 .\templates\parametres.html:519
+msgid "Vos likes, follows et autres interactions"
+msgstr "Vos likes, follows et autres interactions"
+
+#: .\templates\parametres.html:86 .\templates\parametres.html:520
+msgid "Veuillez entrer votre mot de passe pour confirmer la suppression :"
+msgstr "Veuillez entrer votre mot de passe pour confirmer la suppression :"
+
+#: .\templates\parametres.html:93 .\templates\parametres.html:134
+#: .\templates\parametres.html:521
+msgid "Annuler"
+msgstr "Annuler"
+
+#: .\templates\parametres.html:94 .\templates\parametres.html:522
+msgid "Confirmer la suppression"
+msgstr "Confirmer la suppression"
+
+#: .\templates\parametres.html:103 .\templates\parametres.html:523
+msgid "Confirmer pour desactiver votre compte"
+msgstr "Confirmer pour desactiver votre compte"
+
+#: .\templates\parametres.html:121 .\templates\parametres.html:524
+msgid "Cette action peuvent desactiver votre compte"
+msgstr "Cette action peuvent desactiver votre compte"
+
+#: .\templates\parametres.html:122 .\templates\parametres.html:525
+msgid "Toutes vos données seront desactivées, y compris :"
+msgstr "Toutes vos données seront desactivées, y compris :"
+
+#: .\templates\parametres.html:124 .\templates\parametres.html:526
+msgid "Votre profil et vos photos seront cachées"
+msgstr "Votre profil et vos photos seront cachées"
+
+#: .\templates\parametres.html:125 .\templates\parametres.html:527
+msgid "Vos messages et conversations seront desactivées"
+msgstr "Vos messages et conversations seront desactivées"
+
+#: .\templates\parametres.html:127 .\templates\parametres.html:528
+msgid "Veuillez entrer votre mot de passe pour la desactiver :"
+msgstr "Veuillez entrer votre mot de passe pour la desactiver :"
+
+#: .\templates\parametres.html:135 .\templates\parametres.html:529
+msgid "Confirmer la desactivation"
+msgstr "Confirmer la desactivation"
+
+#: .\templates\politique.html:6
+#, fuzzy
+#| msgid "Politique de confidentialité"
+msgid "politique de confidentialité"
+msgstr "Politique de confidentialité"
+
+#: .\templates\politique.html:12
+msgid "Politique de confidentialité - Lovelimeet"
+msgstr "Politique de confidentialité - Lovelimeet"
+
+#: .\templates\politique.html:14
+msgid "1. Introduction"
+msgstr "1. Introduction"
+
+#: .\templates\politique.html:15
+msgid ""
+"Lovelimeet respecte la vie privée de ses utilisateurs et s'engage à proteger "
+"leurs données personnelles.Cette politique explique comment nous "
+"collectons,utilisons et sécurisons vos informations."
+msgstr ""
+"Lovelimeet respecte la vie privée de ses utilisateurs et s'engage à proteger "
+"leurs données personnelles.Cette politique explique comment nous "
+"collectons,utilisons et sécurisons vos informations."
+
+#: .\templates\politique.html:18
+msgid "2. Données collectées"
+msgstr "2. Données collectées"
+
+#: .\templates\politique.html:19
+msgid ""
+"Nous collectons les informations suivantes lors de l'utilisation du site :"
+msgstr ""
+"Nous collectons les informations suivantes lors de l'utilisation du site :"
+
+#: .\templates\politique.html:21
+msgid "Données d'inscription"
+msgstr "Données d'inscription"
+
+#: .\templates\politique.html:22
+msgid "Interactions :"
+msgstr "Interactions :"
+
+#: .\templates\politique.html:22
+msgid "Messages envoyées, connexions avec d'autres utilisateurs."
+msgstr "Messages envoyées, connexions avec d'autres utilisateurs."
+
+#: .\templates\politique.html:23
+msgid "Données techniques :"
+msgstr "Données techniques :"
+
+#: .\templates\politique.html:23
+msgid "Adresse IP,navigateur utilisé , localisation approximative."
+msgstr "Adresse IP,navigateur utilisé , localisation approximative."
+
+#: .\templates\politique.html:27
+msgid "3. Utilisations des données"
+msgstr "3. Utilisations des données"
+
+#: .\templates\politique.html:28
+msgid "Nous utilisons vos informations pour :"
+msgstr "Nous utilisons vos informations pour :"
+
+#: .\templates\politique.html:30
+msgid "Faciliter la mise en relation entre utilisateurs."
+msgstr "Faciliter la mise en relation entre utilisateurs."
+
+#: .\templates\politique.html:31
+msgid "Améliorer l'expérience et la sécutité sur le site."
+msgstr "Améliorer l'expérience et la sécutité sur le site."
+
+#: .\templates\politique.html:32
+msgid "Envoyer des notifications et mis à jour."
+msgstr "Envoyer des notifications et mis à jour."
+
+#: .\templates\politique.html:33
+msgid "Respecter nos obligations légales et protéger la communauté."
+msgstr "Respecter nos obligations légales et protéger la communauté."
+
+#: .\templates\politique.html:37
+msgid "4. Partage des données"
+msgstr "4. Partage des données"
+
+#: .\templates\politique.html:38
+msgid "Lovelimeet"
+msgstr ""
+
+#: .\templates\politique.html:38
+msgid "ne vend pas"
+msgstr "ne vend pas"
+
+#: .\templates\politique.html:38
+msgid ""
+"vos données personnels. Nous pouvons partager certaines informations avec :"
+msgstr ""
+"vos données personnels. Nous pouvons partager certaines informations avec :"
+
+#: .\templates\politique.html:40
+msgid "Partenaires techniques pour ameliorer nos services."
+msgstr "Partenaires techniques pour ameliorer nos services."
+
+#: .\templates\politique.html:41
+msgid "Autorités légales en cas d'obligation judiciaire."
+msgstr "Autorités légales en cas d'obligation judiciaire."
+
+#: .\templates\politique.html:45
+msgid "5. Sécurité des données"
+msgstr "5. Sécurité des données"
+
+#: .\templates\politique.html:46
+msgid "Nous mettons en place ds mesures de sécurité, notamment :"
+msgstr "Nous mettons en place ds mesures de sécurité, notamment :"
+
+#: .\templates\politique.html:48
+msgid "Mots de passe bien securisé"
+msgstr "Mots de passe bien securisé"
+
+#: .\templates\politique.html:49
+msgid "Authentification et contrôle d'accès pour protéger les comptes."
+msgstr "Authentification et contrôle d'accès pour protéger les comptes."
+
+#: .\templates\politique.html:50
+msgid "Hébergement sécurisé et suivi des connexions suspectes"
+msgstr "Hébergement sécurisé et suivi des connexions suspectes"
+
+#: .\templates\politique.html:54
+msgid "6. Gestion des droits"
+msgstr "6. Gestion des droits"
+
+#: .\templates\politique.html:55
+msgid "Vous pouvez :"
+msgstr "Vous pouvez :"
+
+#: .\templates\politique.html:57
+msgid "Accéder et modifier  vos informatrions dans les paramètres du compte."
+msgstr "Accéder et modifier  vos informatrions dans les paramètres du compte."
+
+#: .\templates\politique.html:58
+msgid "Demander la suppression de votre compte et données personnelles."
+msgstr "Demander la suppression de votre compte et données personnelles."
+
+#: .\templates\politique.html:59
+msgid "Désactiver les notifications et communications."
+msgstr "Désactiver les notifications et communications."
+
+#: .\templates\politique.html:63
+msgid "7. Modification de la politique"
+msgstr "7. Modification de la politique"
+
+#: .\templates\politique.html:64
+msgid ""
+"Nous pouvons mettre à jour cette Politique de confidentialité à tout moment. "
+"Vous serez informé des changements importants"
+msgstr ""
+"Nous pouvons mettre à jour cette Politique de confidentialité à tout moment. "
+"Vous serez informé des changements importants"
+
+#: .\templates\register.html:35
+msgid "Inscrivez vous!"
+msgstr "Inscrivez vous!"
+
+
+
+#: .\templates\register.html:47
+msgid "Date de naissance"
+msgstr "Date de naissance"
+
+#: .\templates\register.html:51
+msgid "Country"
+msgstr ""
+
+#: .\templates\register.html:53 .\templates\register.html:130
+#: .\templates\register.html:137
+msgid "Select"
+msgstr "Sélectionner"
+
+#: .\templates\register.html:135
+msgid "Places"
+msgstr ""
+
+#: .\templates\register.html:142
+msgid "Je suis un(e)"
+msgstr "Je suis un(e)"
+
+#: .\templates\register.html:144 .\templates\register.html:151
+msgid "Homme"
+msgstr "Homme"
+
+#: .\templates\register.html:145 .\templates\register.html:152
+msgid "Femme"
+msgstr "Femme"
+
+#: .\templates\register.html:149
+msgid "Je cherche un(e)"
+msgstr "Je cherche un(e)"
+
+
+#: .\templates\register.html:160
+msgid "Début"
+msgstr "Début"
+
+#: .\templates\register.html:169
+msgid "Fin"
+msgstr "Fin"
+
+#: .\templates\register.html:187
+msgid ""
+"Le mot de passe doit contenir au moins 8 caractères, des chiffres et des "
+"lettres."
+msgstr ""
+"Le mot de passe doit contenir au moins 8 caractères, des chiffres et des "
+"lettres."
+
+#: .\templates\register.html:191
+msgid "Confirmez votre mot de passe"
+msgstr "Confirmez votre mot de passe"
+
+#: .\templates\register.html:201
+msgid "J'accepte les termes et"
+msgstr "J'accepte les termes et"
+
+#: .\templates\register.html:201
+msgid "les conditions générales d'utilisateur"
+msgstr "les conditions générales d'utilisateur"
+
+#: .\templates\register.html:205
+msgid "J'ai 18 ans ou plus"
+msgstr "I am 18 years old or older."
+
+#: .\templates\register.html:207
+msgid "Créer un nouveau compte"
+msgstr "Créer un nouveau compte"
+
+#: .\templates\register.html:210
+msgid "J'ai déjà un compte"
+msgstr "J'ai déjà un compte"
+
+
+#: .\templates\visitors_list.html:16
+msgid "Visite le"
+msgstr "Visite le"
+
+#: .\templates\visitors_list.html:16
+msgid "à"
+msgstr "à"
+
+
+#~ msgid "Photo validation before sending messages"
+#~ msgstr "Validation de votre photo avant l’envoi de messages"
+
+#~ msgid ""
+#~ "To ensure the safety and seriousness of our community, each member must "
+#~ "add a photo before being able to send private messages."
+#~ msgstr ""
+#~ "Pour garantir la sécurité et le sérieux de notre communauté, chaque "
+#~ "membre doit ajouter une photo avant de pouvoir envoyer des messages "
+#~ "privés."
+
+#~ msgid "Verification by our team:"
+#~ msgstr "Vérification par notre équipe :"
+
+#~ msgid ""
+#~ "Your photo will be checked by an administrator. This process ensures the "
+#~ "authenticity of profiles."
+#~ msgstr ""
+#~ "Votre photo sera vérifiée par un administrateur. Ce processus permet "
+#~ "d’assurer l’authenticité des profils."
+
+#~ msgid "Waiting for validation:"
+#~ msgstr "En attente de validation :"
+
+#~ msgid ""
+#~ "As long as your photo is not validated, sending messages is blocked. As "
+#~ "soon as it is approved, you can contact other members."
+#~ msgstr ""
+#~ "Tant que votre photo n’est pas validée, l’envoi de messages reste bloqué. "
+#~ "Dès qu’elle sera approuvée, vous pourrez contacter d’autres membres."
+
+#~ msgid "Confidentiality:"
+#~ msgstr "Confidentialité :"
+
+#~ msgid ""
+#~ "Your photos are treated with respect and are only used for the validation "
+#~ "of your profile."
+#~ msgstr ""
+#~ "Vos photos sont traitées avec respect et ne sont utilisées que pour la "
+#~ "validation de votre profil."
+
+
+#~ msgid "Sélectionnez un pays"
+#~ msgstr "Sélectionnez un pays"
+
+#~ msgid "Sélectionnez un lieu"
+#~ msgstr "Sélectionnez un lieu"
+
+
+
+
+#, fuzzy
+#~| msgid "All profiles"
+#~ msgid "About"
+#~ msgstr "A Propos"
+
+#, fuzzy
+#~| msgid "Politique de confidentialité"
+#~ msgid "Terms and Privacy"
+#~ msgstr "Termes et confidentialité"
+
+#~ msgid "Conditions générales"
+#~ msgstr "Conditions générales"
+
+#~ msgid "Contact"
+#~ msgstr "Contact"
+
+msgid "Votre ethnicité"
+msgstr "Votre ethnicité"
+
+#~ msgid "Nationalité"
+#~ msgstr "Nationalité"
+
+#~ msgid "Langues Parlés"
+#~ msgstr "Langues Parlés"
+
+#~ msgid "Enregistrer"
+#~ msgstr "Enregistrer"
+
+
+#~ msgid "Cheveux"
+#~ msgstr "Cheveux"
+
+#~ msgid "Yeux"
+#~ msgstr "Yeux"
+
+#~ msgid "Taille (cm)"
+#~ msgstr "Taille (cm)"
+
+#~ msgid "Poids (kg)"
+#~ msgstr "Poids (kg)"
+
+#: .\\templates\\condition.html:1
+msgid "Complétez votre profil"
+msgstr "Complétez votre profil"
+
+#: .\\templates\\condition.html:1
+msgid "Photo de profil"
+msgstr "Photo de profil"
+
+#: .\\templates\\condition.html:1
+msgid "Choisir une photo"
+msgstr "Choisir une photo"
+
+#: .\\templates\\condition.html:1
+msgid "Apparence physique"
+msgstr "Apparence physique"
+
+#: .\\templates\\condition.html:1
+msgid "Couleur des cheveux"
+msgstr "Couleur des cheveux"
+
+#: .\\templates\\condition.html:1
+msgid "Blond"
+msgstr "Blond"
+
+#: .\\templates\\condition.html:1
+msgid "Gris"
+msgstr "Gris"
+
+#: .\\templates\\condition.html:1
+msgid "Marron"
+msgstr "Marron"
+
+#: .\\templates\\condition.html:1
+msgid "Noir"
+msgstr "Noir"
+
+#: .\\templates\\condition.html:1
+msgid "Je change souvent"
+msgstr "Je change souvent"
+
+#: .\\templates\\condition.html:1
+msgid "Châtain"
+msgstr "Châtain"
+
+
+#: .\\templates\\condition.html:1
+msgid "Couleur des yeux"
+msgstr "Couleur des yeux"
+
+#: .\\templates\\condition.html:1
+msgid "Bleu"
+msgstr "Bleu"
+
+#: .\\templates\\condition.html:1
+msgid "Noisette"
+msgstr "Noisette"
+
+#: .\\templates\\condition.html:1
+msgid "Vert"
+msgstr "Vert"
+
+#: .\\templates\\condition.html:1
+msgid "Taille"
+msgstr "Taille"
+
+msgid "Mode de vie"
+msgstr "Mode de vie"
+
+#: .\\templates\\condition.html:1
+msgid "Buvez-vous ?"
+msgstr "Buvez-vous ?"
+
+#: .\\templates\\condition.html:1
+msgid "Bois"
+msgstr "Bois"
+
+#: .\\templates\\condition.html:1
+msgid "Bois à l'occasion"
+msgstr "Bois à l'occasion"
+
+#: .\\templates\\condition.html:1
+msgid "Ne bois pas"
+msgstr "Ne bois pas"
+
+#: .\\templates\\condition.html:1
+msgid "Fumez-vous ?"
+msgstr "Fumez-vous ?"
+
+#: .\\templates\\condition.html:1
+msgid "Je fume"
+msgstr "Je fume"
+
+#: .\\templates\\condition.html:1
+msgid "Je fume à l'occasion"
+msgstr "Je fume à l'occasion"
+
+#: .\\templates\\condition.html:1
+msgid "Je ne fume pas"
+msgstr "Je ne fume pas"
+
+#: .\\templates\\condition.html:1
+msgid "Situation matrimoniale"
+msgstr "Situation matrimoniale"
+
+#: .\\templates\\condition.html:1
+msgid "Célibataire"
+msgstr "Célibataire"
+
+#: .\\templates\\condition.html:1
+msgid "Séparé(e)"
+msgstr "Séparé(e)"
+
+#: .\\templates\\condition.html:1
+msgid "Veuf/Veuve"
+msgstr "Veuf/Veuve"
+
+#: .\\templates\\condition.html:1
+msgid "Nombre d'enfants"
+msgstr "Nombre d'enfants"
+
+#: .\\templates\\condition.html:1
+msgid "À propos de la personne que vous recherchez"
+msgstr "À propos de la personne que vous recherchez"
+
+#: .\\templates\\condition.html:1
+msgid "À propos de vous"
+msgstr "À propos de vous"
+
+#: .\\templates\\condition.html:1
+msgid "Retour"
+msgstr "Retour"
+
+#: .\\templates\\condition.html:1
+msgid "Valider"
+msgstr "Valider"
+
+#: .\templates\mon_profil.html
+msgid "Taille (cm):"
+msgstr "Taille (cm)"
+
+msgid  "Compléter votre profil"
+msgstr "Compléter votre profil"
+
+
+msgid  "Je prefere ne pas prononcer"
+msgstr "Je prefere ne pas prononcer"
+
+msgid  "Art corporel"
+msgstr "Art corporel"
+
+msgid  "Aucun"
+msgstr "Aucun"
+
+msgid  "Boucle d’oreilles"
+msgstr "Boucle d’oreilles"
+
+msgid  "Marque"
+msgstr "Marque"
+
+msgid  "Tatouage"
+msgstr "Tatouage"
+
+
+msgid  "Je ne suis pas sûr(e)"
+msgstr "Je ne suis pas sûr(e)"
+
+msgid  "Sélectionné "
+msgstr "Sélectionné"
+
+msgid  "En Couple"
+msgstr "En Couple"
+
+msgid  "Célibataire "
+msgstr "Célibataire"
+
+msgid  "Ouvert(e) aux rencontre"
+msgstr "Ouvert(e) aux rencontre"
+
+msgid  "Prêt à déménager"
+msgstr "Prêt à déménager"
+
+msgid  "Relation recherchée"
+msgstr "Relation recherchée"
+
+msgid  "Sérieuse et engagé"
+msgstr "Sérieuse et engagé"
+
+msgid  "Amicale et sans engagement"
+msgstr "Amicale et sans engagement"
+
+msgid  "Fun et décontractée"
+msgstr "Fun et décontractée"
+
+msgid  "Niveau d'étude"
+msgstr "Niveau d'étude"
+
+msgid  "Lycée"
+msgstr "Lycée"
+
+msgid  "Université"
+msgstr "Université"
+
+msgid  "Diplômé(e)"
+msgstr "Diplômé(e)"
+
+msgid  "Autodidacte"
+msgstr "Autodidacte"
+
+msgid  "Autre"
+msgstr "Autre"
+
+msgid  "Signe astrologique"
+msgstr "Signe astrologique"
+
+
+msgid  "Fermer"
+msgstr "Fermer"
+
+msgid  "Modifier votre profil"
+msgstr "Modifier votre profil"
+
+msgid  "Pseudo"
+msgstr "Pseudo"
+
+msgid  "Email"
+msgstr "Email"
+
+msgid  "Pays"
+msgstr "Pays"
+
+msgid  "Provinces"
+msgstr "Provinces"
+
+msgid  "Sélectionnez une ville"
+msgstr "Sélectionnez une ville"
+
+msgid  "Lieux"
+msgstr "Lieux"
+
+msgid  "Sélectionnez un Lieux"
+msgstr "Sélectionnez un Lieux"
+
+msgid  "Recherche"
+msgstr "Recherche"
+
+msgid  "Age entre"
+msgstr "Age entre"
+
+
+msgid  "Oui"
+msgstr "Oui"
+
+msgid  "Non"
+msgstr "Non"
+
+msgid "debut :"
+msgstr "debut:"
+
+msgid "fin :"
+msgstr "fin:"
+
+msgid "Voulez-vous d'autres enfants"
+msgstr "Voulez-vous d'autres enfants"
+
+
+msgid "Utilisateur non inscrit."
+msgstr "Utilisateur non inscrit."
+
+msgid "Email ou mot de passe incorrect."
+msgstr "Email ou mot de passe incorrect."
+
+#: .\templates\online_members.html:22
+msgid "Aucun membre en ligne pour le moment"
+msgstr "Aucun membre en ligne pour le moment"
+
+msgid "ans"
+msgstr "ans"
+
+msgid "Abonnés de"
+msgstr "Abonnés de"
+
+msgid "a visité votre profil"
+msgstr "a visité votre profil"
+
+#: templates/reset_password.html
+msgid "Reset your password"
+msgstr "Réinitialiser votre mot de passe"
+
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+msgid "Confirm password"
+msgstr "Confirmer le mot de passe"
+
+msgid "Change password"
+msgstr "Changer le mot de passe"
+
+#: templates/changer_mot_de_passe.html
+msgid "Change your password"
+msgstr "Changer votre mot de passe"
+
+msgid "Old password"
+msgstr "Ancien mot de passe"
+
+msgid "Confirm new password"
+msgstr "Confirmer le nouveau mot de passe"
+
+msgid "Cancel"
+msgstr "Annuler"

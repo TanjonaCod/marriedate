@@ -1,0 +1,1025 @@
+{% extends "layouts/master.html" %} {% block "contenu" %}
+{% load i18n %}
+<section class="chat-section">
+  <div class="chat-container">
+    <div class="chat-header">
+      <div class="chat_desc">
+        <img
+          src="{{ member.profil.images }}"
+          alt="Photo de {{ member.pseudo }}"
+          class="chat-member-image"
+        />
+        <div>          <h2 class="chat-member-name">{{ member.pseudo }}</h2>
+          <div class="member-status {% if member.is_online %}online{% endif %}">
+            <span class="online-dot {% if member.is_online %}active{% else %}offline{% endif %}"></span>
+            {% if member.is_online %}
+              En ligne
+            {% else %}
+              {% if member.last_activity %}
+                {% with time_diff=member.last_activity|timesince %}
+                  {% if 'minute' in time_diff %}
+                    Vu il y a {{ time_diff }}
+                  {% elif 'heure' in time_diff %}
+                    Vu il y a {{ time_diff }}
+                  {% elif 'jour' in time_diff %}
+                    Vu il y a {{ time_diff }}
+                  {% elif 'semaine' in time_diff %}
+                    Vu il y a {{ time_diff }}
+                  {% elif 'mois' in time_diff %}
+                    Vu il y a {{ time_diff }}
+                  {% else %}
+                    Hors ligne
+                  {% endif %}
+                {% endwith %}
+              {% else %}
+                Hors ligne
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <!-- <button class="delete-all-messages" id="delete-all-messages">
+        <i class="fas fa-trash"></i>
+      </button> -->
+      <button type="button" id="choix_efface">
+        <i class="fas fa-ellipsis-vertical" style="font-size: 24px;"></i>
+      </button>      
+      <div id="message_effacer">
+        <button type="button" class="delete-all-messages" id="delete-all-messages" data-memberid="{{ member.id }}">
+          <i class="fas fa-trash"></i><b>Supprimer tous</b>
+        </button>
+        <button type="button" id="select">
+          <i class="fas fa-check"></i><b>Sélectionner</b>
+        </button>
+        <button type="button" id="block-member" style="background: #343a40; margin-top:8px;">
+          <i class="fas fa-ban"></i><b>Bloquer</b>
+        </button>
+        <button type="button" class="unblock-member-btn" style="background: #4CAF50; margin-top:8px; display:none;">
+          <i class="fas fa-unlock"></i><b>Débloquer</b>
+        </button>
+      </div>
+    </div>
+    <div class="messages-container">      
+      {% for message in messages %}      
+      <div class="message {% if message.sender.id == request.session.client.id %}sent{% else %}received{% endif %}{% if forloop.last and message.sender.id == request.session.client.id and message.is_read %} last-read{% endif %}" data-message-id="{{ message.id }}" style="position: relative;">
+        <input type="checkbox" class="message-checkbox">
+        <p class="message-content">{{ message.content }}</p>
+        
+        {% if message.image %}
+        <img
+          src="{{ message.image.url }}"
+          alt="Message Image"
+          class="message-image"
+        />
+        {% endif %}
+        <div>
+          <span class="message-timestamp">{{ message.timestamp|date:"H:i"}}</span>
+          {% if forloop.last and message.sender.id == request.session.client.id %}
+            {% if message.is_read %}
+              <span class="message-lu read-label">Lu</span>
+            {% else %}
+              <span class="message-lu not-read-label">envoyé</span>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+      
+      {% endfor %}
+      {% if blocked %}
+        <div style="color: #c00; text-align: center; margin: 2em 0; font-weight: bold;">
+          {% if user_has_blocked %}
+            {% trans "You have blocked this member." %}<br>
+            {% trans "Unblock them to chat again." %}<br>
+            <button type="button" class="unblock-member-btn" style="background: #4CAF50; color: white; padding: 10px 24px; border: none; border-radius: 6px; font-size: 1.1em; cursor: pointer; margin-top: 1em;">
+              <i class="fas fa-unlock"></i> {% trans "Unblock" %}
+            </button>
+          {% else %}
+            {% trans "You cannot chat with this member because they have blocked you." %}
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+    {% if not blocked %}
+    <form
+      class="chat-input-container"
+      action="{% url 'message_priver' member.id %}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <textarea
+        id="message"
+        name="message"
+        class="chat-input"
+        placeholder="Écrivez votre message ici..."
+      ></textarea>
+      <label for="image" class="chat-attach">
+        <i class="fas fa-paperclip"></i>
+        <input type="file" id="image" name="image" accept="image/*" hidden />
+      </label>
+      <img id="image-preview" style="display:none;max-width:120px;margin-left:10px;" />
+      <button type="submit" class="chat-send">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </form>
+    {% endif %}
+    <div class="selection-bar" id="selectionBar">
+      <div class="selected-count">0 message(s) sélectionné(s)</div>
+      <div class="selection-actions">
+        <button id="deleteSelectedBtn" class="delete-selected">
+          <i class="fas fa-trash"></i> Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .chat-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110vh;
+    background: #f0f0f0;
+  }
+
+  .chat-container {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-top: 10px;
+    height: 98vh;
+  }
+
+  .chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    background: #ff6b6b;
+    color: white;
+    position: relative;
+  }
+  .chat_desc {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .chat-member-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .chat-member-name {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+
+  .member-status {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .member-status.online {
+    color: #4CAF50;
+  }
+
+  .online-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+
+  .online-dot.active {
+    background-color: #4CAF50;
+  }
+
+  .online-dot.offline {
+    background-color: #ccc;
+  }
+
+  .delete-all-messages {
+    background: none;
+    border: none;
+    color: rgb(230, 21, 21);
+    cursor: pointer;
+    font-size: 1rem;
+    
+  }
+
+  .delete-all-messages:hover {
+    color: darkred;
+  }
+
+  .messages-container {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto; /* Active le défilement vertical */
+    background: #e5ddd5;
+    max-height: 500px; /* Hauteur fixe pour la zone de discussion */
+    display: flex;
+    flex-direction: column;
+    width: 38rem;
+  }
+
+  .messages-container::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .messages-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+
+  .messages-container::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+  }
+
+  .message {
+    max-width: 70%;
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    border-radius: 10px;
+    position: relative;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 30px;
+    padding-right: 40px; /* Espace pour la checkbox */
+  }
+
+  .message.received {
+    background: white;
+    align-self: flex-start;
+    border: 1px solid #ddd;
+  }
+
+  .message.sent {
+    background: #dcf8c6;
+    align-self: flex-end;
+    float: right;
+  }
+
+  .message-content {
+    margin: 0;
+  }
+
+  .message-image {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+  }
+
+  .message-timestamp {
+    font-size: 0.7rem;
+    color: #999;
+    position: absolute;
+    bottom: -1.2rem;
+    right: 0.5rem;
+  }
+  .mess_lu img{
+    position: absolute;
+    right: 2.5rem;
+    top: 0;
+    width: 10px;
+    height: 10px;
+  }
+
+  .chat-input-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    background: #f0f0f0;
+    border-top: 1px solid #ddd;
+  }
+
+  .chat-input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    resize: none;
+  }
+
+  .chat-attach {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  .chat-attach i {
+    font-size: 1.2rem;
+    color: #555;
+  }
+
+  .chat-send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #ff6b6b;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .chat-send:hover {
+    background: #ff8e8e;
+  }
+  @media (max-width: 768px) {
+    .messages-container {
+      /* width: 18rem; */
+      width: 22rem;
+    }
+    .chat-container {
+      height: 88vh;
+    }
+    .chat-section {
+      height: 90vh;
+      margin-top: 12vh;
+    }
+    .message-checkbox {
+      right: 10px;
+      left: auto;
+    }
+  }
+  .message.not-read {
+  border: 2px solid #1976d2;
+  background: #e3f0ff;
+  position: relative;
+}
+.message-lu.not-read-label {
+  color: #1976d2;
+  font-weight: bold;
+  margin-left: 10px;
+  font-size: 0.8rem;
+}
+.message-lu.read-label {
+  color: #1976d2;
+  font-weight: bold;
+  margin-left: 10px;
+  font-size: 0.8rem;
+}
+#message_effacer {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  background-color: rgba(41, 37, 37, 0.95);
+  right: 20px;
+  top: 60px;
+  z-index: 1001;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  min-width: 150px;
+}
+
+#message_effacer button {
+  width: 100%;
+  background: rgba(220, 53, 69, 0.9);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#message_effacer button:hover {
+  background-color: rgba(220, 53, 69, 1);
+}
+#choix_efface{
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  cursor: pointer;
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid transparent;
+
+}
+#choix_efface .fas{
+  font-size: 50px;
+}
+@media screen and (min-width:820px) and (max-width:1180px) {
+  .messages-container {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background: #e5ddd5;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    width: 38rem;
+}
+}
+.message-checkbox {
+  position: absolute !important;
+  right: 10px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 2 !important;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  display: none;
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+  background-color: white;
+  border: 2px solid #075e54;
+  border-radius: 3px;
+}
+
+/* Style pour le mode sélection */
+.selection-mode-active .message-checkbox {
+  display: block !important;
+  opacity: 1 !important; /* Le checkbox devient visible en mode sélection */
+}
+
+.selection-mode-active .message {
+  padding-right: 40px;
+}
+
+/* Style pour les messages sélectionnés */
+.message.selected {
+  background-color: rgba(7, 94, 84, 0.1) !important;
+}
+
+.selection-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #075e54;
+  color: white;
+  padding: 15px;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.selection-bar.active {
+  display: flex;
+}
+
+.selection-bar button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selection-bar button:hover {
+  background: #c82333;
+}
+</style>
+
+<!-- Ajout de la barre de sélection -->
+<div class="selection-bar" id="selectionBar">
+  <div class="selected-count">0 message(s) sélectionné(s)</div>
+  <div class="selection-actions">
+    <button id="deleteSelectedBtn">
+      <i class="fas fa-trash"></i>
+      Supprimer la sélection
+    </button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialisation des éléments DOM
+    const choix_efface = document.getElementById("choix_efface");
+    const message_effacer = document.getElementById("message_effacer");
+    const selectionBar = document.getElementById('selectionBar');
+    const selectedCount = document.querySelector('.selected-count');
+    const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
+    const deleteAllBtn = document.getElementById('delete-all-messages');
+    const selectBtn = document.getElementById('select');
+    const blockBtn = document.getElementById('block-member');
+    const messagesContainer = document.querySelector('.messages-container');
+    const chatMessages = document.querySelector('.messages-container');
+    const imageInput = document.getElementById('image');
+    const imagePreview = document.getElementById('image-preview');
+    const messageInput = document.getElementById('message');
+    const chatForm = document.querySelector('.chat-input-container');
+    let selectionMode = false;
+
+    // Définir les IDs pour le chat
+    const memberId = "{{ member.id }}"; // Membre avec qui on discute
+    const currentUserId = "{{ request.session.client.id }}"; // Utilisateur connecté
+
+    // WebSocket pour le chat privé temps réel
+    const ws = new WebSocket('ws://' + window.location.host + '/ws/chat/' + currentUserId + '/');
+
+    ws.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        if (data.type === 'new_message' && data.message) {
+            // Si le message vient du membre avec qui on discute, l'afficher instantanément côté destinataire
+            if (String(data.message.sender_id) === String(memberId)) {
+                addMessageToChat(data.message, false); // false = reçu
+            }
+        }
+        if (data.type === 'message_read' && data.message_id) {
+            const sentMessages = chatMessages.querySelectorAll('.message.sent');
+            if (sentMessages.length > 0) {
+                const lastSent = Array.from(sentMessages).find(msg => msg.dataset.messageId == data.message_id);
+                if (lastSent) {
+                    const label = lastSent.querySelector('.message-lu.not-read-label');
+                    if (label) {
+                        label.classList.remove('not-read-label');
+                        label.classList.add('read-label');
+                        label.textContent = 'Lu';
+                    }
+                }
+            }
+        }
+    };
+
+    // Fonction pour ajouter un message au chat (sent = true si envoyé, false si reçu)
+    function addMessageToChat(messageData, sent = true) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', sent ? 'sent' : 'received');
+        messageDiv.dataset.messageId = messageData.id;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.classList.add('message-checkbox');
+        messageDiv.appendChild(checkbox);
+
+        const content = document.createElement('p');
+        content.classList.add('message-content');
+        content.textContent = messageData.content;
+        messageDiv.appendChild(content);
+
+        if (messageData.image_url) {
+            const img = document.createElement('img');
+            img.src = messageData.image_url;
+            img.alt = "Message Image";
+            img.classList.add('message-image');
+            messageDiv.appendChild(img);
+        }
+
+        const timeDiv = document.createElement('div');
+        const timestamp = document.createElement('span');
+        timestamp.classList.add('message-timestamp');
+        timestamp.textContent = messageData.timestamp;
+        timeDiv.appendChild(timestamp);
+        // Statut "lu/envoyé" seulement pour les messages envoyés
+        if (sent) {
+            const status = document.createElement('span');
+            status.classList.add('message-lu', 'not-read-label');
+            status.textContent = 'envoyé';
+            timeDiv.appendChild(status);
+        }
+        messageDiv.appendChild(timeDiv);
+
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Fonction pour faire défiler jusqu'au dernier message
+    function scrollToBottom() {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Appeler scrollToBottom lors du chargement initial de la page
+    scrollToBottom();
+
+    // Rafraîchissement des messages reçus
+    // setInterval(function() {
+    //     const isSelectionModeActive = messagesContainer.classList.contains('selection-mode-active');
+        
+    //     fetch(`/messages/received/${memberId}/`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.success && data.messages) {
+    //                 chatMessages.innerHTML = "";
+    //                 let lastSentIndex = -1;
+                    
+    //                 for (let i = data.messages.length - 1; i >= 0; i--) {
+    //                     if (data.messages[i].sender_id == "{{ request.session.client.id }}") {
+    //                         lastSentIndex = i;
+    //                         break;
+    //                     }
+    //                 }
+
+    //                 data.messages.forEach((msg, idx) => {
+    //                     const isSent = msg.sender_id == "{{ request.session.client.id }}";
+    //                     const isLastSentByUser = idx === lastSentIndex && isSent;
+    //                     addMessageToChat(msg, isSent, isLastSentByUser, false);
+    //                 });
+
+    //                 if (isSelectionModeActive) {
+    //                     messagesContainer.classList.add('selection-mode-active');
+    //                 }
+
+    //                 scrollToBottom();
+    //             }
+    //         })
+    //         .catch(error => console.error("Erreur lors du rafraîchissement des messages :", error));
+    // }, 2000);
+
+    setInterval(function() {
+    const isSelectionModeActive = messagesContainer.classList.contains('selection-mode-active');
+
+    fetch(`/messages/received/${memberId}/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && Array.isArray(data.messages)) {
+                const currentMessageIds = Array.from(document.querySelectorAll('.message-item'))
+                    .map(el => el.dataset.id);
+
+                let newMessagesHTML = "";
+
+                data.messages.forEach((msg) => {
+                    const isSent = msg.sender_id == "{{ request.session.client.id }}";
+                    if (!currentMessageIds.includes(msg.id.toString())) {
+                        const messageHtml = generateMessageHTML(msg, isSent);
+                        newMessagesHTML += messageHtml;
+                    }
+                });
+
+                if (newMessagesHTML) {
+                    chatMessages.insertAdjacentHTML('beforeend', newMessagesHTML);
+                    scrollToBottom();
+                }
+
+                if (isSelectionModeActive) {
+                    messagesContainer.classList.add('selection-mode-active');
+                }
+            }
+        })
+        .catch(error => console.error("Erreur lors du rafraîchissement des messages :", error));
+}, 2000);
+
+
+
+    // Prévisualisation des images
+    if (imageInput) {
+        imageInput.addEventListener("change", function () {
+            const file = imageInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = "block";
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.src = "";
+                imagePreview.style.display = "none";
+            }
+        });
+    }    // Fonction pour ajouter un message au chat
+    function addNewMessage(messageData) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', 'sent');
+        messageDiv.dataset.messageId = messageData.id;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.classList.add('message-checkbox');
+        messageDiv.appendChild(checkbox);
+
+        const content = document.createElement('p');
+        content.classList.add('message-content');
+        content.textContent = messageData.content;
+        messageDiv.appendChild(content);
+
+        if (messageData.image_url) {
+            const img = document.createElement('img');
+            img.src = messageData.image_url;
+            img.alt = "Message Image";
+            img.classList.add('message-image');
+            messageDiv.appendChild(img);
+        }
+
+        const timeDiv = document.createElement('div');
+        const timestamp = document.createElement('span');
+        timestamp.classList.add('message-timestamp');
+        timestamp.textContent = messageData.timestamp;
+        const status = document.createElement('span');
+        status.classList.add('message-lu', 'not-read-label');
+        status.textContent = 'envoyé';
+        timeDiv.appendChild(timestamp);
+        timeDiv.appendChild(status);
+        messageDiv.appendChild(timeDiv);
+
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Gestion de l'envoi du message
+    chatForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        try {
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            });
+            const data = await response.json();
+            if (data.success) {
+                messageInput.value = '';
+                imageInput.value = '';
+                imagePreview.style.display = 'none';
+                addMessageToChat(data.message, true); // true = envoyé
+            } else {
+                alert('Erreur lors de l\'envoi du message : ' + data.error);
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            alert('Une erreur est survenue lors de l\'envoi du message.');
+        }
+    });
+
+    // Envoi du message avec la touche Entrée
+    if (messageInput) {
+        messageInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                chatForm.dispatchEvent(new Event('submit'));
+            }
+        });
+    }
+
+    // Exemple : fetch après 5 secondes pour afficher un message reçu
+    setTimeout(function() {
+        fetch(`/messages/received/${memberId}/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && Array.isArray(data.messages)) {
+                    // Cherche le dernier message reçu (envoyé par le membre avec qui on discute)
+                    const lastMsg = data.messages.reverse().find(msg => String(msg.sender_id) === String(memberId));
+                    if (lastMsg) {
+                        // Vérifie si le message n'est pas déjà affiché
+                        if (!chatMessages.querySelector(`[data-message-id='${lastMsg.id}']`)) {
+                            addMessageToChat(lastMsg, false); // false = reçu
+                        }
+                    }
+                }
+            });
+    }, 1000);
+
+    // Rafraîchissement automatique des messages reçus toutes les 5 secondes (pour le récepteur)
+    setInterval(function() {
+        fetch(`/messages/received/${memberId}/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && Array.isArray(data.messages)) {
+                    data.messages.forEach(msg => {
+                        // Si le message vient du membre avec qui on discute et n'est pas déjà affiché
+                        if (String(msg.sender_id) === String(memberId) && !chatMessages.querySelector(`[data-message-id='${msg.id}']`)) {
+                            addMessageToChat(msg, false); // false = reçu
+                        }
+                    });
+                }
+            });
+    }, 5000);
+
+    // Afficher/masquer le menu d'options au clic sur le bouton ellipsis
+    choix_efface.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (message_effacer.style.display === 'flex') {
+            message_effacer.style.display = 'none !important';
+        } else {
+            message_effacer.style.display = 'flex !important';
+        }
+    });
+    // Fermer le menu si on clique ailleurs
+    document.addEventListener('click', function(e) {
+        if (!message_effacer.contains(e.target) && e.target !== choix_efface) {
+            message_effacer.style.display = 'none';
+        }
+    });
+
+    // Bouton Sélectionner : toggle le mode sélection
+    selectBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (messagesContainer.classList.contains('selection-mode-active')) {
+            // Désactive le mode sélection
+            messagesContainer.classList.remove('selection-mode-active');
+            selectionBar.classList.remove('active');
+            document.querySelectorAll('.message-checkbox').forEach(cb => {
+                cb.checked = false;
+                cb.style.display = 'none';
+            });
+            selectedCount.textContent = '0 message(s) sélectionné(s)';
+        } else {
+            // Active le mode sélection
+            messagesContainer.classList.add('selection-mode-active');
+            document.querySelectorAll('.message-checkbox').forEach(cb => cb.style.display = 'block');
+            selectionBar.classList.add('active');
+            const checked = document.querySelectorAll('.message-checkbox:checked').length;
+            selectedCount.textContent = checked + ' message(s) sélectionné(s';
+        }
+        message_effacer.style.display = 'none';
+    });
+
+    // Bouton Supprimer tous : supprime tous les messages de la conversation
+    deleteAllBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (confirm('Voulez-vous vraiment supprimer tous les messages de cette conversation ?')) {
+            fetch(`/messages/delete_all/${memberId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            })
+            .then(response => response.json())
+            .then(function(data) {
+                if (data.success) {
+                    // Vide l'affichage des messages
+                    chatMessages.innerHTML = '';
+                } else {
+                    alert('Erreur lors de la suppression : ' + (data.error || ''));
+                }
+            })
+            .catch(() => alert('Erreur lors de la suppression.'));
+        }
+        message_effacer.style.display = 'none';
+    });
+    // Fonction pour mettre à jour dynamiquement le compteur de messages sélectionnés
+    function updateSelectedCount() {
+        const checked = document.querySelectorAll('.message-checkbox:checked').length;
+        selectedCount.textContent = checked + ' message(s) sélectionné(s)';
+        if (checked === 0) {
+            // Désactive le mode sélection si plus rien n'est coché
+            messagesContainer.classList.remove('selection-mode-active');
+            selectionBar.classList.remove('active');
+            document.querySelectorAll('.message-checkbox').forEach(cb => cb.style.display = 'none');
+        }
+    }
+
+    // Mettre à jour le compteur à chaque changement de case à cocher
+    messagesContainer.addEventListener('change', function(e) {
+        if (e.target.classList.contains('message-checkbox')) {
+            // Ajoute ou retire la classe 'selected' pour le style
+            if (e.target.checked) {
+                e.target.closest('.message').classList.add('selected');
+            } else {
+                e.target.closest('.message').classList.remove('selected');
+            }
+            updateSelectedCount();
+        }
+    });
+
+    // Bouton Supprimer la sélection : supprime les messages cochés via AJAX
+    deleteSelectedBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const checkedBoxes = document.querySelectorAll('.message-checkbox:checked');
+        if (checkedBoxes.length === 0) {
+            alert('Aucun message sélectionné.');
+            return;
+        }
+        if (!confirm('Voulez-vous vraiment supprimer les messages sélectionnés ?')) return;
+        const ids = Array.from(checkedBoxes).map(cb => cb.closest('.message').dataset.messageId);
+        fetch(`/messages/delete_selected/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({ ids })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Retirer les messages supprimés du DOM
+                ids.forEach(id => {
+                    const msg = document.querySelector(`.message[data-message-id='${id}']`);
+                    if (msg) msg.remove();
+                });
+                updateSelectedCount();
+            } else {
+                alert('Erreur lors de la suppression : ' + (data.error || ''));
+            }
+        })
+        .catch(() => alert('Erreur lors de la suppression.'));
+    });
+    // memberId est déjà défini plus haut dans le script principal
+    blockBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!confirm('Voulez-vous vraiment bloquer ce membre ?')) return;
+        fetch("{% url 'block_member' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'member_id=' + encodeURIComponent(memberId)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Membre bloqué avec succès.');
+                isBlocked = true;
+                setBlockButtons(true);
+            } else {
+                alert(data.error || 'Erreur lors du blocage.');
+            }
+        })
+        .catch(() => alert('Erreur lors du blocage.'));
+    });
+    // Gestion du blocage/déblocage
+    function setBlockButtons(isBlocked) {
+        if (isBlocked) {
+            blockBtn && (blockBtn.style.display = 'none');
+            document.querySelectorAll('.unblock-member-btn').forEach(function(unblockBtn) {
+                unblockBtn.style.display = 'inline-block';
+            });
+        } else {
+            blockBtn && (blockBtn.style.display = 'inline-block');
+            document.querySelectorAll('.unblock-member-btn').forEach(function(unblockBtn) {
+                unblockBtn.style.display = 'none';
+            });
+        }
+        attachUnblockListeners(); // Toujours réattacher les listeners
+    }
+
+    // Fonction pour attacher les eventListeners sur tous les boutons "Débloquer"
+    function attachUnblockListeners() {
+        document.querySelectorAll('.unblock-member-btn').forEach(function(unblockBtn) {
+            // On retire d'abord tout ancien event listener en remplaçant le bouton par un clone
+            const newBtn = unblockBtn.cloneNode(true);
+            unblockBtn.parentNode.replaceChild(newBtn, unblockBtn);
+        });
+        // On attache le listener sur les nouveaux boutons
+        document.querySelectorAll('.unblock-member-btn').forEach(function(unblockBtn) {
+            unblockBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!confirm('Voulez-vous vraiment débloquer ce membre ?')) return;
+                fetch("{% url 'unblock_member' %}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'member_id=' + encodeURIComponent(memberId)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Membre débloqué. Vous pouvez à nouveau échanger.');
+                        isBlocked = false;
+                        setBlockButtons(false);
+                        // Recharger la page pour afficher la messagerie normale
+                        window.location.reload();
+                    } else {
+                        alert(data.error || 'Erreur lors du déblocage.');
+                    }
+                })
+                .catch(() => alert('Erreur lors du déblocage.'));
+            });
+        });
+    }
+
+    // Initialisation dynamique de l'état de blocage
+    let isBlocked = "{{ user_has_blocked|yesno:'true,false' }}";
+    setBlockButtons(isBlocked === 'true');
+    // Attacher les listeners au chargement
+    attachUnblockListeners();
+});
+</script>
+{% endblock "contenu" %}

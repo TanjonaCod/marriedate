@@ -1,0 +1,188 @@
+{% load i18n %}
+{% load static %}
+{% block "contenu" %}
+    <section class="sexion1">
+        <h1 class="title">{% trans "Nous vous souhaitons la bienvenue sur" %} <span class="lovelimeet">Lovelimeet</span> !</h1>
+        <div class="contenaire boite">
+            <img src="{% static 'images/Object.png' %}" alt="">
+            <div class="ptboite">
+                <p class="para">
+                "{% trans "Votre compte est actuellement en" %} <span class="revi">{% trans "cours de révision" %}</span>.{% trans " Nous vous remercions de votre patience pendant que nous procédons à l’examen de votre profil, ce qui ne devrait prendre que peu de temps. Nous vous invitons à réessayer ultérieurement." %}"
+                </p>
+                <div class="boton">
+                    <a href=""><p class="lien1"><i class="fas fa-arrows-rotate ressayer"></i>{% trans "Ressayer" %}</p></a>
+                    <a href="{% url 'deconnexion' %}"><p class="lien2"><i class="fas fa-arrow-right-from-bracket decon"></i>{% trans "Deconnectez" %}</p></a>
+                </div>
+                <h2 class="title2">{% trans "Ou contactez par :" %}</h2>
+                <div class="boton">
+                    <a href="https://www.facebook.com/profile.php?id=61556604567837"><p class="lien3"><i class="fab fa-facebook-f fb"></i>Facebook</p></a>
+                    <a href="https://www.instagram.com/lovelimeet?igsh=MXFpOXNmajgzZjJxNA=="><p class="lien4"><i class="fab fa-instagram insta"></i>instagram</p></a>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="footer-langue">
+            <form action="{% url 'set_language' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" name="language" value="fr" class="lang-btn" {% if LANGUAGE_CODE == 'fr' %}style="font-weight:bold; text-decoration:underline;"{% endif %}>Français</button>
+                <span style="color:#e11584; font-weight:bold;">|</span>
+                <button type="submit" name="language" value="en" class="lang-btn" {% if LANGUAGE_CODE == 'en' %}style="font-weight:bold; text-decoration:underline;"{% endif %}>English</button>
+            </form>
+        </div>
+        <p>&copy; {{ now|date:'Y' }} LoveMeet. {% trans "Tous droits réservés." %}</p>
+        </footer>
+    </section>
+
+    <style>
+        .sexion1{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+            background: #54aecb;
+        }
+        .contenaire{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .boite img{
+            width: 500px;
+        }
+
+        .ptboite {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px 30px;
+            background-color: #54aecb;
+            border: 3px solid white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+        }
+        .title{
+            text-align: center;
+            color: white;
+            font-size: 40px;
+            padding: 40px 20px 0px 20px;
+        }
+        .lovelimeet{
+            color: #e11584;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+        }
+        .title2{
+        text-align: center;
+            padding:15px 0;
+            color: white;
+            font-size: 15px;  
+        }
+        .para {
+            font-size: 16px;
+            color: white;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        .revi{
+            color: yellow;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .boton {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .boton a {
+            flex: 1;
+            text-decoration: none;
+        }
+
+        .boton a p {
+            margin: 0;
+            padding: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+
+        .boton a p:hover {
+            background-color: #0056b3;
+        }
+        .lien1{
+            background: #028a0f !important;
+        }
+        .lien2{
+            background: #ff6600 !important;
+        }
+        .lien3{
+            background: #0056b3 !important;
+        }
+        .lien4{
+            background: #e11584 !important;
+        }
+        .ressayer{
+            color: white;
+            font-size: 16px;
+            background: #028a0f;
+            margin-right: 10px;
+        }
+        .decon{
+            color: white;
+            font-size: 16px;
+            background: #ff6600;
+            margin-right: 10px; 
+        }
+        .fb{
+            color: white;
+            font-size: 16px;
+            background: #0056b3;
+            margin-right: 10px;    
+        }
+        .insta{
+            color: white;
+            font-size: 16px;
+            background: #e11584;
+            margin-right: 10px;  
+        }
+        footer{
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 5vh;
+        }
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #e11584;
+            font-size: 1.1em;
+            margin: 0 8px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .lang-btn:hover {
+            color: #028a0f;
+            text-decoration: underline;
+        }
+        @media screen and (max-width:767px) {
+            .boite img{
+                width: 100% !important;
+            }
+            .ptboite{
+                margin: 20vh auto !important;
+            }
+            footer{
+                margin-top: 31vh;
+            }
+        }
+
+    </style>
+{% endblock "contenu" %}

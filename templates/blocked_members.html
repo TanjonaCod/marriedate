@@ -1,0 +1,177 @@
+{% extends "layouts/master.html" %}
+{% load i18n %}
+{% block "contenu" %}
+<section class="blocked-members-section">
+  <div class="blocked-members-container">
+    <h2 style="text-align:center; color:#c00; margin-top:2em;">{% trans "Blocked members" %}</h2>
+    {% if blocked_members %}
+      <ul class="blocked-members-list">
+        {% for member in blocked_members %}
+        <li style="display:flex;align-items:center;gap:1em;margin:1em 0;">
+          <img src="/{{ member.profil.images }}" alt="{% trans 'Photo of' %} {{ member.pseudo }}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;">
+          <span style="font-weight:bold;">{{ member.pseudo }}</span>
+          <form method="post" class="unblock-form" style="margin-left:auto;">
+            {% csrf_token %}
+            <input type="hidden" name="member_id" value="{{ member.id }}">
+            <button type="submit" class="unblock-btn" style="background:#4CAF50;color:white;padding:6px 16px;border:none;border-radius:6px;cursor:pointer;">{% trans "Unblock" %}</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p style="text-align:center;">{% trans "You have not blocked any members." %}</p>
+    {% endif %}
+    <div style="text-align:center;margin-top:2em;">
+      <a href="/membres/" class="btn btn-primary">{% trans "Back to members list" %}</a>
+    </div>
+  </div>
+</section>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.unblock-form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      showConfirmPopup('{% trans "Do you really want to unblock this member?" %}', function(confirmed) {
+        if (confirmed) {
+          form.submit();
+        }
+      });
+      const memberId = this.querySelector('[name=member_id]').value;
+      fetch("{% url 'unblock_member' %}", {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': this.querySelector('[name=csrfmiddlewaretoken]').value,
+          'X-Requested-With': 'XMLHttpRequest',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'member_id=' + encodeURIComponent(memberId)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          showCustomPopup('{% trans "Member unblocked." %}', function() {
+            window.location.reload();
+          });
+        } else {
+          showCustomPopup(data.error || '{% trans "Error while unblocking." %}');
+        }
+      })
+      .catch(() => showCustomPopup('{% trans "Error while unblocking." %}'));
+    });
+  });
+
+  // Popup personnalisée de confirmation Oui/Non
+  function showConfirmPopup(message, onConfirm) {
+    let popup = document.createElement('div');
+    popup.className = 'custom-popup';
+    popup.innerHTML = `
+      <div class="custom-popup-content animated-popup">
+        <div class="popup-icon" style="font-size:2.5rem;color:#ff6b6b;margin-bottom:0.5rem;">
+          <i class="fas fa-question-circle"></i>
+        </div>
+        <h3 style="margin-bottom:0.5rem;color:#222;">{% trans "Confirmation" %}</h3>
+        <p style="font-size:1.15rem;margin-bottom:1.5rem;color:#333;">${message}</p>
+        <div style="display:flex;justify-content:center;gap:1.5rem;">
+          <button class="custom-popup-btn" style="background:#4361ee;" id="confirm-yes">{% trans "Yes" %}</button>
+          <button class="custom-popup-btn" style="background:#ff6b6b;" id="confirm-no">{% trans "No" %}</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(popup);
+    popup.querySelector('#confirm-yes').onclick = function() {
+      document.body.removeChild(popup);
+      onConfirm(true);
+    };
+    popup.querySelector('#confirm-no').onclick = function() {
+      document.body.removeChild(popup);
+      onConfirm(false);
+    };
+  }
+
+  // Popup personnalisée de confirmation
+  function showConfirmPopup(message, onConfirm) {
+    let popup = document.createElement('div');
+    popup.className = 'custom-popup';
+    popup.innerHTML = `
+      <div class="custom-popup-content animated-popup">
+        <div class="popup-icon" style="font-size:2.5rem;color:#ff6b6b;margin-bottom:0.5rem;">
+          <i class="fas fa-question-circle"></i>
+        </div>
+        <h3 style="margin-bottom:0.5rem;color:#222;">{% trans "Confirmation" %}</h3>
+        <p style="font-size:1.15rem;margin-bottom:1.5rem;color:#333;">${message}</p>
+        <div style="display:flex;justify-content:center;gap:1.5rem;">
+          <button class="custom-popup-btn" style="background:#4361ee;" id="confirm-yes">{% trans "Yes" %}</button>
+          <button class="custom-popup-btn" style="background:#ff6b6b;" id="confirm-no">{% trans "No" %}</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(popup);
+    popup.querySelector('#confirm-yes').onclick = function() {
+      document.body.removeChild(popup);
+      onConfirm(true);
+    };
+    popup.querySelector('#confirm-no').onclick = function() {
+      document.body.removeChild(popup);
+      onConfirm(false);
+    };
+  }
+});
+</script>
+<style>
+.blocked-members-section { min-height: 60vh; display: flex; align-items: center; justify-content: center; }
+.blocked-members-container { background: #fff; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); padding: 3em 2em; max-width: 500px; width: 100%; }
+.blocked-members-list { list-style: none; padding: 0; }
+footer{margin-top: 24vh !important;}
+.custom-popup {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-popup-content {
+  background: #fff;
+  padding: 2.2rem 2.7rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px #2223;
+  text-align: center;
+  min-width: 260px;
+  max-width: 92vw;
+  animation: popupFadeIn 0.35s;
+}
+.custom-popup-content h3 {
+  font-size: 1.35rem;
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+.popup-icon {
+  margin-bottom: 0.5rem;
+}
+.custom-popup-btn {
+  padding: 0.6rem 2rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 1.08rem;
+  cursor: pointer;
+  background: #4361ee;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 2px 8px #4361ee44;
+  transition: background 0.2s;
+}
+.custom-popup-btn:hover {
+  background: #ff6b6b;
+  opacity: 0.92;
+}
+.animated-popup {
+  animation: popupFadeIn 0.35s;
+}
+@keyframes popupFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+</style>
+
+{% endblock "contenu" %}

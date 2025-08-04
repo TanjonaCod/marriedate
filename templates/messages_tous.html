@@ -1,0 +1,176 @@
+{% extends "layouts/master.html" %}
+{% load i18n %}
+
+{% block "contenu" %}
+<section class="section_messages">
+    <form action="" class="formulaire">
+        <input type="search" name="" id="" placeholder="{% trans 'Enter your search' %}">
+        <button type="button">{% trans 'Search' %}</button>
+    </form>
+    
+    <div class="messages_toggle">
+        <p class="toggle-conversations active">{% trans 'All conversations' %}</p>
+        <p class="toggle-requests">{% trans 'Message requests' %}</p>
+    </div>
+
+    <div class="messages_content">
+        <ul class="conversations-all">
+            {% for message in messages_complets %}
+                {% if photo_valider.valider == True %}
+                    <li>
+                        <a href="{% url 'message_priver' message.sender.id %}">
+                            <strong>{{ message.sender.pseudo }}</strong> : {{ message.content }}
+                            <br>
+                            <small>{% blocktrans %}Sent at {{ message.timestamp }}{% endblocktrans %}</small>
+                        </a>
+                    </li>
+                
+                {% else %}
+                <li style="color: red;">
+                    {% trans "You must have a validated profile photo to access private messaging." %}
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <ul class="conversations-request hidden">
+            {% for request in message_requests %}
+                <li>
+                    <strong>{{ request.sender.pseudo }}</strong> : {{ request.content }}
+                    <br>
+                    <small>{% blocktrans %}Request sent at {{ request.timestamp }}{% endblocktrans %}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const allConversationsToggle = document.querySelector('.toggle-conversations');
+        const requestsToggle = document.querySelector('.toggle-requests');
+        const allConversationsList = document.querySelector('.conversations-all');
+        const requestsList = document.querySelector('.conversations-request');
+
+        requestsToggle.addEventListener('click', () => {
+            // Toggle active state on headers
+            allConversationsToggle.classList.remove('active');
+            requestsToggle.classList.add('active');
+
+            // Toggle content visibility
+            allConversationsList.classList.add('hidden');
+            requestsList.classList.remove('hidden');
+        });
+
+        allConversationsToggle.addEventListener('click', () => {
+            // Toggle active state on headers
+            requestsToggle.classList.remove('active');
+            allConversationsToggle.classList.add('active');
+
+            // Toggle content visibility
+            requestsList.classList.add('hidden');
+            allConversationsList.classList.remove('hidden');
+        });
+    });
+</script>
+<style>
+.section_messages {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+.formulaire {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.formulaire input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+}
+
+.formulaire button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.messages_toggle {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.messages_toggle p {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    margin: 0 5px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.messages_toggle p.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.messages_content ul {
+    list-style-type: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.messages_content ul li {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.messages_content ul li:last-child {
+    border-bottom: none;
+}
+
+.messages_content ul li small {
+    color: #888;
+    font-size: 0.8em;
+}
+
+.hidden {
+    display: none;
+}
+.messages_content a{
+    text-decoration: none;
+    color: black;
+}
+footer{
+    margin-top: 54vh !important;
+}
+@media screen and (max-width:768px){
+    .section_messages{
+        margin-top: 18vh;
+    }
+}
+@media (min-width: 767px) and (max-width: 1024px) {
+    .section_messages{
+        margin-top: 10vh !important;
+    }
+}
+</style>
+{% endblock "contenu" %}

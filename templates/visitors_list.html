@@ -1,0 +1,153 @@
+{% extends "layouts/master.html" %}
+{% load i18n %}
+{% block "contenu" %}
+<section class="visitors-section">
+    <div class="visitors-container">
+        <h2>{% trans "Personnes qui ont visité votre profil" %}</h2>
+        
+        {% if visitors %}
+            <div class="visitors-list">
+                {% for visit in visitors %}
+                    <div class="visitor-card">
+                        <div class="visitor-info">
+                            <img src="/{{ visit.visitor.profil.images }}" alt="Photo de {{ visit.visitor.pseudo }}" class="visitor-image">
+                            <div class="visitor-details">
+                                <h3>{{ visit.visitor.pseudo }}</h3>
+                                <p class="visit-time">{% trans "Visite le" %} {{ visit.timestamp|date:"d/m/Y" }} {% trans "à" %} {{ visit.timestamp|time:"H:i" }}</p>
+                            </div>
+                        </div>
+                        <div class="visitor-actions">
+                            <a href="{% url 'detail_profil' visit.visitor.id %}" class="view-profile">{% trans "Voir le profil" %}</a>
+                            <a href="{% url 'message_priver' visit.visitor.id %}" class="send-message">{% trans "Message" %}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-visitors">{% trans "Aucune visite pour le moment" %}</p>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+    .visitors-section {
+        padding: 2rem;
+        background: #f5f5f5;
+    }
+
+    .visitors-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .visitors-container h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 2rem;
+    }
+
+    .visitors-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .visitor-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border: 1px solid #eee;
+        border-radius: 10px;
+    }
+
+    .visitor-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .visitor-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .visitor-details h3 {
+        margin: 0;
+        color: #333;
+    }
+
+    .visit-time {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 0.2rem 0;
+    }
+
+    .visitor-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .view-profile, .send-message {
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .view-profile {
+        background: #ff6b6b;
+        color: white;
+    }
+
+    .send-message {
+        background: #4361ee;
+        color: white;
+    }
+
+    .no-visitors {
+        text-align: center;
+        color: #666;
+        font-size: 1.1rem;
+        padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .visitors-section{
+            margin-top: 10vh;
+        }
+        .visitor-card {
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .visitor-info {
+            flex-direction: column;
+        }
+
+        .visitor-actions {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    footer{
+        margin-top: 36vh !important;
+    }
+    @media (min-width: 767px) and (max-width: 1024px) {
+    footer{
+      margin-top: 51vh !important;
+      }
+    .visitors-container{
+      margin-top: 10vh !important;
+    }
+
+  }
+</style>
+{% endblock %}

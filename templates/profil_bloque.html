@@ -1,0 +1,65 @@
+{% extends "layouts/master.html" %}
+{% load i18n %}
+{% block "contenu" %}
+<section class="blocked-section">
+  <div class="blocked-container">
+    <h2 style="color: #c00; text-align: center; margin-top: 2em;">{% trans "You have been blocked" %}</h2>
+    <div style="text-align: center; margin: 2em 0;">
+      <img src="/{{ member.profil.images }}" alt="{% trans 'Photo of' %} {{ member.pseudo }}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;">
+      <h3>{{ member.pseudo }}</h3>
+    </div>
+    <form method="post" id="unblock-form" style="display:none;">{% csrf_token %}</form>
+    <p style="text-align: center; font-size: 1.2em; margin: 2em 0;">
+      {% if user_has_blocked %}
+        {% trans "You have blocked this member." %}<br>
+        <button type="button" id="unblock-btn" style="background: #4CAF50; color: white; padding: 10px 24px; border: none; border-radius: 6px; font-size: 1.1em; cursor: pointer;">
+          <i class="fas fa-unlock"></i> {% trans "Unblock" %}
+        </button>
+      {% else %}
+        {% trans "You cannot access this profile or messaging because you have been blocked by this user." %}<br>
+      {% endif %}
+      {% trans "If you think this is a mistake, you can contact support." %}
+    </p>
+    <div style="text-align: center; margin-top: 2em;">
+      <a href="/membres/" class="btn btn-primary">{% trans "Back to member list" %}</a>
+    </div>
+  </div>
+</section>
+<style>
+.blocked-section { min-height: 60vh; display: flex; align-items: center; justify-content: center; }
+.blocked-container { background: #fff; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); padding: 3em 2em; max-width: 500px; width: 100%; }
+</style>
+{% if user_has_blocked %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const unblockBtn = document.getElementById('unblock-btn');
+    const memberId = "{{ member.id }}";
+    if (unblockBtn) {
+        unblockBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!confirm("{% trans 'Do you really want to unblock this member?' %}")) return;
+            fetch("{% url 'unblock_member' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'member_id=' + encodeURIComponent(memberId)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("{% trans 'Member unblocked.' %}");
+                    location.reload();
+                } else {
+                    alert(data.error || "{% trans 'Error while unblocking.' %}");
+                }
+            })
+            .catch(() => alert("{% trans 'Error while unblocking.' %}"));
+        });
+    }
+});
+</script>
+{% endif %}
+{% endblock "contenu" %}

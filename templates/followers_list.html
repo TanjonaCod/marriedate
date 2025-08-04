@@ -1,0 +1,72 @@
+{% extends "layouts/master.html" %}
+{% load i18n %}
+{% block "contenu" %}
+<section class="followers-section">
+    <h2>{% trans "Abonnés de" %} {{ membre.pseudo }}</h2>
+    <ul class="followers-list">
+        {% for follower in followers %}
+            <li>
+                <a href="{% url 'detail_profil' follower.follower.id %}">
+                    {{ follower.follower.pseudo }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<style>
+    .followers-section {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 1rem;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .followers-section h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 1.5rem;
+    }
+
+    .followers-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .followers-list li {
+        padding: 0.8rem;
+        border-bottom: 1px solid #eee;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+
+    .followers-list li a {
+        text-decoration: none;
+        color: #007bff;
+        font-size: 1.2rem;
+    }
+
+    .followers-list li a:hover {
+        text-decoration: underline;
+    }
+    footer{
+        margin-top: 56vh !important;
+    }
+    @media screen and (max-width:768px) {
+        .followers-section{
+            margin-top: 16vh;
+        }
+    }
+    @media (min-width: 767px) and (max-width: 1024px) {
+    footer{
+        margin-top: 61vh !important;
+        }
+    .followers-section{
+        margin-top: 10vh !important;
+        }
+
+    }
+</style>
+{% endblock "contenu" %}

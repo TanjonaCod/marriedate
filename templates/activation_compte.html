@@ -1,0 +1,154 @@
+{% block "contenu" %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <section id="activation">
+        <div>
+            <h2>Activer votre compte</h2>
+            <p>Tu veux reactiver ton compte? Bonnne nouvelle! <b>Toutes des données sont intactes</b> et prêtes à être retrouvées, Retrouvez vos <b>conversations passées <span style="color: red;font-size: 1.5vw;">&heartsuit;</span></b> Continuez là ou vous vous étiez arrêté, Découvrer de nouveaux profils compatibles avec vous!!!</p>
+            <button id="ouvrir_champ" style="background-color: brown;">oui</button>
+            <a href="{% url 'deconnexion' %}" >
+                <button style="background-color: blue;">Non</button>
+            </a>
+        </div>
+        <form action="{% url 'valider_compte' id_user=request.session.client.id %}" method="POST" id="valider_desactivation">
+            {% csrf_token %}
+            <div style="position: relative;">
+                <input type="password" name="password" id="password" placeholder="Entrer votre mot de passe">
+                <span id="togglePassword">
+                <i class="fa fa-eye" id="eyeIcon"></i>
+                </span>
+            </div>
+            <button type="submit">Valider</button>
+        </form>
+    </section>
+    <style>
+        #togglePassword{
+            position:absolute; 
+            right:10px; top:50%; 
+            transform:translateY(-50%); 
+            cursor:pointer;
+        }
+        #activation{
+            width: 30%;
+            height: 40vh;
+            text-align: center;
+            border-radius: 15px;
+            padding: 20px;
+            margin-left: 30%;   
+            background-color: rgba(255, 192, 203, 0.685);   
+            box-shadow: 0 2px 2px 2Px rgba(0, 0, 0, 0.466);    
+            margin-top: 20vh; 
+        }
+        #activation p{
+            font-size: 1.3vw;
+        }
+        #activation h2{
+            color: rgb(235, 65, 13);
+            font-size: 2vw;
+        }
+        #activation button{
+            width: 40%;
+            height: 40px;
+            border-radius: 15px;
+            border: none;
+            font-size: 1.5vw;
+            color: white;
+            cursor: pointer;
+            
+        }
+        #valider_desactivation{
+            display: none;
+        }
+        #valider_desactivation input{
+            width: 100%;
+            height: 45px;
+            border-radius: 15px;
+            margin: 20px 0;
+            padding-left: 7px;
+            border: none;
+            /* background-color: rgba(134, 112, 78, 0.76); */
+            font-size: 1.2vw;
+        }
+        #valider_desactivation button{
+            background-color: red;
+    
+        }
+        .elargie{
+            height: 55vh !important;
+            /* transition: 3s ease-in-out; */
+        }
+        @media screen and (max-width:600px) {
+            #activation{
+                width: 80%;
+                height: 95vh;
+                text-align: center;
+                border-radius: 15px;
+                padding: 20px;
+                margin-left: 7%;
+                background-color: rgba(255, 192, 203, 0.685);
+                box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.466);
+                margin-top: 20vh;
+            }
+            #activation h2 {
+                color: rgb(235, 65, 13);
+                font-size: 21vw;
+            }
+            #activation p {
+                font-size: 10.3vw;
+            }
+            #activation button {
+                width: 40%;
+                height: 70px;
+                border-radius: 15px;
+                border: none;
+                font-size: 10.5vw;
+                color: white;
+            }
+            .elargie{
+                height: 118vh !important;
+                transition: 3s ease-in-out;
+            }
+            #valider_desactivation input {
+                width: 80%;
+                height: 60px;
+                border-radius: 15px;
+                margin: 20px 0;
+                padding-left: 10px;
+                border: none;
+                /* background-color: rgba(134, 112, 78, 0.76); */
+                font-size: 8.2vw;
+            }
+            #togglePassword {
+                position: absolute;
+                right: 6rem;
+                top: 50%;
+                transform: translateY(-44%);
+                cursor: pointer;
+                font-size: 24px;
+            }
+
+        }
+    </style>
+    <script>
+        let ouvrir_champ = document.getElementById("ouvrir_champ")
+        let valider_desactivation = document.getElementById("valider_desactivation")
+        let activation = document.getElementById("activation")
+        ouvrir_champ.addEventListener("click", ()=>{
+            valider_desactivation.style = "display:block;"
+            activation.classList.add("elargie")
+        })
+        document.getElementById('togglePassword').onclick = function() {
+            const pwd = document.getElementById('password');
+            const icon = document.getElementById('eyeIcon');
+            if (pwd.type === "password") {
+                pwd.type = "text";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                pwd.type = "password";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        };
+    </script>
+{% endblock %}

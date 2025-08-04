@@ -1,0 +1,1120 @@
+{% load static %}
+{% load i18n %}
+{% if request.session.client %}
+<header class="site-header">
+    <div class=""> 
+        <a href="{% url 'membres' %}" class="logo">
+            <img src="{% static 'images/logo1.png' %}" width="150px" height="50px" alt="" class="logo_grand">
+        </a>
+        <a href="{% url 'membres' %}" class="logo2"><i style="color: #e11584;font-size:40px">
+            <img src="{% static 'images/logo1.png' %}" alt="" class="logo_petit">
+        </i></a>
+    </div>
+    <nav class="main-nav">
+        <ul class="ul_1">
+            <li>     
+                <a href="{% url 'messages_tous' %}" class="message-link" id="btn_messages">
+                    <i class="fa fa-envelope"></i>                    
+                    <span class="nav-text">Messages</span>
+                    {% if messages_unread_senders_count > 0 %}
+                        <div class="messages-count" id="messages_count_badge">{{ messages_unread_senders_count }}</div>
+                    {% endif %}
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'notifications_page' %}" id="btn_notifications" style="text-decoration:none; position:relative;">
+                    <i class="fa fa-bell"></i>
+                    <span class="nav-text">Notifications</span>                    
+                    {% if notifications_count and notifications_count > 1 %}
+                        <div class="notification-count">{{ notifications_count }}</div>
+                    {% endif %}
+                </a>
+                <!-- Ancien bouton remplacé par un lien -->
+            </li>
+            <li>
+                    <button id="btn_popup">
+                        {% if request.session.client.profil_image %}
+                             <img src="/{{request.session.client.profil_image}}" alt="Profil" height="40" width="40" style="border-radius: 100%;">
+                        {% else %}
+                            <img src="/{% static request.session.client.profil_image %}" alt="Profil" height="50" width="50" style="border-radius: 100%;">
+                        {% endif %}
+                    </button>
+                    
+            </li>
+
+            <div class="pop_up" id="popup_menu">
+                <ul>
+                    <li><a href="{% url 'mon_profil' request.session.client.id %}">{% trans "My profile" %}</a></li>
+                    <li><a href="{% url 'online_members' %}">{% trans "Online" %}</a></li>
+                    <li class="dropdown-langue">
+                        <a href="#" id="langueDropdownBtn" style="margin-bottom: 10px;">{% trans "Language" %} <i class="fa fa-caret-down"></i></a>
+                        <ul class="dropdown-langue-list" id="langueDropdownList">
+                            <li>
+                                <form action="{% url 'set_language' %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" name="language" value="fr" style="background:none;border:none;color:rgb(5, 5, 5);width:100%;text-align:left;padding:8px 16px;">{% trans "French" %}</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="{% url 'set_language' %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" name="language" value="en" style="background:none;border:none;color:rgb(8, 8, 8);width:100%;text-align:left;padding:8px 16px;">{% trans "English" %}</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'messages_tous' %}">{% trans "Messages" %}</a></li>
+                    {% if request.session.client and request.session.client.id %}
+                        <li><a href="{% url 'list_followers' request.session.client.id %}">{% trans "Who followed my profile" %}</a></li>
+                        <li><a href="{% url 'parametres' request.session.client.id %}">{% trans "Settings" %}</a></li> 
+                    {% endif %}
+                    <li><a href="{% url 'deconnexion' %}" class="nav-link"><i class="fa fa-sign-out-alt"></i> <span class="nav-">{% trans "Logout" %}</span></a></li>
+                </ul>
+            </div>
+        </ul>
+    </nav>
+</header> 
+{% else %}
+    <header class="top-header" id="topHeader">
+         <!-- <div>
+                <form action="{% url 'set_language' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <select name="language" onchange="this.form.submit()" class="langue" style="background:transparent; color:white; border:none;">
+                        <option value="">LAN</option>
+                        <option value="fr" {% if LANGUAGE_CODE == 'fr' %}selected{% endif %}>FR</option>
+                        <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>EN</option>
+                    </select>
+                </form>
+            </div> -->
+        <div class="container">
+            <h2 class="logo">
+                <a href="{% url 'aff_accueil' %}">
+                    <img src="{% static 'images/logo1.png' %}" alt="" class="logo_petit">
+                </a>
+            </h2>
+            
+            <a href="{% url 'aff_accueil' %}"><img src="{% static 'images/logo1.png' %}" width="150px" height="50px" alt="" class="logo_grand"></a>
+            
+            <nav class="nav-buttons">
+                <a href="{% url 'aff_register' %}" class="btn inscrip" id="inscripBtn" style="display:none;">{% trans "Sign up" %}</a>
+                <a href="{% url 'aff_login' %}" class="btn connex">{% trans "Login" %}</a>
+            </nav>
+        </div>
+    </header>
+{% endif %}
+
+<script>
+    window.addEventListener('scroll', function() {
+    const header = document.getElementById('topHeader');
+    const inscripBtn = document.getElementById('inscripBtn');
+    if (window.scrollY > window.innerHeight * 0.6) {
+        header.classList.add('scrolled');
+        inscripBtn.style.display = 'inline-block';
+    } else {
+        header.classList.remove('scrolled');
+        inscripBtn.style.display = 'none';
+    }
+});
+
+// document.addEventListener('DOMContentLoaded', function() {
+    
+//     const inscripBtn = document.getElementById('inscripBtn');
+//     const loginBtn = document.getElementById('loginBtn');
+//     const currentPath = window.location.pathname;
+
+//     if (currentPath.includes('register')) {
+//         inscripBtn.style.display = 'none';
+//     }
+
+//     if (currentPath.includes('login')) {
+//         loginBtn.style.display = 'none';
+//     }
+// });
+
+</script>
+
+<style>
+
+@media (max-width:480px) {
+    .main-nav .ul_1{
+        display:flex;
+        gap: 1.5rem !important;
+    }
+}
+
+.nav-buttons{
+    display: flex;
+    margin-left: 20rem;
+    gap: 10px;
+}
+#inscripBtn {
+    opacity: 1;
+    transform: translateY(-1px); 
+    /* pointer-events: none; */
+    transition: opacity 0.4s cubic-bezier(.4,2,.6,1), transform 0.4s cubic-bezier(.4,2,.6,1);
+    animation: animer 2s linear;
+    transition: 2s ease-in-out;
+
+}
+@keyframes animer {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.top-header.scrolled {
+    background: linear-gradient(90deg, #ddcfd7 0%, #ff8e8e 100%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    transition: background 0.5s;
+}
+.top-header {
+    background-color: #6134467a;
+    position: fixed;
+    width: 100%;
+    padding: 20px 0;
+    color: white;
+    z-index: 10;
+    height: 70px;
+}
+
+.top-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: -5px 80px;
+    height: 37px;
+}
+.top-header.scrolled .nav-buttons a{
+    margin-left: 0 !important;
+}
+.top-header h2{
+    display: none;
+}
+/* .logo {
+    display: none;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+} */
+
+.nav-buttons a {
+    margin-left: 7rem;
+    padding: 5px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    height: 40px;
+}
+
+.btn {
+    background-color: #e11584;
+    color: white;
+    /* border: 2px solid #710193; */
+    border-radius: 20px;
+        background-color: #e11584;
+    color: white;
+    /* border: 2px solid #710193; */
+    border-radius: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.btn:hover {
+    background-color: rgba(255,255,255,0.2);
+    color: #028a0f;
+}
+
+.btn-primary-con {
+    background-color: white;
+    color: #e91e63;
+    border: none;
+}
+.inscrip {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #028a0f;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* .inscrip:hover {
+    background-color: #028a0f;
+} */
+
+
+.btn-primary:hover {
+    background-color: #f8d2df;
+}
+/* ============================ */
+    
+    .logo2{
+        color: white;
+        display: none; /* Cache par défaut sur desktop */
+    }
+    
+    @media (max-width: 768px) {
+        .logo2 {
+            display: block; /* Affiche sur mobile */
+        }
+    }
+
+    .site-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1rem;
+        background: linear-gradient(to right, #f7f7f7, #ff8e8e);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .sary_pers{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+    }
+
+    .main-nav{
+        position: relative;
+       
+    }
+    .main-nav .ul_1 {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .main-nav a {
+        color: rgb(252, 252, 253);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: transform 0.2s;
+    }
+
+    .main-nav a:hover {
+        transform: translateY(-2px);
+    }
+
+    #btn_popup {
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #btn_popup:hover {
+            transform: scale(1.1);
+        }
+
+        .sary_pers {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .pop_up {
+            position: fixed;
+            top: 7rem; 
+            right: 4rem;
+            width: 250px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8);
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .pop_up.show {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            
+        }
+
+        .pop_up ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pop_up ul li {
+            padding: 12px 20px;
+            border-bottom: 1px solid #f1f1f1;
+            transition: background-color 0.2s;
+        }
+
+        .pop_up ul li:last-child {
+            border-bottom: none;
+        }
+
+        .pop_up ul li:hover {
+            background-color: #f9f9f9;
+        }
+
+        .pop_up ul li a {
+            text-decoration: none;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pop_up ul li a i {
+            color: #4CAF50;
+        }
+
+        .pop_up ul li:hover a{
+            color: #0c0c0c;
+        }
+
+        /* Overlay for outside click */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 999;
+        }
+        #btn_notifications:hover {
+            transform: scale(1.05);
+        }
+        #btn_notifications{
+            border: none;
+            background-color: transparent;
+            color: white;
+            transform: scale(1.05);
+            cursor: pointer;
+            font-size: 1.1vw;
+
+        }
+
+
+        .notification-count {
+            background-color: #f8f9fa;
+            color: rgb(226, 15, 15);
+            border-radius: 50%;
+            padding: 2px 6px;
+            /* font-size: 4.7em; */
+            position: absolute;
+            top: -3px;
+            right: -22px;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Notifications Popup Styling */
+        .notifications-popup {
+            position: fixed;
+            top: 6rem; 
+            /* right: 15rem; */
+            width: 24rem;
+            /* max-height: 400px; */
+            background-color: rgb(251, 252, 255);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8);
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .notifications-popup.show {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        .notifications-popup h3 {
+            background-color: #f1f1f1;
+            padding: 15px;
+            margin: 0;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .notifications-popup ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .notifications-popup ul li {
+            padding: 15px;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .notifications-popup ul li:hover {
+            background-color: #f9f9f9;
+        }
+
+        .notifications-popup ul li img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .notifications-popup ul li .notification-details {
+            flex-grow: 1;
+        }
+
+        .notifications-popup ul li .notification-details p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .notifications-popup ul li .notification-details small {
+            color: #888;
+            font-size: 0.7em;
+        }
+
+        .notifications-popup ul li .notification-time {
+            color: #666;
+            font-size: 0.8em;
+        }
+        .notifications-popup ul li a{
+            color: blue;
+        }
+
+        /* Overlay for outside click */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 999;
+        }
+        /* Styles spécifiques tablettes */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .site-header {
+        padding: 0.8rem;
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        top: 0;
+    }
+
+    .site-header .logo_grand {
+        width: 150px;
+        display: block;
+    }
+
+    .logo2 {
+        display: none;
+    }
+
+    .main-nav .ul_1 {
+        gap: 1.5rem;
+    }
+
+    .main-nav a {
+        font-size: 1rem;
+    }
+
+    #btn_notifications {
+        font-size: 1rem;
+    }
+
+    .pop_up {
+        width: 300px;
+        right: 1rem;
+    }
+
+    .notifications-popup {
+        width: 20rem;
+        right: 2rem;
+    }
+
+    .nav-buttons {
+        margin-left: 2rem;
+    }
+
+    .nav-buttons a {
+        margin-left: 1rem;
+    }
+}
+
+/* Styles mobile existants */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .pop_up {
+        width: 32rem !important;
+        height: 45vh !important;
+        position: absolute;
+        top: 10vh;
+        left: -5rem !important;
+        right: 0px;
+    }
+    .pop_up.show {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+        left: -14rem !important;
+    }
+}
+@media (max-width:767px) {
+            .btn{
+                font-size: 15px;
+                height: 40px;
+                width: 7rem;
+            }
+            .nav-buttons a{
+                margin-left: 6rem;
+                padding: 10px 0px !important;
+            }
+            .top-header h2{
+                display: block;
+            }
+            .top-header{
+                height: 10vh;
+                padding: 10px 0;
+            }
+            .top-header.scrolled .nav-buttons{
+                margin-left: 9rem;
+            }
+            .top-header.scrolled .nav-buttons a{
+                margin-left: 0 !important;
+            }
+            .top-header .container .logo_grand{
+                display: none;
+            }
+            .pop_up{
+                width: 26rem;
+                height: 68vh;
+                position: absolute;
+                top: 10vh;
+                left: -10rem;
+                right: 0px;
+            }
+        .logo{
+            display: block;
+            position: absolute;
+            left: 20px;
+            top: 15px;
+            /* width: 100px; */
+            font-size: 2rem;
+            font-style: italic;
+        }
+        .logo .logo_petit{
+            width: 100px;
+            height: 30px;
+        }
+        .notifications-popup{
+            display: block;
+            position: absolute;
+            top: 10vh;
+            /* left: -2rem; */
+            left: -9rem;
+            
+        }
+        .site-header{
+            padding: 1rem 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 900000000;
+            top: 0;
+        }
+        .site-header a{
+            font-size: 6vw;
+        }
+        .main-nav .ul_1 {
+            display: flex;
+            gap: 2rem;    
+        }
+        #btn_notifications{
+            font-size: 6vw;
+        }
+        .langue{
+            font-size: 3vw;
+        }
+        .pop_up.show {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            left: -13rem;
+        }
+        .nav-buttons {
+            display: flex;
+            margin-left: 10rem;
+            gap: 10px;
+            width: 14rem;
+        }
+        }
+        /* Styles spécifiques tablettes */
+@media (min-width: 767px) and (max-width: 1024px) {
+    .site-header {
+        padding: 0.8rem;
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        top: 0;
+    }
+
+    .site-header .logo_grand {
+        width: 150px;
+        display: block;
+    }
+
+    .logo2 {
+        display: none;
+    }
+
+    .main-nav .ul_1 {
+        gap: 1.5rem;
+    }
+
+    .main-nav a {
+        font-size: 1rem;
+    }
+
+    #btn_notifications {
+        font-size: 1rem;
+    }
+
+    .pop_up {
+        width: 300px;
+        right: 1rem;
+    }
+
+    .notifications-popup {
+        width: 20rem;
+        right: 2rem;
+    }
+
+    .nav-buttons {
+        margin-left: 2rem;
+    }
+
+    .nav-buttons a {
+        margin-left: 1rem;
+    }
+}
+
+@media (max-width: 767px) {
+        .dropdown-langue-content {
+            min-width: 90vw;
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+            font-size: 1.1em;
+            padding: 8px;
+            max-height: 160px;
+        }
+        .dropdown-langue-content select {
+            width: 100%;
+            font-size: 1.1em;
+            padding: 8px 0;
+        }
+        }
+
+        /* Styles spécifiques tablettes */
+@media (min-width: 767px) and (max-width: 1024px) {
+    .site-header {
+        padding: 0.8rem;
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        top: 0;
+    }
+
+    .site-header .logo_grand {
+        width: 150px;
+        display: block;
+    }
+
+    .logo2 {
+        display: none;
+    }
+
+    .main-nav .ul_1 {
+        gap: 1.5rem;
+    }
+
+    .main-nav a {
+        font-size: 1rem;
+    }
+
+    #btn_notifications {
+        font-size: 1rem;
+    }
+
+    .pop_up {
+        width: 300px;
+        right: 1rem;
+    }
+
+    .notifications-popup {
+        width: 20rem;
+        right: 2rem;
+    }
+
+    .nav-buttons {
+        margin-left: 2rem;
+    }
+
+    .nav-buttons a {
+        margin-left: 1rem;
+    }
+}
+
+/* Keep existing mobile styles unchanged */
+@media (max-width: 767px) {
+    .logo_petit {
+        display: block; /* Affiche sur mobile */
+        width: 100px;
+        height: 30px;
+    }
+}
+@media (max-width:350px) {
+    .pop_up.show {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+        left: -7rem !important;
+    }
+    .pop_up {
+        width: 17rem !important;
+        height: 81vh !important;
+        position: absolute;
+        top: 10vh;
+        left: -10rem;
+        right: 0px;
+    }
+}
+                
+        
+</style>
+
+<script>    
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnPopup = document.getElementById('btn_popup');
+        const popupMenu = document.getElementById('popup_menu');
+
+        btnPopup.addEventListener('click', function(e) {
+            e.stopPropagation(); 
+            popupMenu.classList.toggle('show');
+        });
+
+        popupMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        
+        document.addEventListener('click', function(e) {
+            if (popupMenu.classList.contains('show')) {
+                popupMenu.classList.remove('show');
+            }
+        });
+
+        const btnNotifications = document.getElementById('btn_notifications');
+        const notificationsPopup = document.getElementById('notifications_popup');
+
+        btnNotifications.addEventListener('click', function () {
+            if (notificationsPopup) {
+                notificationsPopup.style.display = notificationsPopup.style.display === 'block' ? 'none' : 'block';
+            }
+        });
+
+        // Close the popup when clicking outside
+        document.addEventListener('click', function (event) {
+            if (
+                (!btnNotifications || !btnNotifications.contains || !btnNotifications.contains(event.target)) &&
+                (!notificationsPopup || !notificationsPopup.contains || !notificationsPopup.contains(event.target))
+            ) {
+                if (notificationsPopup) {
+                    notificationsPopup.style.display = 'none';
+                }
+            }
+        });
+
+        // Fetch notifications dynamically
+        fetch('/notifications/')
+            .then(response => response.json())
+            .then(data => {
+                const notificationsList = document.getElementById('notifications_list');
+                notificationsList.innerHTML = ''; // Clear existing notifications
+                data.notifications.forEach(notification => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="${notification.url}" style="color:black">${notification.message}</a>`;
+                    notificationsList.appendChild(li);
+                    
+                });
+            })
+            .catch(error => console.error('Error fetching notifications:', error));
+
+        const btnMessages = document.getElementById('btn_messages');
+        const badgeMessages = document.getElementById('messages_count_badge');
+        if(btnMessages && badgeMessages) {
+            btnMessages.addEventListener('click', function() {
+                badgeMessages.style.display = 'none';
+            });
+        }
+
+        // Dropdown langue (ul version)
+        const langueBtn = document.getElementById('langueDropdownBtn');
+        const langueDropdownList = document.getElementById('langueDropdownList');
+        if (langueBtn && langueDropdownList) {
+            langueBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                langueDropdownList.classList.toggle('show');
+            });
+            document.addEventListener('click', function(e) {
+                if (!langueBtn.contains(e.target) && !langueDropdownList.contains(e.target)) {
+                    langueDropdownList.classList.remove('show');
+                }
+            });
+        }
+
+        var langBtn = document.getElementById('langIconBtn');
+        var langPopup = document.getElementById('langPopup');
+        if(langBtn && langPopup) {
+            langBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                langPopup.style.display = langPopup.style.display === 'block' ? 'none' : 'block';
+            });
+            document.addEventListener('click', function(e) {
+                if (langPopup.style.display === 'block' && !langPopup.contains(e.target) && e.target !== langBtn) {
+                    langPopup.style.display = 'none';
+                }
+            });
+        }
+    });
+
+    document.getElementById('btn_notifications').addEventListener('click', function () {
+        fetch('/notifications/mark_as_read/', { method: 'POST', headers: { 'X-CSRFToken': '{{ csrf_token }}' } })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelector('.notification-count').textContent = '';
+                }
+            });
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+            const notificationsButton = document.getElementById('btn_notifications');
+            const notificationsPopup = document.getElementById('notifications_popup');
+            let popupOverlay = null;
+
+            notificationsButton.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                
+                notificationsPopup.classList.toggle('show');
+
+                if (notificationsPopup.classList.contains('show')) {
+                    popupOverlay = document.createElement('div');
+                    popupOverlay.classList.add('popup-overlay');
+                    document.body.appendChild(popupOverlay);
+
+                    popupOverlay.addEventListener('click', () => {
+                        notificationsPopup.classList.remove('show');
+                        document.body.removeChild(popupOverlay);
+                    });
+                } else if (popupOverlay) {
+                    document.body.removeChild(popupOverlay);
+                }
+            });
+        });
+
+    setInterval(function() {
+        fetch("{% url 'messages_unread_count' %}")
+            .then(response => response.json())
+            .then(data => {
+                let badge = document.querySelector('.messages-count');
+                if (data.count > 0) {
+                    if (!badge) {
+                        let span = document.createElement('span');
+                        span.className = 'messages-count';
+                        span.textContent = data.count;
+                        document.querySelector('.message-link').appendChild(span);
+                    } else {
+                        badge.textContent = data.count;
+                    }
+                } else if (badge) {
+                    badge.remove();
+                }
+            });
+    }, 5000); 
+
+    const ws = new WebSocket('ws://' + window.location.host + '/ws/messages/notifications/');
+
+    ws.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        if (data.type === 'new_message') {
+            let badge = document.querySelector('.messages-count');
+            if (data.count > 0) {
+                if (!badge) {
+                    badge = document.createElement('span');
+                    badge.className = 'messages-count';
+                    document.querySelector('.message-link').appendChild(badge);
+                }
+                badge.textContent = data.count;
+            } else if (badge) {
+                badge.remove();
+            }
+        }
+        if (data.type === 'new_message' && data.message) {
+            let badge = document.querySelector('.messages-count');
+            if (data.count > 0) {
+                if (!badge) {
+                    badge = document.createElement('span');
+                    badge.className = 'messages-count';
+                    document.querySelector('.message-link').appendChild(badge);
+                }
+                badge.textContent = data.count;
+            } else if (badge) {
+                badge.remove();
+            }
+        }
+    };
+</script>
+
+<style>
+.messages-count, .notification-count {
+    background: #e41e3f;
+    color: white;
+    border-radius: 50%;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    border: 2px solid white;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.message-link, #btn_notifications {
+    position: relative;
+}
+
+.dropdown-langue {
+    position: relative;
+}
+.dropdown-langue-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: #343a40;
+    color: white;
+    border-radius: 8px;
+    min-width: 100px;
+    z-index: 1001;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    max-height: 120px; /* Limite la hauteur du dropdown */
+    overflow-y: auto;   /* Active le scroll si besoin */
+}
+.dropdown-langue-list {
+    display: none;
+    position: static;
+    /* background: #343a40; */
+    color: white;
+    border-radius: 8px;
+    min-width: 100px;
+    z-index: 1001;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    margin: 0;
+    padding: 0;
+    /* width: 80%;
+    font-size: 4vw; */
+}
+.dropdown-langue-list.show {
+    display: block;
+}
+.dropdown-langue-list li {
+    padding: 0;
+    border: none;
+}
+.dropdown-langue-list button {
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    text-align: left;
+    padding: 8px 16px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dropdown-langue a {
+    cursor: pointer;
+}
+.lang-popup {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 35px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 1001;
+    min-width: 120px;
+}
+.lang-popup button {
+    font-size: 1em;
+    color: #222;
+    background: none;
+    border: none;
+    padding: 6px 0;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.lang-popup button:hover {
+    background: #f0f0f0;
+}
+@media screen and (max-width: 768px) {
+   .dropdown-langue-list {
+    display: none;
+    position: static;
+    /* background: #343a40; */
+    color: white;
+    border-radius: 8px;
+    min-width: 100px;
+    z-index: 1001;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    margin: 0;
+    padding: 0;
+    width: 80%;
+    font-size: 4vw;
+}
+    
+}
+</style>
+
+
+
+

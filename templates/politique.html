@@ -1,0 +1,146 @@
+{% extends "layouts/master.html" %}
+
+{% load i18n %}
+
+{% block 'title' %}
+    {% trans "politique de confidentialité" %}
+{% endblock 'title' %}
+
+
+{% block "contenu" %}
+    <section>
+        <h2>{% trans "Politique de confidentialité - Lovelimeet" %}</h2>
+        <div>
+            <h3>{% trans "1. Introduction" %}</h3> 
+            <p>{% trans "Lovelimeet respecte la vie privée de ses utilisateurs et s'engage à proteger leurs données personnelles.Cette politique explique comment nous collectons,utilisons et sécurisons vos informations." %}</p>
+        </div>
+        <div>
+            <h3>{% trans "2. Données collectées" %}</h3>
+            <p>{% trans "Nous collectons les informations suivantes lors de l'utilisation du site :" %}</p>
+            <ul>
+                <li><b>{% trans "Données d'inscription" %}</b> </li>
+                <li><b>{% trans "Interactions :" %}</b> {% trans "Messages envoyées, connexions avec d'autres utilisateurs." %}</li>
+                <li><b>{% trans "Données techniques :" %}</b> {% trans "Adresse IP,navigateur utilisé , localisation approximative." %}</li>
+            </ul>
+        </div>
+        <div>
+            <h3>{% trans "3. Utilisations des données" %}</h3>
+            <p>{% trans "Nous utilisons vos informations pour :" %}</p>
+            <ul>
+                <li>{% trans "Faciliter la mise en relation entre utilisateurs." %}</li>
+                <li>{% trans "Améliorer l'expérience et la sécutité sur le site." %}</li>
+                <li>{% trans "Envoyer des notifications et mis à jour." %}</li>
+                <li>{% trans "Respecter nos obligations légales et protéger la communauté." %}</li>
+            </ul>
+        </div>
+        <div>
+            <h3>{% trans "4. Partage des données" %}</h3>
+            <p>{% trans "Lovelimeet" %} <b style="color: black;">{% trans "ne vend pas" %}</b> {% trans "vos données personnels. Nous pouvons partager certaines informations avec :" %}</p>
+            <ul>
+                <li>{% trans "Partenaires techniques pour ameliorer nos services." %}</li>
+                <li>{% trans "Autorités légales en cas d'obligation judiciaire." %}</li>
+            </ul>
+        </div>
+        <div>
+            <h3>{% trans "5. Sécurité des données" %}</h3>
+            <p>{% trans "Nous mettons en place ds mesures de sécurité, notamment :" %}</p>
+            <ul>
+                <li>{% trans "Mots de passe bien securisé" %}</li>
+                <li>{% trans "Authentification et contrôle d'accès pour protéger les comptes." %}</li>
+                <li>{% trans "Hébergement sécurisé et suivi des connexions suspectes" %}</li>
+            </ul>
+        </div>
+        <div>
+            <h3>{% trans "6. Gestion des droits" %}</h3>
+            <p>{% trans "Vous pouvez :" %}</p>
+            <ul>
+                <li>{% trans "Accéder et modifier  vos informatrions dans les paramètres du compte." %}</li>
+                <li>{% trans "Demander la suppression de votre compte et données personnelles." %}</li>
+                <li>{% trans "Désactiver les notifications et communications." %}</li>
+            </ul>
+        </div>
+        <div>
+            <h3>{% trans "7. Modification de la politique" %}</h3>
+            <p>{% trans "Nous pouvons mettre à jour cette Politique de confidentialité à tout moment. Vous serez informé des changements importants" %}</p>
+        </div>
+    </section>
+    <style>
+         section {
+                padding: 2vh 10px;
+                color: #333;
+                font-size: 1.5vw;
+                font-style: oblique;
+                margin: 10px 10px;
+            }
+             #inscripBtn{
+                display: block !important;
+            }
+            section ul{
+                padding: 10px 30px;
+            }
+            section h3{
+                padding: 5px 0;
+            }
+            section p{
+                font-weight: bolder;
+                color: #837c7c;
+                padding-left: 8px;
+            }
+            .nav-buttons a {
+                margin-left: 0;
+                padding: 10px 20px;
+                border-radius: 20px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: background 0.3s ease;
+            }
+            .top-header {
+                background-color: #6134467a;
+                position: relative !important;
+            }
+
+       @media screen and (max-width:768px) {
+            #inscripBtn{
+                display: block !important;
+                width: 47rem;
+            }
+            section {
+                padding: 2vh 10px;
+                color: #333;
+                font-size: 3.5vw;
+                font-style: oblique;
+            }
+            footer{
+                margin-top: 10vh !important;
+            }
+            .nav-buttons {
+                display: flex;
+                margin-left: 7rem;
+                gap: 10px;
+                width: 12rem;
+            }
+            .nav-buttons a {
+                margin-left: 0;
+                padding: 10px 20px;
+                border-radius: 20px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: background 0.3s ease;
+            }
+            .btn {
+                font-size: 13px;
+                height: 40px;
+                width: 41rem;
+            }
+            .top-header {
+            background-color: #6134467a;
+            position: relative !important;
+            }
+        }
+         @media screen and (max-width:350px){
+            .top-header{
+                height: 15vh;
+            }
+        }
+    </style>
+{% endblock "contenu" %}

@@ -1,0 +1,125 @@
+{% extends "layouts/master.html" %}
+
+{% load i18n %}
+
+{% block 'title' %}
+    {% trans "condition utilisations" %}
+{% endblock 'title' %}
+
+{% block "contenu" %}
+    <section class="condition_utilisation">
+        <h2>{% trans "Conditions Générales d'Utilisation - Lovelimeet" %}</h2>
+        <div class="presentation">
+            <h3>{% trans "1.Présentation du Service" %}</h3> 
+            <p>{% trans "Lovelimeet est une plateforme de rencontre en ligne permettant aux utilisateurs de se connecter, d'échanger et de créer des relations. En utilisant notre site, vous acceptez les présentes" %} <b>{% trans "Conditions Générales d'utilisation" %}</b></p>
+        </div>
+        <div class="Ins_compte">
+            <ul class="compte">
+                <h3>{% trans "2. Inscription et Compte" %}</h3>
+                <li>{% trans "Vous devez avoir" %} <b>{% trans "18 ans ou plus" %}</b> {% trans "pour vous inscrire" %}</li>
+                <li>{% trans "Vous êts responsable des informations fournies et de la sécurité de votre compte" %}</li>
+                <li>{% trans "Lovelimeet se réserve le droit de suspendre ou supprimer tout compte en cas de non-respect" %}</li>
+            </ul>
+        </div>
+        <div class="confi_sec">
+            <ul class="confi">
+                <h3>{% trans "3. Confidentialité et Sécurité" %}</h3>
+                <li>{% trans "Vos données personnelles sont protégées conformément à notre" %} <b>{% trans "Politique de Confidentialité" %}</b></li>
+                <li>{% trans "Nous ne partageons pas vos informations sans votre consentement" %}</li>
+                <li>{% trans "Tout comportement abusif ou contraire à la loi entraînera la suppression du compte" %}</li>
+            </ul>
+        </div>
+        <div class="comportement">
+            <ul>
+                <h3>{% trans "4. Comportement des Utilisateurs" %}</h3>
+                <li>{% trans "Il est interdit de publier du contenu offensant, illégal ou trompeur" %}</li>
+                <li>{% trans "Le harcèlement, les arnaques et tout comportement inapproprié ne sont pas tolérés" %}</li>
+                <li>{% trans "Les utilisateurs doivent" %} <b>{% trans "respecter les autres" %}</b> {% trans "et adopter une attitude bienveillante" %}</li>
+            </ul>
+        </div>
+        <div class="Responsabilite">
+            <ul>
+                <h3>{% trans "5. Responsabilité de Lovelimeet" %}</h3>
+                <li>{% trans "Lovelimeet ne garantit pas que les rencontres se transformeront en relation" %}</li>
+                <li>{% trans "Nous ne sommes pas responsables des interactions entre utilisateurs" %}</li>
+                <li>{% trans "Le site peut être temporairement indisponible en cas de maintenance" %}</li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <h3>{% trans "6. Modification des Conditions Générales d'utilisation" %}</h3>
+                <p>{% trans "Nous nous réservons le droit de" %} <b>{% trans "modifier ces conditions" %}</b> {% trans "à tout moment. Les utilisateurs seront informés des mis à jour importantes" %}</p>
+            </ul>
+        </div>
+    </section>
+    <style>
+        .presentation li:first-child{
+            list-style: decimal;
+        }
+         section {
+                padding: 18vh 10px;
+                color: #333;
+                font-size: 1.5vw;
+                font-style: oblique;
+            }
+            #inscripBtn{
+                display: block !important;
+            }
+            .condition_utilisation div{
+                margin: 10px 10px;
+            }
+            .condition_utilisation div li{
+                margin-left: 2rem;
+            }
+            .condition_utilisation h3{
+                padding-bottom: 2px;
+            }
+            .nav-buttons a {
+                margin-left: 0;
+                padding: 5px 20px;
+                border-radius: 20px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: background 0.3s ease;
+            }
+       @media screen and (max-width:768px) {
+            #inscripBtn{
+                display: block !important;
+                width: 47rem;
+            }
+            section {
+                padding: 18vh 10px;
+                color: #333;
+                font-size: 3.5vw;
+                font-style: oblique;
+            }
+            footer{
+                margin-top: 10vh !important;
+            }
+            .nav-buttons {
+                display: flex;
+                margin-left: 7rem;
+                gap: 10px;
+                width: 13rem;
+            }
+            .nav-buttons a {
+                margin-left: 0;
+                padding: 10px 20px;
+                border-radius: 20px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: background 0.3s ease;
+            }
+            .btn {
+                font-size: 13px;
+                height: 40px;
+                width: 41rem;
+            }
+        }
+        @media screen and (max-width:350px){
+            .top-header{
+                height: 15vh;
+            }
+        }
+    </style>
+{% endblock "contenu" %}

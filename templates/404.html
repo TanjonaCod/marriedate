@@ -1,0 +1,9 @@
+{% extends "layouts/master.html" %}
+{% load i18n %}
+{% block "contenu" %}
+  <div style="text-align:center; margin-top:10vh;">
+    <h1>404 - {% trans "Page non trouvée" %}</h1>
+    <p>{% trans "La page que vous cherchez n'existe pas." %}</p>
+    <a href="{% url 'index' %}">{% trans "Retour à l'accueil" %}</a>
+  </div>
+{% endblock %}

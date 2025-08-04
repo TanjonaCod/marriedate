@@ -1,0 +1,1055 @@
+{% extends "layouts/master.html" %}
+{% load i18n %}
+{% block 'title' %}
+    Inscription
+{% endblock 'title' %}
+{% load static %}
+{% load custom_filters %}
+{% block "contenu" %}
+<div class="inscri_tete">
+    <a href="{% url 'aff_accueil' %}">
+        <img src="{% static 'images/logo1.png' %}" alt="" style="width: 7rem;">
+    </a>
+    <button><a href="{% url 'aff_login' %}">{% trans "Login" %}</a></button>
+</div>
+<section class="register-section">
+    <div class="register-container">
+        <div class="register-form-container">
+            {% if message %}
+              <h2 style="color:red;font-size:2vw"> {{message}} </h2>
+            {% endif %}
+            
+            {# Affichage des erreurs spécifiques aux champs #}
+            {% if error_field %}
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  var field = document.getElementsByName('{{ error_field }}')[0];
+                  if(field) {
+                    field.style.border = '2px solid red';
+                    field.focus();
+                  }
+                });
+              </script>
+            {% endif %}
+            
+            <h2 class="register-title" >{% trans "Inscrivez vous!" %}</h2>
+            <form class="register-form" action="{% url 'enregistrer' %}" method="post" style="margin:2rem;">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="pseudo" class="form-label">{% trans "Pseudo" %}</label>
+                    <input type="text" name="pseudo" id="pseudo" class="form-input" placeholder="Ex: marie louise..." required pattern="^[A-Za-z0-9_]+$" title="Seuls les caractères alphanumériques et _ sont autorisés" />
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">{% trans "Email" %}</label>
+                    <input type="email" name="email" id="email" class="form-input" placeholder="Ex: marie@gmail.com..." required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Veuillez entrer une adresse email valide" />
+                </div>
+                <div class="form-group">
+                    <label for="birthdate" class="form-label">{% trans "Date de naissance" %}</label>
+                    <input type="date" name="birthdate" id="birthdate" class="form-input birth" required />
+                </div>
+                <div class="form-group">
+                    <label for="country" class="form-label">{% trans "Country" %}</label>
+                    <select name="country" id="country" class="form-input">
+                        <option value="">{% trans "Select" %}</option>
+                        <option value="Madagascar">Madagascar</option>
+                        <option value="France">France</option>
+                        <option value="Grèce">Grèce</option>
+                        <option value="Hongrie">Hongrie</option>
+                        <option value="Irlande">Irlande</option>
+                        <option value="Islande">Islande</option>
+                        <option value="Italie">Italie</option>
+                        <option value="Kosovo">Kosovo</option>
+                        <option value="Lettonie">Lettonie</option>
+                        <option value="Liechtenstein">Liechtenstein</option>
+                        <option value="Lituanie">Lituanie</option>
+                        <option value="Luxembourg">Luxembourg</option>
+                        <option value="Macédoine du Nord">Macédoine du Nord</option>
+                        <option value="Malte">Malte</option>
+                        <option value="Moldavie">Moldavie</option>
+                        <option value="Monaco">Monaco</option>
+                        <option value="Monténégro">Monténégro</option>
+                        <option value="Norvège">Norvège</option>
+                        <option value="Pays-Bas">Pays-Bas</option>
+                        <option value="Pologne">Pologne</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="République tchèque">République tchèque</option>
+                        <option value="Roumanie">Roumanie</option>
+                        <option value="Royaume-Uni">Royaume-Uni</option>
+                        <option value="Russie">Russie</option>
+                        <option value="Saint-Marin">Saint-Marin</option>
+                        <option value="Serbie">Serbie</option>
+                        <option value="Slovaquie">Slovaquie</option>
+                        <option value="Slovénie">Slovénie</option>
+                        <option value="Suède">Suède</option>
+                        <option value="Suisse">Suisse</option>
+                        <option value="Ukraine">Ukraine</option>
+                        <option value="Vatican">Vatican</option>
+                        <option value="Albanie">Albanie</option>
+                        <option value="Allemagne">Allemagne</option>
+                        <option value="Andorre">Andorre</option>
+                        <option value="Autriche">Autriche</option>
+                        <option value="Belgique">Belgique</option>
+                        <option value="Biélorussie">Biélorussie</option>
+                        <option value="Bosnie-Herzégovine">Bosnie-Herzégovine</option>
+                        <option value="Bulgarie">Bulgarie</option>
+                        <option value="Chypre">Chypre</option>
+                        <option value="Croatie">Croatie</option>
+                        <option value="Danemark">Danemark</option>
+                        <option value="Espagne">Espagne</option>
+                        <option value="Estonie">Estonie</option>
+                        <option value="Finlande">Finlande</option>
+
+                        <!-- Pays africains -->
+                        <option value="Maroc">Maroc</option>
+                        <option value="Algérie">Algérie</option>
+                        <option value="Tunisie">Tunisie</option>
+                        <option value="Sénégal">Sénégal</option>
+                        <option value="Côte d'Ivoire">Côte d'Ivoire</option>
+                        <option value="Cameroun">Cameroun</option>
+                        <option value="Nigeria">Nigeria</option>
+                        <option value="Kenya">Kenya</option>
+                        <option value="Afrique du Sud">Afrique du Sud</option>
+                        <option value="Égypte">Égypte</option>
+                        <option value="La Réunion">La Réunion</option>
+                        <option value="Seychelles">Seychelles</option>
+                        <option value="Maurice">Maurice</option>
+                        <option value="Comores">Comores</option>
+                        <!-- apina donner -->
+                        <option value="Etats_unis">Etats Unis</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Chine">Chine</option>
+                        <option value="Japon">Japon</option>
+                        <option value="Coree">Corée</option>
+                        <option value="Bresil">Brésil</option>
+                        <option value="Mexique">Mexique</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="city" class="form-label">{% trans "Provinces" %}</label>
+                    <select name="city" id="city" class="form-input">
+                        <option value="">{% trans "Select" %}</option>
+                    </select>
+                    
+                </div>
+                <div class="form-group">
+                    <label for="lieux" class="form-label">{% trans "Places" %}</label>
+                    <select name="lieux" id="lieux" class="form-input">
+                        <option value="">{% trans "Select" %}</option>
+                    </select>
+                    
+                </div>
+                <div class="form-group">
+                    <label for="gender" class="form-label">{% trans "Je suis un(e)" %}</label>
+                    <select name="gender" id="gender" class="form-input">
+                        <option value="Homme">{% trans "Homme" %}</option>
+                        <option value="Femme">{% trans "Femme" %}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="looking-for" class="form-label">{% trans "Je cherche un(e)" %}</label>
+                    <select name="looking_for" id="looking-for" class="form-input">
+                        <option value="Homme">{% trans "Homme" %}</option>
+                        <option value="Femme">{% trans "Femme" %}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="" class="form-label">{% trans "Age entre" %}</label>
+                    <div class="age">
+                        <div style="width: 50%;">
+                            <select name="age_debut" class="form-input" required>
+                                <option value="" class="age_">{% trans "Début" %}</option>
+                                {% for age in 18|add:0|get_range:73 %}
+                                    <option value="{{ age }}" {% if request.GET.age_debut == age|stringformat:"s" %}selected{% endif %}>{{ age }}</option>
+                                {% endfor %}
+                                <option value="90">90+</option>
+                            </select>
+                        </div>
+                        <div style="width: 50%;">
+                            <select name="age_fin" class="form-input" required>
+                                <option value="" class="age_">{% trans "Fin" %}</option>
+                                {% for age in 18|add:0|get_range:73 %}
+                                    <option value="{{ age }}" {% if request.GET.age_fin == age|stringformat:"s" %}selected{% endif %}>{{ age }}</option>
+                                {% endfor %}
+                                <option value="90">90+</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">{% trans "Mot de passe" %}</label>
+                    <div style="position:relative;">
+                        <input type="password" name="password" id="password" class="form-input" placeholder="******" required />
+                        <span id="togglePassword" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;">
+                            <i class="fa fa-eye" id="eyeIcon"></i>
+                        </span>
+                    </div>
+                    <small id="passwordHelp" style="color: #888; font-size: 0.9em;">
+                        {% trans "Le mot de passe doit contenir au moins 8 caractères, des chiffres et des lettres." %}
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password" class="form-label">{% trans "Confirmez votre mot de passe" %}</label>
+                    <div style="position:relative;">
+                        <input type="password" name="confirm_password" id="confirm-password" class="form-input" placeholder="******" required />
+                        <span id="toggleConfirmPassword" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer;">
+                            <i class="fa fa-eye" id="eyeConfirmIcon"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" name="terms" id="terms" class="form-checkbox" required />
+                    <label for="terms" class="form-checkbox-label">{% trans "J'accepte les termes et" %} <a href="{% url 'condition_util' %}" class="form-link">{% trans "les conditions générales d'utilisateur" %}</a>.</label>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" name="age" id="age" class="form-checkbox" required />
+                    <label for="age" class="form-checkbox-label">{% trans "J'ai 18 ans ou plus" %}</label>
+                </div>
+                <button type="submit" class="btn-primary-con">{% trans "Créer un nouveau compte" %}</button>
+            </form>
+            <div class="register-link">
+                <a href="{% url 'aff_login' %}" class="register-text">{% trans "J'ai déjà un compte" %}</a>
+            </div>
+        </div>
+        <div class="register-images">
+            <div class="image-container">
+                <img class="register-image" src="{% static 'images/2148019887.jpg' %}" alt="">
+            </div>
+            <div class="image-container">
+                <img class="register-image" src="{% static 'images/2149162015.jpg' %}" alt="">
+            </div>
+            <div class="image-container">
+                <img class="register-image" src="{% static 'images/6704019_270.jpg' %}" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .btn-primary-con{
+        width: 80%;
+        height: 70px;
+        background-color: #aa3073;
+        color: white;
+        font-size: 20px;
+        border-radius: 15px;
+        cursor: pointer;
+        margin-left: 17%;
+        /* padding: 20px; */
+    }
+    /* .btn-primary-con:hover{
+        background-color: #c790aecc;
+        color: red;
+    } */
+    .age{
+        display: flex;
+        gap: 20px;
+    }
+    .age_{
+        width: 12rem;
+        height: 50px;
+        border-radius: 15px;
+        border-color: pink;
+    }
+    .age input{
+        height: 40px;
+        margin-top: 10px;
+        border: 1px solid rgb(255, 0, 212);
+        border-radius: 10px;
+        padding-left: 10px;
+        width: 16rem;
+    }
+    .age label{
+        color: rgb(255, 0, 212);
+    }
+    @media screen and (max-width:768px) {
+        .age input{
+            width: 12rem;
+        }
+        .btn-primary-con{
+        width: 15rem;
+        }
+        .age_{
+            width: 100%;
+            height: 50px;
+            border-radius: 15px;
+            border-color: rgb(255, 0, 212);
+            padding-left: 5px;
+        }
+
+    }
+    @media screen and (max-width:400px) {
+        .btn-primary-con{
+        width: 100%;
+        margin-left: 0;
+        height: 70px;
+        font-size: 15px;
+
+        }
+
+    }
+</style>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        const birthdateInput = document.getElementById('birthdate');
+        const today = new Date();
+
+        const year = today.getFullYear() - 18;
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+
+        const maxDate = `${year}-${month}-${day}`;
+        birthdateInput.max = maxDate;
+    });
+</script>
+<script>
+
+const villesParPays = {
+    "Madagascar": [
+        "Antananarivo", "Toamasina", "Fianarantsoa", "Mahajanga", "Toliara",
+        "Antsiranana"
+    ],
+    "La Réunion": [
+        "Saint-Denis", "Saint-Pierre", "Saint-Paul", "Le Tampon", "Saint-André",
+        "Saint-Louis", "Le Port", "La Possession", "Sainte-Marie", "Sainte-Suzanne",
+        "Saint-Benoît", "Cilaos", "Salazie", "Entre-Deux", "Les Avirons"
+    ],
+    "Seychelles": [
+        "Victoria", "Beau Vallon", "Anse Boileau", "Anse Royale", "Bel Ombre",
+        "Takamaka", "Cascade", "Pointe La Rue", "Baie Lazare", "La Passe",
+        "Baie Sainte Anne", "Grand Anse"
+    ],
+    "Maurice": [
+        "Port-Louis", "Beau-Bassin Rose-Hill", "Vacoas-Phoenix", "Curepipe", "Quatre Bornes",
+        "Mahébourg", "Goodlands", "Triolet", "Centre de Flacq", "Rivière du Rempart"
+    ],
+    "Comores": [
+        "Moroni", "Mutsamudu", "Fomboni", "Domoni", "Tsidjé",
+        "Iconi", "Ouani", "Nioumachoua", "Chirongui", "Sima"
+    ],
+    // ... toutes les autres entrées inchangées
+    "France": ["Paris", "Marseille", "Lyon", "Toulouse", "Nice", "Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille"],
+    "Grèce": ["Athènes", "Thessalonique", "Patras", "Héraklion", "Larissa"],
+    "Hongrie": ["Budapest", "Debrecen", "Szeged", "Miskolc", "Pécs"],
+    "Irlande": ["Dublin", "Cork", "Limerick", "Galway", "Waterford"],
+    "Islande": ["Reykjavik", "Kopavogur", "Hafnarfjordur", "Akureyri", "Reykjanesbær"],
+    "Italie": ["Rome", "Milan", "Naples", "Turin", "Palermo"],
+    "Kosovo": ["Pristina", "Pec", "Gjakova", "Mitrovica", "Ferizaj"],
+    "Lettonie": ["Riga", "Daugavpils", "Liepaja", "Jelgava", "Jurmala"],
+    "Liechtenstein": ["Vaduz", "Schaan", "Balzers", "Triesen", "Eschen"],
+    "Lituanie": ["Vilnius", "Kaunas", "Klaipeda", "Šiauliai", "Panevėžys"],
+    "Luxembourg": ["Luxembourg", "Esch-sur-Alzette", "Differdange", "Dudelange", "Ettelbruck"],
+    "Macédoine du Nord": ["Skopje", "Bitola", "Kumanovo", "Prilep", "Tetovo"],
+    "Malte": ["La Valette", "Birkirkara", "Mosta", "Qormi", "Sliema"],
+    "Moldavie": ["Chisinau", "Tiraspol", "Bălți", "Bender", "Rîbnița"],
+    "Monaco": ["Monaco"],
+    "Monténégro": ["Podgorica", "Nikšić", "Herceg Novi", "Pljevlja", "Bijelo Polje"],
+    "Norvège": ["Oslo", "Bergen", "Stavanger", "Trondheim", "Drammen"],
+    "Pays-Bas": ["Amsterdam", "Rotterdam", "La Haye", "Utrecht", "Eindhoven"],
+    "Pologne": ["Varsovie", "Cracovie", "Lodz", "Wroclaw", "Poznan"],
+    "Portugal": ["Lisbonne", "Porto", "Amadora", "Braga", "Coimbra"],
+    "République tchèque": ["Prague", "Brno", "Ostrava", "Plzen", "Liberec"],
+    "Roumanie": ["Bucarest", "Cluj-Napoca", "Timișoara", "Iași", "Constanța"],
+    "Royaume-Uni": ["Londres", "Birmingham", "Manchester", "Glasgow", "Liverpool"],
+    "Russie": ["Moscou", "Saint-Pétersbourg", "Novossibirsk", "Ekaterinbourg", "Nijni Novgorod"],
+    "Saint-Marin": ["Saint-Marin"],
+    "Serbie": ["Belgrade", "Novi Sad", "Niš", "Kragujevac", "Subotica"],
+    "Slovaquie": ["Bratislava", "Košice", "Prešov", "Žilina", "Nitra"],
+    "Slovénie": ["Ljubljana", "Maribor", "Celje", "Kranj", "Velenje"],
+    "Suède": ["Stockholm", "Gothenburg", "Malmö", "Uppsala", "Västerås"],
+    "Suisse": ["Zurich", "Genève", "Bâle", "Berne", "Lausanne"],
+    "Ukraine": ["Kiev", "Kharkiv", "Odessa", "Dnipro", "Donetsk"],
+    "Vatican": ["Vatican"],
+    "Albanie": ["Tirana", "Durrës", "Vlorë", "Shkodër", "Fier"],
+    "Allemagne": ["Berlin", "Hambourg", "Munich", "Cologne", "Francfort"],
+    "Andorre": ["Andorre-la-Vieille", "Escaldes-Engordany", "Encamp", "Sant Julià de Lòria", "La Massana"],
+    "Autriche": ["Vienne", "Graz", "Linz", "Salzbourg", "Innsbruck"],
+    "Belgique": ["Bruxelles", "Anvers", "Gand", "Charleroi", "Liège"],
+    "Biélorussie": ["Minsk", "Gomel", "Moguilev", "Vitebsk", "Hrodna"],
+    "Bosnie-Herzégovine": ["Sarajevo", "Banja Luka", "Tuzla", "Zenica", "Mostar"],
+    "Bulgarie": ["Sofia", "Plovdiv", "Varna", "Burgas", "Rousse"],
+    "Chypre": ["Nicosie", "Limassol", "Larnaca", "Famagouste", "Paphos"],
+    "Croatie": ["Zagreb", "Split", "Rijeka", "Osijek", "Zadar"],
+    "Danemark": ["Copenhague", "Aarhus", "Odense", "Aalborg", "Esbjerg"],
+    "Espagne": ["Madrid", "Barcelone", "Valence", "Séville", "Saragosse"],
+    "Estonie": ["Tallinn", "Tartu", "Narva", "Pärnu", "Kohtla-Järve"],
+    "Finlande": ["Helsinki", "Espoo", "Tampere", "Vantaa", "Oulu"],
+    "Maroc": ["Casablanca", "Rabat", "Fès", "Marrakech", "Agadir"],
+    "Algérie": ["Alger", "Oran", "Constantine", "Annaba", "Blida"],
+    "Tunisie": ["Tunis", "Sfax", "Sousse", "Kairouan", "Bizerte"],
+    "Sénégal": ["Dakar", "Thiès", "Kaolack", "Saint-Louis", "Ziguinchor"],
+    "Côte d'Ivoire": ["Abidjan", "Bouaké", "Daloa", "Yamoussoukro", "San Pedro"],
+    "Cameroun": ["Yaoundé", "Douala", "Garoua", "Bamenda", "Maroua"],
+    "Nigeria": ["Lagos", "Abuja", "Kano", "Ibadan", "Port Harcourt"],
+    "Kenya": ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"],
+    "Afrique du Sud": ["Johannesburg", "Cape Town", "Durban", "Pretoria", "Port Elizabeth"],
+    "Égypte": ["Le Caire", "Alexandrie", "Gizeh", "Shubra El-Kheima", "Port-Saïd"],
+    "Etats_unis":["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose"],
+    "Canada":[
+        "Toronto", "Montréal", "Vancouver", "Calgary", "Ottawa",
+        "Edmonton", "Winnipeg", "Quebec City", "Hamilton", "Kitchener"
+    ],
+    "Chine" :[
+        "Pékin", "Shanghai", "Shenzhen", "Guangzhou", "Chengdu",
+        "Hangzhou", "Wuhan", "Xi'an", "Nankin", "Tianjin"
+    ],
+    "Japon" :[
+        "Tokyo", "Osaka", "Yokohama", "Nagoya", "Sapporo",
+        "Fukuoka", "Kobe", "Kyoto", "Hiroshima", "Sendai"
+    ],
+    "Coree" :[
+        "Séoul", "Busan", "Incheon", "Daegu", "Daejeon",
+        "Gwangju", "Suwon", "Ulsan", "Changwon", "Cheongju"
+    ],
+    "Bresil" :[
+        "São Paulo", "Rio de Janeiro", "Salvador", "Brasília", "Fortaleza",
+        "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre"
+    ],
+    "Mexique" :[
+        "Mexico", "Guadalajara", "Monterrey", "Puebla", "Tijuana",
+        "León", "Ciudad Juárez", "Mérida", "Querétaro", "San Luis Potosí"
+    ],
+    "Géorgie": ["Tbilissi", "Batoumi", "Koutaïssi", "Zougdidi", "Rustavi"],
+    "Egypte" :[
+        "Le Caire", "Alexandrie", "Gizeh", "Shubra El-Kheima", "Port-Saïd",
+        "Suez", "Luxor", "Assouan", "Mansoura", "Tanta"
+    ],
+};
+
+const villesParProvince = {
+  "Antananarivo": [
+    "Antananarivo", "Ambohidratrimo", "Ankazobe", "Anjozorobe",
+    "Manjakandriana", "Andramasina", "Miarinarivo", "Arivonimamo",
+    "Soavinandriana", "Tsiroanomandidy", "Fenoarivobe", "Antsirabe",
+    "Betafo", "Mandoto", "Antanifotsy", "Faratsiho", "Ambatolampy",
+    "Ambositra", "Fandriana", "Manandriana"
+  ],
+  "Fianarantsoa": [
+    "Fianarantsoa", "Ambalavao", "Ikalamavony", "Ambositra",
+    "Mananjary", "Nosy Varika", "Manakara", "Ikongo",
+    "Farafangana", "Vangaindrano", "Vondrozo", "Ihosy", "Iakora"
+  ],
+  "Mahajanga": [
+    "Mahajanga", "Marovoay", "Mitsinjo", "Ambato-Boeny",
+    "Antsohihy", "Mandritsara", "Bealanana", "Befandriana-Nord",
+    "Maevatanana", "Kandreho", "Maintirano", "Morafenobe", "Besalampy"
+  ],
+  "Toamasina": [
+    "Toamasina", "Brickaville", "Vatomandry", "Mahanoro",
+    "Soanierana Ivongo", "Fenoarivo Atsinanana", "Maroantsetra",
+    "Mananara Nord", "Antanambao Manampotsy", "Ambatondrazaka",
+    "Amparafaravola", "Moramanga"
+  ],
+  "Toliara": [
+    "Toliara", "Sakaraha", "Betioky", "Ampanihy", "Morombe",
+    "Ankazoabo", "Beloha", "Ambovombe", "Bekily", "Betroka"
+  ],
+  "Antsiranana": [
+    "Antsiranana", "Ambilobe", "Ambanja", "Nosy Be",
+    "Sambava", "Vohemar", "Antalaha", "Andapa"
+  ],
+  "Victoria": ["Centre-ville de Victoria", "Mont Fleuri", "English River"],
+  "Beau Vallon": ["Beau Vallon", "Bel Ombre"],
+  "Anse Boileau": ["Anse Boileau", "Baie Lazare"],
+  "Anse Royale": ["Anse Royale", "Takamaka"],
+  "Bel Ombre": ["Bel Ombre"],
+  "Takamaka": ["Takamaka", "Anse Royale"],
+  "Cascade": ["Cascade"],
+  "Pointe La Rue": ["Pointe La Rue"],
+  "Baie Lazare": ["Baie Lazare"],
+  "La Passe": ["La Passe"],
+  "Baie Sainte Anne": ["Baie Sainte Anne"],
+  "Grand Anse": ["Grand Anse"],
+   "Saint-Denis": [
+        "Saint-Denis", "Sainte-Suzanne", "Sainte-Marie", "La Possession"
+    ],
+    "Saint-Pierre": [
+        "Saint-Pierre", "Le Tampon", "Saint-Louis", "Cilaos", "Entre-Deux", "Les Avirons"
+    ],
+    "Saint-Paul": [
+        "Saint-Paul", "Le Port", "La Possession", "Trois-Bassins", "Etang-Salé"
+    ],
+    "Saint-Benoît": [
+        "Saint-Benoît", "Salazie", "Saint-André", "Bras-Panon"
+    ],
+     "Paris": ["1er Arrondissement", "2e Arrondissement", "3e Arrondissement", "4e Arrondissement", "5e Arrondissement", "6e Arrondissement", "7e Arrondissement", "8e Arrondissement", "9e Arrondissement", "10e Arrondissement", "11e Arrondissement", "12e Arrondissement", "13e Arrondissement", "14e Arrondissement", "15e Arrondissement", "16e Arrondissement", "17e Arrondissement", "18e Arrondissement", "19e Arrondissement", "20e Arrondissement"],
+    "Marseille": ["1er arrondissement", "2e arrondissement", "3e arrondissement", "4e arrondissement", "5e arrondissement", "6e arrondissement", "7e arrondissement", "8e arrondissement", "9e arrondissement", "10e arrondissement"],
+    "Lyon": ["1er arrondissement", "2e arrondissement", "3e arrondissement", "4e arrondissement", "5e arrondissement", "6e arrondissement", "7e arrondissement", "8e arrondissement", "9e arrondissement"],
+     "Toulouse": [
+    "Capitole", "Carmes", "Saint-Cyprien", "Minimes", "Rangueil", "Empalot"
+  ],
+  "Nice": [
+    "Vieux-Nice", "Cimiez", "Libération", "Riquier", "Ariane", "Fabron", "Magnan"
+  ],
+  "Nantes": [
+    "Centre-ville", "Dervallières-Zola", "Hauts-Pavés - Saint-Félix", "Ile de Nantes", "Malakoff", "Chantenay"
+  ],
+  "Strasbourg": [
+    "Petite France", "Neudorf", "Cronenbourg", "Koenigshoffen", "Robertsau", "Meinau"
+  ],
+  "Montpellier": [
+    "Écusson", "Antigone", "Port Marianne", "Celleneuve", "La Paillade", "Mosson"
+  ],
+  "Bordeaux": [
+    "Chartrons", "Saint-Michel", "Bastide", "Caudéran", "Nansouty", "Victoire"
+  ],
+  "Lille": [
+    "Vieux-Lille", "Wazemmes", "Moulins", "Fives", "Lille-Centre", "Bois-Blancs"
+  ],
+    "Budapest": ["Várkerület","Rózsadomb","Óbuda","Újpest","Belváros","Terézváros","Erzsébetváros","Józsefváros","Ferencváros","Kőbánya"
+    ],
+    "Debrecen": ["Belváros", "Tócóskert", "Újkert"],
+    "Szeged": ["Belváros", "Tarján", "Újszeged"],
+    "Miskolc": ["Avas", "Diósgyőr", "Berekalja"],
+    "Pécs": ["Belváros", "Uránváros", "Kertváros"],
+    "Dublin": ["City Centre", "Rathmines", "Tallaght"],
+    "Cork": ["Centre-ville", "Douglas", "Blackrock"],
+    "Limerick": ["Castletroy", "Dooradoyle", "City Centre"],
+    "Galway": ["Salthill", "Westside", "City Centre"],
+    "Waterford": ["Ferrybank", "Ballybricken", "Lisduggan"],
+     "Reykjavik": ["Vesturbær", "Miðborg", "Breiðholt"],
+    "Kopavogur": ["Smárinn", "Digranes", "Fossvogur"],
+    "Hafnarfjordur": ["Hvaleyri", "Vellir", "Asvellir"],
+    "Akureyri": ["Glerárhverfi", "Oddeyri", "Brekkugata"],
+    "Reykjanesbær": ["Njarðvík", "Ásbrú", "Hafnargata"],
+    "Rome": ["Trastevere", "Testaccio", "Centro Storico"],
+    "Milan": ["Brera", "Navigli", "Porta Romana"],
+    "Naples": ["Chiaia", "Vomero", "Centro Storico"],
+    "Turin": ["Centro", "San Salvario", "Crocetta"],
+    "Palermo": ["Centro Storico", "Mondello", "Kalsa"],
+     "Pristina": ["Dardania", "Lakrishtë", "Bregu i Diellit"],
+    "Pec": ["Qendra", "Dardania", "Zahaq"],
+    "Gjakova": ["Qendra", "Bashkia", "Bec"],
+    "Mitrovica": ["Jugu", "Veriu", "Shipol"],
+    "Ferizaj": ["Taslixhe", "Varosh", "Qendra"],
+    "Riga": ["Centrs", "Imanta", "Teika"],
+    "Daugavpils": ["Centrs", "Griva", "Kraslava"],
+    "Liepaja": ["Vecliepaja", "Karosta", "Lauma"],
+    "Jelgava": ["Centrs", "Raf", "Virs"],
+    "Jurmala": ["Dzintari", "Majori", "Bulduri"],
+    "Vaduz": ["Zentrum", "Mitteldorf", "Lettstrasse"],
+    "Schaan": ["Zentrum", "Mühleholz", "Dux"],
+    "Balzers": ["Zentrum", "Mäls", "Gätzle"],
+    "Triesen": ["Zentrum", "Sandgrube", "Alp"],
+    "Eschen": ["Nendeln", "Zentrum", "Brühl"],
+    "Vilnius": ["Old Town", "Žvėrynas", "Šnipiškės"],
+    "Kaunas": ["Centras", "Žaliakalnis", "Šilainiai"],
+    "Klaipeda": ["Old Town", "South Klaipeda", "Tauralaukis"],
+    "Šiauliai": ["Centras", "Gytariai", "Dainai"],
+    "Panevėžys": ["Centras", "Stetiškės", "Rožynas"],
+    "Luxembourg": ["Ville Haute", "Gare", "Belair"],
+    "Esch-sur-Alzette": ["Centre", "Lallange", "Brill"],
+    "Differdange": ["Oberkorn", "Fousbann", "Niederkorn"],
+    "Dudelange": ["Centre", "Itzig", "Mont Saint-Jean"],
+    "Ettelbruck": ["Centre", "Warken", "Grentzingen"],
+    "Skopje": ["Čair", "Karpoš", "Centar"],
+    "Bitola": ["City Center", "Nova Bitola", "Oblakovo"],
+    "Kumanovo": ["Banevo", "Karposh", "Goce Delchev"],
+    "Prilep": ["Varoš", "Novo Selo", "Centar"],
+    "Tetovo": ["Džepčishte", "Balindoll", "Leshok"],
+    "La Valette": ["City Gate", "Upper Barrakka", "Republic Street"],
+    "Birkirkara": ["Tal-Qattus", "Fleur-de-Lys", "Swatar"],
+    "Mosta": ["Santa Margerita", "Ta’ Mlit", "Zokrija"],
+    "Qormi": ["San Bastjan", "San Gorg", "Ta’ Farżina"],
+    "Sliema": ["Tower Road", "Balluta Bay", "Qui-si-Sana"],
+    "Chisinau": ["Centru", "Buiucani", "Botanica"],
+    "Tiraspol": ["Centru", "Suvorov", "Doroțcaia"],
+    "Bălți": ["Centru", "Sculeni", "Zăicani"],
+    "Bender": ["Centru", "Suvorov", "Doroțcaia"],
+    "Rîbnița": ["Centru", "Suvorov", "Doroțcaia"],
+    "Monaco": ["Monaco-Ville", "Monte Carlo", "La Condamine"],
+    "Podgorica": ["Centar", "Gorica", "Banjica"],
+    "Nikšić": ["Centar", "Trebjesa", "Zagorič"],
+    "Herceg Novi": ["Igalo", "Meljine", "Bijela"],
+    "Pljevlja": ["Centar", "Tomaševo", "Bistrica"],
+    "Bijelo Polje": ["Centar", "Rasovo", "Bistrica"],
+    "Oslo": ["Sentrum", "Grünerløkka", "Majorstuen"],
+    "Bergen": ["Sentrum", "Fyllingsdalen", "Åsane"],
+    "Stavanger": ["Sentrum", "Hillevåg", "Madla"],
+    "Trondheim": ["Sentrum", "Byåsen", "Strindheim"],
+    "Drammen": ["Sentrum", "Brakerøya", "Strømsø"],
+    "Amsterdam": ["Centrum", "Zuid", "Oost"],
+    "Rotterdam": ["Centrum", "Delfshaven", "Kralingen"],
+    "La Haye": ["Centrum", "Scheveningen", "Kijkduin"],
+    "Utrecht": ["Centrum", "Leidsche Rijn", "Vleuten"],
+    "Eindhoven": ["Centrum", "Stratum", "Woensel"],
+    "Varsovie": ["Śródmieście", "Mokotów", "Praga-Południe"],
+    "Cracovie": ["Stare Miasto", "Kazimierz", "Nowa Huta"],
+    "Lodz": ["Śródmieście", "Bałuty", "Widzew"],
+    "Wroclaw": ["Stare Miasto", "Krzyki", "Fabryczna"],
+    "Poznan": ["Stare Miasto", "Jeżyce", "Wilda"],
+    "Lisbonne": ["Alfama", "Bairro Alto", "Belém"],
+    "Porto": ["Ribeira", "Boavista", "Foz do Douro"],
+    "Amadora": ["Amadora", "Alfornelos", "Bairro de Alfornelos"],
+    "Braga": ["Braga", "Maximinos", "São José de São Lázaro"],
+    "Coimbra": ["Coimbra", "Almedina", "Santa Clara"],
+    "Prague": ["Staré Město", "Nové Město", "Vinohrady"],
+    "Brno": ["Brno-střed", "Královo Pole", "Žabovřesky"],
+    "Ostrava": ["Moravská Ostrava", "Poruba", "Karviná"],
+    "Plzen": ["Plzeň 1", "Plzeň 2", "Plzeň 3"],
+    "Liberec": ["Liberec I", "Liberec II", "Liberec III"],
+    "Bucarest": ["Sector 1", "Sector 2", "Sector 3"],
+    "Cluj-Napoca": ["Centru", "Mănăștur", "Zorilor"],
+    "Timișoara": ["Centru", "Iosefin", "Fabric"],
+    "Iași": ["Centru", "Tătărași", "Copou"],
+    "Constanța": ["Centru", "Tomis Nord", "Bdul Mamaia"],
+    "Londres": ["Westminster", "Camden", "Islington"],
+    "Birmingham": ["Birmingham City Centre", "Edgbaston", "Selly Oak"],
+    "Manchester": ["Manchester City Centre", "Didsbury", "Chorlton"],
+    "Glasgow": ["Glasgow City Centre", "West End", "South Side"],
+    "Liverpool": ["Liverpool City Centre", "Kirkdale", "Anfield"],
+    "Moscou": ["Centre-ville", "Kremlin", "Arbat"],
+    "Saint-Pétersbourg": ["Centre-ville", "Nevskiy Prospekt", "Petrogradsky"],
+    "Novossibirsk": ["Centre-ville", "Zayeltsovo", "Kirovsky"],
+    "Ekaterinbourg": ["Centre-ville", "VIZ", "Chkalovsky"],
+    "Nijni Novgorod": ["Centre-ville", "Kanavinsky", "Sormovo"],
+    "Saint-Marin": ["Saint-Marin"],
+    "Podgorica": ["Centar", "Gorica", "Banjica"],
+    "Nikšić": ["Centar", "Trebjesa", "Zagorič"],
+    "Herceg Novi": ["Igalo", "Meljine", "Bijela"],
+    "Pljevlja": ["Centar", "Tomaševo", "Bistrica"],
+    "Bijelo Polje": ["Centar", "Rasovo", "Bistrica"],
+    "Stockholm": ["Gamla Stan", "Södermalm", "Östermalm"],
+    "Gothenburg": ["Centrum", "Hisingen", "Lundby"],
+    "Malmö": ["Centrum", "Västra Hamnen", "Södervärn"],
+    "Uppsala": ["Centrum", "Gränby", "Sävja"],
+    "Västerås": ["Centrum", "Djäkneberget", "Hässlö"],
+    "Zurich": ["Altstadt", "Zürich-West", "Enge"],
+    "Genève": ["Centre-ville", "Carouge", "Eaux-Vives"],
+    "Bâle": ["Kleinbasel", "Grossbasel", "St. Alban"],
+    "Berne": ["Altstadt", "Mattenhof", "Wabern"],
+    "Lausanne": ["Centre-ville", "Ouchy", "Chailly"],
+    "Kiev": ["Obolon", "Podil", "Pechersk"],
+    "Kharkiv": ["Centre-ville", "Saltivka", "Pivnichnyi"],
+    "Odessa": ["Centre-ville", "Primorsky", "Malinovsky"],
+    "Dnipro": ["Centre-ville", "Sovietsky", "Samarsky"],
+    "Donetsk": ["Centre-ville", "Kirovsky", "Petrovsky"],
+    "Vatican": ["Vatican City"],
+    "Tirana": ["Tirana", "Durrës", "Vlorë"],
+    "Durrës": ["Durrës", "Vlorë", "Shkodër"],
+    "Vlorë": ["Vlorë", "Saranda", "Fier"],
+    "Shkodër": ["Shkodër", "Lezhë", "Saranda"],
+    "Fier": ["Fier", "Vlorë", "Saranda"],
+    "Berlin": ["Mitte", "Kreuzberg", "Friedrichshain"],
+    "Hambourg": ["Altona", "HafenCity", "St. Pauli"],
+    "Munich": ["Altstadt-Lehel", "Maxvorstadt", "Schwanthalerhöhe"],
+    "Cologne": ["Altstadt-Nord", "Ehrenfeld", "Lindenthal"],
+    "Francfort": ["Innenstadt", "Sachsenhausen", "Bockenheim"],
+    "Andorre-la-Vieille": ["Andorre-la-Vieille", "Escaldes-Engordany", "Encamp"],
+    "Escaldes-Engordany": ["Escaldes-Engordany", "Andorre-la-Vieille", "Encamp"],
+    "Encamp": ["Encamp", "Andorre-la-Vieille", "Escaldes-Engordany"],
+    "Sant Julià de Lòria": ["Sant Julià de Lòria", "Andorre-la-Vieille", "Escaldes-Engordany"],
+    "La Massana": ["La Massana", "Andorre-la-Vieille", "Escaldes-Engordany"],
+    "Vienne": ["Innere Stadt", "Leopoldstadt", "Landstraße"],
+    "Graz": ["Innere Stadt", "Lend", "Gries"],
+    "Linz": ["Innere Stadt", "Urfahr", "Pichling"],
+    "Salzbourg": ["Altstadt", "Lehen", "Maxglan"],
+    "Innsbruck": ["Innere Stadt", "Pradl", "Wilten"],
+    "Bruxelles": ["Bruxelles-Capitale", "Ixelles", "Saint-Gilles"],
+    "Anvers": ["Antwerpen-Centrum", "Berchem", "Borgerhout"],
+    "Gand": ["Gent-Centrum", "Ledeberg", "Sint-Amandsberg"],
+    "Charleroi": ["Charleroi-Centre", "Gilly", "Montignies-sur-Sambre"],
+    "Liège": ["Liège-Centre", "Outremeuse", "Saint-Laurent"],
+    "Minsk": ["Centre-ville", "Sovetsky", "Frunzensky"],
+    "Gomel": ["Centre-ville", "Zheleznodorozhny", "Sovetsky"],
+    "Moguilev": ["Centre-ville", "Leninsky", "Sovetsky"],
+    "Vitebsk": ["Centre-ville", "Leninsky", "Frunzensky"],
+    "Hrodna": ["Centre-ville", "Leninsky", "Sovetsky"],
+    "Sarajevo": ["Centar", "Novo Sarajevo", "Stari Grad"],
+    "Banja Luka": ["Centar", "Laktaši", "Gradiška"],
+    "Tuzla": ["Centar", "Sjenjak", "Kreka"],
+    "Zenica": ["Centar", "Tetovo", "Kakanj"],
+    "Mostar": ["Centar", "Buna", "Blagaj"],
+    "Sofia": ["Centrum", "Lozenets", "Mladost"],
+    "Plovdiv": ["Centrum", "Küçük Plovdiv", "Trakia"],
+    "Varna": ["Centrum", "Primorski", "Asparuhovo"],
+    "Burgas": ["Centrum", "Burgas-iztok", "Burgas-zapad"],
+    "Rousse": ["Centrum", "Rousse-iztok", "Rousse-zapad"],
+    "Nicosie": ["Centre-ville", "Lefkosa", "Güzelyurt"],
+    "Limassol": ["Centre-ville", "Agios Nikolaos", "Agios Georgios"],
+    "Larnaca": ["Centre-ville", "Finikoudes", "Mackenzie"],
+    "Famagouste": ["Centre-ville", "Gazimağusa", "Karpaz"],
+    "Paphos": ["Centre-ville", "Kato Paphos", "Chloraka"],
+    "Zagreb": ["Centar", "Maksimir", "Trešnjevka"],
+    "Split": ["Centar", "Marjan", "Bacvice"],
+    "Rijeka": ["Centar", "Brajda", "Pećine"],
+    "Osijek": ["Centar", "Donji Grad", "Gornji Grad"],
+    "Zadar": ["Centar", "Borik", "Poluotok"],
+    "Copenhague": ["Indre By", "Vesterbro", "Nørrebro"],
+    "Aarhus": ["Centrum", "Viby", "Højbjerg"],
+    "Odense": ["Centrum", "Bolbro", "Næsby"],
+    "Aalborg": ["Centrum", "Vejgaard", "Nørresundby"],
+    "Esbjerg": ["Centrum", "Guldager", "Esbjerg Ø"],
+    "Madrid": ["Centro", "Salamanca", "Chueca"],
+    "Barcelone": ["Ciutat Vella", "Eixample", "Gràcia"],
+    "Valence": ["Ciutat Vella", "Ruzafa", "Benimaclet"],
+    "Séville": ["Casco Antiguo", "Triana", "Los Remedios"],
+    "Saragosse": ["Centro", "Delicias", "Las Fuentes"],
+    "Tallinn": ["Kesklinn", "Lasnamäe", "Mustamäe"],
+    "Tartu": ["Kesklinn", "Tammelinna", "Annelinna"],
+    "Narva": ["Kesklinn", "Lasnamäe", "Mustamäe"],
+    "Pärnu": ["Kesklinn", "Rääma", "Sauga"],
+    "Kohtla-Järve": ["Kesklinn", "Järve", "Kiviõli"],
+    "Helsinki": ["Keskusta", "Kamppi", "Kumpula"],
+    "Espoo": ["Espoon Keskus", "Leppävaara", "Matinkylä"],
+    "Tampere": ["Tampereen Keskusta", "Tulli", "Hervanta"],
+    "Vantaa": ["Vantaan Keskus", "Tikkurila", "Myyrmäki"],
+    "Oulu": ["Oulun Keskusta", "Linnanmaa", "Kivikkokangas"],
+    "Casablanca": ["Centre-ville", "Anfa", "Moulay Youssef"],
+    "Rabat": ["Centre-ville", "Agdal", "Hay Riad"],
+    "Fès": ["Fès el-Bali", "Fès el-Jdid", "Ville Nouvelle"],
+    "Marrakech": ["Médina", "Gueliz", "Hivernage"],
+    "Agadir": ["Centre-ville", "Talborjt", "Agadir Oufella"],
+    "Alger": ["Centre-ville", "El Madania", "Belouizdad"],
+    "Oran": ["Centre-ville", "El-Hamri", "Bir El Djir"],
+    "Constantine": ["Centre-ville", "El-Madania", "Kouba"],
+    "Annaba": ["Centre-ville", "El-Hadjar", "Berrahal"],
+    "Blida": ["Centre-ville", "El-Affroun", "Boufarik"],
+    "Dakar": ["Centre-ville", "Plateau", "Pikine"],
+    "Thiès": ["Centre-ville", "Tivaouane", "Mbour"],
+    "Kaolack": ["Centre-ville", "Nioro du Rip", "Guinguinéo"],
+    "Saint-Louis": ["Centre-ville", "Guet Ndar", "Faidherbe"],
+    "Ziguinchor": ["Centre-ville", "Bignona", "Oussouye"],
+    "Abidjan": ["Plateau", "Cocody", "Yopougon"],
+    "Bouaké": ["Bouaké Nord", "Bouaké Sud", "Bouaké Ouest"],
+    "Daloa": ["Daloa Nord", "Daloa Sud", "Daloa Ouest"],
+    "Yamoussoukro": ["Yamoussoukro Nord", "Yamoussoukro Sud", "Yamoussoukro Ouest"],
+    "San Pedro": ["San Pedro Nord", "San Pedro Sud", "San Pedro Ouest"],
+    "Yaoundé": ["Centre-ville", "Essos", "Akwa"],
+    "Douala": ["Centre-ville", "Akwa", "Bonanjo"],
+    "Garoua": ["Centre-ville", "Garoua II", "Garoua III"],
+    "Bamenda": ["Centre-ville", "Bamenda I", "Bamenda II"],
+    "Maroua": ["Centre-ville", "Maroua I", "Maroua II"],
+    "Lagos": ["Centre-ville", "Victoria Island", "Ikoyi"],
+    "Abuja": ["Centre-ville", "Wuse", "Garki"],
+    "Kano": ["Centre-ville", "Kano Municipal", "Kano South"],
+    "Ibadan": ["Centre-ville", "Ibadan North", "Ibadan South"],
+    "Port Harcourt": ["Centre-ville", "Port Harcourt City", "Obio-Akpor"],
+    "Nairobi": ["Centre-ville", "Westlands", "Kilimani"],
+    "Mombasa": ["Centre-ville", "Nyali", "Kisauni"],
+    "Kisumu": ["Centre-ville", "Kisumu East", "Kisumu West"],
+    "Nakuru": ["Centre-ville", "Nakuru East", "Nakuru West"],
+    "Eldoret": ["Centre-ville", "Eldoret East", "Eldoret West"],
+    "Addis-Abeba": ["Centre-ville", "Bole", "Kirkos"],
+    "Dire Dawa": ["Centre-ville", "Dire Dawa East", "Dire Dawa West"],
+    "Mekele": ["Centre-ville", "Mekele East", "Mekele West"],
+    "Gondar": ["Centre-ville", "Gondar East", "Gondar West"],
+    "Hawassa": ["Centre-ville", "Hawassa East", "Hawassa West"],
+    "Lomé": ["Centre-ville", "Baguida", "Agoè"],
+    "Kara": ["Centre-ville", "Kara Nord", "Kara Sud"],
+    "Sokodé": ["Centre-ville", "Sokodé Nord", "Sokodé Sud"],
+    "Kpalimé": ["Centre-ville", "Kpalimé Nord", "Kpalimé Sud"],
+    "Atakpamé": ["Centre-ville", "Atakpamé Nord", "Atakpamé Sud"],
+    "Johannesburg":[
+        "Johannesburg Central", "Soweto", "Sandton"
+    ],
+    "Le Cap":[
+            "Cape Town Central", "Camps Bay", "Hout Bay"
+        ],
+    "Durban":[
+        "Durban Central", "Umhlanga", "Ballito"
+    ],
+    "Pretoria":[
+        "Pretoria Central", "Hatfield", "Brooklyn"
+    ],
+    "Port Elizabeth":[
+        "Port Elizabeth Central", "Summerstrand", "Walmer"
+    ],
+    "Le Caire":[
+        "Centre-ville", "Zamalek", "Maadi"
+    ],
+    "Alexandrie":[
+        "Centre-ville", "Raml Station", "Moharam Bek"
+    ],
+    "Gizeh":[
+        "Centre-ville", "Dokki", "Mohandessin"
+    ],
+    "Louxor":[
+        "Centre-ville", "Karnak", "Nile Corniche"
+    ],
+    "Port-Saïd":[
+        "Centre-ville", "Port Fouad", "El Arab"
+    ],
+    "New York" :[
+        "Manhattan", "Brooklyn", "Queens", "Bronx", "Staten Island"
+    ],
+    "Los Angeles": [
+            "Downtown", "Hollywood", "Santa Monica", "Venice Beach", "Beverly Hills"
+        ],
+    "Chicago": [
+        "Downtown", "Lincoln Park", "Hyde Park", "Wicker Park", "Chinatown"
+    ],
+    "Houston": [
+        "Downtown", "Midtown", "Montrose", "The Heights", "Galleria"
+    ],
+    "Phoenix": [
+        "Downtown", "Arcadia", "Desert Ridge", "Ahwatukee", "North Mountain"
+    ],
+    "San Francisco": [
+        "Downtown", "Chinatown", "Mission District", "Haight-Ashbury", "Fisherman's Wharf"
+    ],
+    "Dallas": [
+        "Downtown", "Deep Ellum", "Uptown", "Bishop Arts District", "Oak Cliff"
+    ],
+    "San Diego": [
+        "Downtown", "La Jolla", "Gaslamp Quarter", "Pacific Beach", "Coronado"
+    ],
+    "Seattle": [
+        "Downtown", "Capitol Hill", "Ballard", "West Seattle", "South Lake Union"
+    ],
+    "Boston": [
+        "Downtown", "Back Bay", "North End", "South Boston", "Cambridge"
+    ],
+    "Miami": [
+        "Downtown", "South Beach", "Wynwood", "Coconut Grove", "Coral Gables"
+    ],
+    "Ottawa": ["Centretown", "ByWard Market", "Kanata"],
+    "Toronto": ["Downtown", "Yorkville", "Scarborough"],
+    "Montreal": ["Plateau-Mont-Royal", "Old Montreal", "Downtown"],
+    "Vancouver": ["Downtown", "West End", "Gastown"],
+    "Calgary": ["Downtown", "Beltline", "Inglewood"],
+    "Edmonton": ["Downtown", "Old Strathcona", "West Edmonton"],
+    "Quebec": ["Old Quebec", "Saint-Roch", "Sillery"],
+    "Hamilton": ["Downtown", "Westdale", "Ancaster"],
+    "Ottawa": ["Centretown", "ByWard Market", "Kanata"],
+    "Winnipeg": ["Downtown", "Exchange District", "St. Boniface"],
+    "Kitchener": ["Downtown", "Uptown Waterloo", "Westmount"],
+    "Pékin" : ["Dongcheng", "Xicheng", "Chaoyang", "Haidian", "Fengtai"],
+    "Shanghai": ["Huangpu", "Xuhui", "Pudong", "Jing'an", "Changning"],
+    "Shenzhen": ["Luohu", "Futian", "Nanshan", "Bao'an", "Longgang"],
+    "Guangzhou": ["Yuexiu", "Tianhe", "Haizhu", "Baiyun", "Panyu"],
+    "Chengdu": ["Wuhou", "Jinjiang", "Qingyang", "Chenghua", "Longquanyi"],
+    "Hangzhou": ["Xihu", "Shangcheng", "Gongshu", "Binjiang", "Yuhang"],
+    "Nanjing": ["Xuanwu", "Qinhuai", "Jianye", "Gulou", "Pukou"],
+    "Wuhan": ["Jianghan", "Wuchang", "Hanyang", "Qiaokou", "Hongshan"],
+    "Xi'an": ["Beilin", "Lianhu", "Yanta", "Weiyang", "Chang'an"],
+    "Chongqing": ["Yuzhong", "Jiangbei", "Nan'an", "Shapingba", "Beibei"],
+    "Séoul": ["Gangnam", "Jongno", "Yongsan", "Mapo", "Songpa"],
+    "Busan": ["Haeundae", "Seomyeon", "Nampo-dong", "Gwangalli", "Suyeong"],
+    "Taipei": ["Zhongzheng", "Xinyi", "Da'an", "Wanhua", "Songshan"],
+    "Hong Kong": ["Central", "Tsim Sha Tsui", "Mong Kok", "Causeway Bay", "Wan Chai"],
+    "Tokyo": ["Shibuya", "Shinjuku", "Minato", "Chiyoda", "Taito"],
+    "Osaka": ["Kita", "Minami", "Chūō", "Tennoji", "Naniwa"],
+    "Kyoto": ["Nakagyo", "Sakyo", "Fushimi", "Minami", "Higashiyama"],
+    "Incheon": ["Bupyeong", "Namdong", "Yeonsu", "Seo-gu", "Ganghwa"],
+    "Sapporo": ["Chuo", "Nishi", "Higashi", "Toyohira", "Kita"],
+    "Hiroshima": ["Naka", "Minami", "Asaminami", "Asakita", "Higashi"],
+    "Kobe": ["Chuo", "Hyogo", "Nagata", "Suma", "Tarumi"],
+    "Kyoto": ["Nakagyo", "Sakyo", "Fushimi", "Minami", "Higashiyama"],
+    "Sendai": ["Aoba", "Miyagino", "Wakabayashi", "Taihaku", "Izumi"],
+   "São Paulo": ["Centro", "Jardins", "Pinheiros", "Vila Madalena", "Liberdade"],
+    "Rio de Janeiro": ["Copacabana", "Ipanema", "Lapa", "Botafogo", "Barra da Tijuca"],
+    "Belo Horizonte": ["Savassi", "Centro", "Lourdes", "Funcionários", "Santo Agostinho"],
+    "Salvador": ["Pelourinho", "Barra", "Ondina", "Pituba", "Itapuã"],
+    "Brasília": ["Plano Piloto", "Asa Sul", "Asa Norte", "Taguatinga", "Gama"]
+
+};
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    let cityInput = document.getElementById('city');
+    if (cityInput.tagName.toLowerCase() === 'input') {
+        const select = document.createElement('select');
+        select.name = 'city';
+        select.id = 'city';
+        select.className = cityInput.className;
+        select.required = true;
+        cityInput.parentNode.replaceChild(select, cityInput);
+        cityInput = select;
+    }
+
+    const countrySelect = document.getElementById('country');
+    const citySelect = document.getElementById('city');
+    const lieuxSelect = document.getElementById('lieux');
+
+    function updateCities() {
+        const selectedCountry = countrySelect.value;
+        citySelect.innerHTML = '<option value="">Select</option>';
+        if (villesParPays[selectedCountry]) {
+            villesParPays[selectedCountry].forEach(function (ville) {
+                const option = document.createElement('option');
+                option.value = ville;
+                option.textContent = ville;
+                citySelect.appendChild(option);
+            });
+            citySelect.disabled = false;
+        } else {
+            citySelect.disabled = true;
+        }
+    }
+
+    function updatedVilles() {
+        const cityValue = document.getElementById('city').value;
+        const lieux = document.getElementById('lieux');
+        lieux.innerHTML = "<option value=''>Select</option>";
+        if (cityValue && villesParProvince[cityValue]) {
+            villesParProvince[cityValue].forEach(lieu => {
+                const option = document.createElement("option");
+                option.value = lieu;
+                option.textContent = lieu;
+                lieux.appendChild(option);
+            });
+            lieux.disabled = false;
+        } else {
+            lieux.disabled = true;
+        }
+    }
+
+    countrySelect.addEventListener('change', updateCities);
+    citySelect.addEventListener('change', updatedVilles);
+
+    updateCities();
+    updatedVilles();
+    
+});
+</script>
+<script>
+document.getElementById('togglePassword').onclick = function() {
+    const pwd = document.getElementById('password');
+    const icon = document.getElementById('eyeIcon');
+    if (pwd.type === "password") {
+        pwd.type = "text";
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        pwd.type = "password";
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+};
+document.getElementById('toggleConfirmPassword').onclick = function() {
+    const pwd = document.getElementById('confirm-password');
+    const icon = document.getElementById('eyeConfirmIcon');
+    if (pwd.type === "password") {
+        pwd.type = "text";
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        pwd.type = "password";
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+};
+</script>
+<script>
+function validatePassword(pwd) {
+    // Au moins 8 caractères, au moins une lettre et un chiffre
+    return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(pwd);
+}
+
+const passwordInput = document.getElementById('password');
+const passwordHelp = document.getElementById('passwordHelp');
+
+passwordInput.addEventListener('input', function() {
+    if (validatePassword(passwordInput.value)) {
+        passwordHelp.textContent = "Mot de passe valide ✔️";
+        passwordHelp.style.color = "green";
+    } else {
+        passwordHelp.textContent = "Le mot de passe doit contenir au moins 8 caractères, des chiffres et des lettres.";
+        passwordHelp.style.color = "#888";
+    }
+});
+</script>
+<style>
+    header{
+        display: none;
+    }
+    .top-header{
+        display: none;
+    }
+    .inscri_tete{
+        background-color: pink;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 6%;
+        padding-left: 6%;
+    }
+    .inscri_tete button{
+        background-color: #e11584;
+        color: white;
+        border-radius: 20px;
+        width: 14%;
+        height: 40px;
+        border: none;
+        animation: transform 1s linear;
+    }
+    .inscri_tete a{
+            text-decoration: none;
+            color: white;
+            font-size: 1.5vw;
+        }
+    @keyframes transform {
+            from{
+                transform: translateX(10rem);
+                opacity: 0;
+            }
+            to{
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    
+    @media  (max-width:768px) {
+        /* .birth{
+            width: 100%;
+        } */
+        .inscri_tete{
+            height: 75px;
+        }
+        .inscri_tete button{
+            background-color: #e11584;
+            color: white;
+            /* border: 2px solid #710193; */
+            border-radius: 20px;
+            width: 30%;
+            height: 40px;
+            border: none;
+            margin-top: 2vh;
+            /* margin-left: 60%; */
+            animation: transform 1s linear;
+        }
+        .inscri_tete a{
+            text-decoration: none;
+            color: white;
+            font-size: 4vw;
+        }
+        @keyframes transform {
+            from{
+                transform: translateX(10rem);
+                opacity: 0;
+            }
+            to{
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    }
+</style>
+<script>
+// Validation JS pseudo et email
+const pseudoInput = document.getElementById('pseudo');
+const emailInput = document.getElementById('email');
+
+pseudoInput.addEventListener('input', function() {
+    const regex = /^[A-Za-z0-9_]+$/;
+    if (!regex.test(pseudoInput.value)) {
+        pseudoInput.setCustomValidity('Seuls les caractères alphanumériques et _ sont autorisés');
+        pseudoInput.style.border = '2px solid red';
+    } else {
+        pseudoInput.setCustomValidity('');
+        pseudoInput.style.border = '';
+    }
+});
+
+emailInput.addEventListener('input', function() {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!regex.test(emailInput.value)) {
+        emailInput.setCustomValidity('Veuillez entrer une adresse email valide');
+        emailInput.style.border = '2px solid red';
+    } else {
+        emailInput.setCustomValidity('');
+        emailInput.style.border = '';
+    }
+});
+</script>
+{% endblock "contenu" %}

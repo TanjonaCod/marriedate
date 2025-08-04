@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rejoignez Lovelimeet, la plateforme de rencontres conçue pour celles et ceux qui cherchent une relation sincère et durable.Trouvez votre âme soeur parmi des milliers de membres en ligne, inscrivez-vous gratuitement, échanger par messages instantanés et montrez votre intérêt grâce aux likes">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'heart-logo-png.webp' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <title>
+        {% block 'title' %}
+          
+        {% endblock 'title' %}
+    </title>
+</head>
+<body>
+    <div class="container">
+        {% include "layouts/header.html" %}
+        
+        {% block "contenu" %}
+        
+        
+        {% endblock "contenu" %}
+
+        {% include "layouts/footer.html" %}
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

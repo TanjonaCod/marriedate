@@ -1,0 +1,102 @@
+{% extends "layouts/master.html" %}
+{% load i18n %}
+
+{% block 'title' %}
+    {% trans "a_propos de lovelimeet" %}
+{% endblock 'title' %}
+
+
+{% block "contenu" %}
+
+    <section>
+        <h2> <i class="fas fa-star" style="color: rgba(245, 172, 14, 0.781);"></i> {% trans "Bienvenue sur Lovelimeet" %} <i class="fas fa-star" style="color: rgba(245, 172, 14, 0.781);"></i></h2>
+        <h3>{% trans "Là où les coeurs 💖 se connectent et les âmes se rencontrent." %}</h3>
+        <p><b>💖 {% trans "Trouve l'amour que tu mérites" %}</b> {% trans "Sur Lovelimeet, nous croyons que chaque rencontre peut être le début d'une belle histoire. Notre plateforme sécurisée et intuitive  te permet de te connecter avec des personnes partageant tes valeurs et tes aspirations." %}</p>
+        <div>
+            <h3> <i class="fas fa-fire" style="color: rgba(247, 32, 32, 0.993);"></i> {% trans "Pourquoi choisir Lovelimeet?" %}</h3>
+            <ul>
+                <li><i class="fas fa-gem" style="color: rgba(14, 56, 245, 0.781);"></i> <b>{% trans "Profils authentiques :" %}</b> {% trans "Rencontres basées sur la sincérité et l'échange." %}</li>
+                <li><i class="fas fa-bullseye" style="color: rgba(233, 64, 22, 0.781);"></i> <b>{% trans "Match intelligent :" %}</b> {% trans "Trouve des affinités grâce à notre algorithme avncé." %} </li>
+                <li> <i class="fas fa-lock" style="color: rgb(99, 98, 98);"></i> <b>{% trans "Discutions en toute sécurité" %}</b> </li>
+                <li> <i class="fas fa-hands-helping" style="color: rgb(231, 178, 63);"></i> <b>{% trans "Une communauté bienveillante :" %}</b> {% trans "échanger avec des personnes qui cherchent une relation sérieuse ou amicale" %}</li>
+            </ul>
+            <p> <i class="fas fa-envelope" style="color: rgba(192, 179, 152, 0.781);"></i> <b>{% trans "Prêt à faire une belle rencontre ?" %}</b> {% trans "Inscris-toi dès aujourd'hui et fais le premier pas vers une connexion sincèere. Parce que l'amour commence ici ! 💖" %}</p>
+
+        </div>
+    </section>
+    <style>
+         section {
+                padding: 2vh 15px;
+                color: #333;
+                font-size: 1.5vw;
+                font-style: oblique;
+            }
+             #inscripBtn{
+                display: block !important;
+            }
+            p{
+                padding: 10px 0;
+            }
+            h3{
+                padding: 10px 0;
+            }
+            li{
+                list-style: inside;
+                padding: 5px 30px;
+            }
+             .nav-buttons a {
+                margin-left: 0;
+                padding: 10px 20px;
+                border-radius: 20px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: background 0.3s ease;
+            }
+            .top-header {
+                background-color: #6134467a;
+                position: relative !important;
+            }
+           
+     @media screen and (max-width:768px) {
+           
+            section {
+                padding: 2vh 13px;
+                color: #333;
+                font-size: 3.5vw;
+                font-style: oblique;
+            }
+            footer{
+                margin-top: 10vh !important;
+            }
+            .nav-buttons {
+                display: flex;
+                margin-left: 7rem;
+                gap: 10px;
+                width: 14rem;
+            }
+             .nav-buttons a {
+                margin-left: 0;
+                padding: 10px 20px;
+                border-radius: 20px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: background 0.3s ease;
+            }
+            .btn {
+                font-size: 13px;
+                height: 40px;
+                width: 41rem;
+            }
+            .top-header {
+            background-color: #6134467a;
+            position: relative !important;
+           
+            }
+        }
+        @media screen and (max-width:350px){
+            .top-header{
+                height: 15vh;
+            }
+        }
+    </style>
+{% endblock "contenu" %}

@@ -1,0 +1,650 @@
+{% extends "layouts/master.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block "contenu" %}
+    <section style="overflow-x: hidden;">
+                <div class="entete_membres">
+                    <form method="get" action="" class="form2">
+                        <select name="country" class="form-input" >
+                            <option value="">{% trans "All countries" %}</option>
+                            <option value="Madagascar" {% if request.GET.country == "Madagascar" %}selected{% endif %}>{% trans "Madagascar" %}</option>
+                            <option value="France" {% if request.GET.country == "France" %}selected{% endif %}>{% trans "France" %}</option>
+                            <option value="Grèce"  {% if request.GET.country == "Grèce" %}selected{% endif %}>{% trans "Greece" %}</option>
+                            <option value="Hongrie" {% if request.GET.country == "Hongrie" %}selected{% endif %}>{% trans "Hungary" %}</option>
+                            <option value="Irlande" {% if request.GET.country == "Irlande" %}selected{% endif %}>{% trans "Ireland" %}</option>
+                            <option value="Islande" {% if request.GET.country == "Islande" %}selected{% endif %}>{% trans "Iceland" %}</option>
+                            <option value="Italie" {% if request.GET.country == "Italie" %}selected{% endif %}>{% trans "Italy" %}</option>
+                            <option value="Kosovo" {% if request.GET.country == "Kosovo" %}selected{% endif %}>{% trans "Kosovo" %}</option>
+                            <option value="Lettonie" {% if request.GET.country == "Lettonie" %}selected{% endif %}>{% trans "Latvia" %}</option>
+                            <option value="Liechtenstein" {% if request.GET.country == "Liechtenstein" %}selected{% endif %}>{% trans "Liechtenstein" %}</option>
+                            <option value="Lituanie" {% if request.GET.country == "Lituanie" %}selected{% endif %}>{% trans "Lithuania" %}</option>
+                            <option value="Luxembourg" {% if request.GET.country == "Luxembourg" %}selected{% endif %}>{% trans "Luxembourg" %}</option>
+                            <option value="Macédoine du Nord" {% if request.GET.country == "Macédoine du Nord" %}selected{% endif %}>{% trans "North Macedonia" %}</option>
+                            <option value="Malte" {% if request.GET.country == "Malte" %}selected{% endif %}>{% trans "Malta" %}</option>
+                            <option value="Moldavie" {% if request.GET.country == "Moldavie" %}selected{% endif %}>{% trans "Moldova" %}</option>
+                            <option value="Monaco" {% if request.GET.country == "Monaco" %}selected{% endif %}>{% trans "Monaco" %}</option>
+                            <option value="Monténégro" {% if request.GET.country == "Monténégro" %}selected{% endif %}>{% trans "Montenegro" %}</option>
+                            <option value="Norvège" {% if request.GET.country == "Norvège" %}selected{% endif %}>{% trans "Norway" %}</option>
+                            <option value="Pays-Bas" {% if request.GET.country == "Pays-Bas" %}selected{% endif %}>{% trans "Netherlands" %}</option>
+                            <option value="Pologne" {% if request.GET.country == "Pologne" %}selected{% endif %}>{% trans "Poland" %}</option>
+                            <option value="Portugal" {% if request.GET.country == "Portugal" %}selected{% endif %}>{% trans "Portugal" %}</option>
+                            <option value="République tchèque" {% if request.GET.country == "République tchèque" %}selected{% endif %}>{% trans "Czech Republic" %}</option>
+                            <option value="Roumanie" {% if request.GET.country == "Roumanie" %}selected{% endif %}>{% trans "Romania" %}</option>
+                            <option value="Royaume-Uni" {% if request.GET.country == "Royaume-Uni" %}selected{% endif %}>{% trans "United Kingdom" %}</option>
+                            <option value="Russie" {% if request.GET.country == "Russie" %}selected{% endif %}>{% trans "Russia" %}</option>
+                            <option value="Saint-Marin" {% if request.GET.country == "Saint-Marin" %}selected{% endif %}>{% trans "San Marino" %}</option>
+                            <option value="Serbie" {% if request.GET.country == "Serbie" %}selected{% endif %}>{% trans "Serbia" %}</option>
+                            <option value="Slovaquie" {% if request.GET.country == "Slovaquie" %}selected{% endif %}>{% trans "Slovakia" %}</option>
+                            <option value="Slovénie" {% if request.GET.country == "Slovénie" %}selected{% endif %}>{% trans "Slovenia" %}</option>
+                            <option value="Suède" {% if request.GET.country == "Suède" %}selected{% endif %}>{% trans "Sweden" %}</option>
+                            <option value="Suisse" {% if request.GET.country == "Suisse" %}selected{% endif %}>{% trans "Switzerland" %}</option>
+                            <option value="Ukraine" {% if request.GET.country == "Ukraine" %}selected{% endif %}>{% trans "Ukraine" %}</option>
+                            <option value="Vatican" {% if request.GET.country == "Vatican" %}selected{% endif %}>{% trans "Vatican" %}</option>
+                            <option value="Albanie" {% if request.GET.country == "Albanie" %}selected{% endif %}>{% trans "Albania" %}</option>
+                            <option value="Allemagne" {% if request.GET.country == "Allemagne" %}selected{% endif %}>{% trans "Germany" %}</option>
+                            <option value="Andorre" {% if request.GET.country == "Andorre" %}selected{% endif %}>{% trans "Andorra" %}</option>
+                            <option value="Autriche" {% if request.GET.country == "Autriche" %}selected{% endif %}>{% trans "Austria" %}</option>
+                            <option value="Belgique" {% if request.GET.country == "Autriche" %}selected{% endif %}>{% trans "Belgium" %}</option>
+                            <option value="Biélorussie" {% if request.GET.country == "Biélorussie" %}selected{% endif %}>{% trans "Belarus" %}</option>
+                            <option value="Bosnie-Herzégovine" {% if request.GET.country == "Bosnie-Herzégovine" %}selected{% endif %}>{% trans "Bosnia and Herzegovina" %}</option>
+                            <option value="Bulgarie" {% if request.GET.country == "Bulgarie" %}selected{% endif %}>{% trans "Bulgaria" %}</option>
+                            <option value="Chypre" {% if request.GET.country == "Chypre" %}selected{% endif %}>{% trans "Cyprus" %}</option>
+                            <option value="Croatie" {% if request.GET.country == "Croatie" %}selected{% endif %}>{% trans "Croatia" %}</option>
+                            <option value="Danemark" {% if request.GET.country == "Danemark" %}selected{% endif %}>{% trans "Denmark" %}</option>
+                            <option value="Espagne" {% if request.GET.country == "Espagne" %}selected{% endif %}>{% trans "Spain" %}</option>
+                            <option value="Estonie" {% if request.GET.country == "Estonie" %}selected{% endif %}>{% trans "Estonia" %}</option>
+                            <option value="Finlande" {% if request.GET.country == "Finlande" %}selected{% endif %}>{% trans "Finland" %}</option>
+
+                            <!-- Pays africains -->
+                            <option value="Maroc" {% if request.GET.country == "Maroc" %}selected{% endif %}>{% trans "Morocco" %}</option>
+                            <option value="Algérie" {% if request.GET.country == "Algérie" %}selected{% endif %}>{% trans "Algeria" %}</option>
+                            <option value="Tunisie" {% if request.GET.country == "Tunisie" %}selected{% endif %}>{% trans "Tunisia" %}</option>
+                            <option value="Sénégal" {% if request.GET.country == "Sénégal" %}selected{% endif %}>{% trans "Senegal" %}</option>
+                            <option value="Côte d'Ivoire" {% if request.GET.country == "Côte d'Ivoire" %}selected{% endif %}>{% trans "Ivory Coast" %}</option>
+                            <option value="Cameroun" {% if request.GET.country == "Cameroun" %}selected{% endif %}>{% trans "Cameroon" %}</option>
+                            <option value="Nigeria" {% if request.GET.country == "Nigeria" %}selected{% endif %}>{% trans "Nigeria" %}</option>
+                            <option value="Kenya" {% if request.GET.country == "Kenya" %}selected{% endif %}>{% trans "Kenya" %}</option>
+                            <option value="Afrique du Sud" {% if request.GET.country == "Afrique du Sud" %}selected{% endif %}>{% trans "South Africa" %}</option>
+                            <option value="Égypte" {% if request.GET.country == "Égypte" %}selected{% endif %}>{% trans "Egypt" %}</option>
+                            <option value="La Réunion" {% if request.GET.country == "La Réunion" %}selected{% endif %}>{% trans "Reunion" %}</option>
+                            <option value="Seychelles" {% if request.GET.country == "Seychelles" %}selected{% endif %}>{% trans "Seychelles" %}</option>
+                            <option value="Maurice" {% if request.GET.country == "Maurice" %}selected{% endif %}>{% trans "Mauritius" %}</option>
+                            <option value="Comores" {% if request.GET.country == "Comores" %}selected{% endif %}>{% trans "Comoros" %}</option>
+                            <!-- ... -->
+                        </select>
+                        <div class="age_filter">
+                            <select name="age_min" class="form-input">
+                                <option value="">{% trans "Min age" %}</option>
+                                <option value="18" {% if request.GET.age_min == "18" %}selected{% endif %}>18</option>
+                                <option value="19" {% if request.GET.age_min == "19" %}selected{% endif %}>19</option>
+                                <option value="20" {% if request.GET.age_min == "20" %}selected{% endif %}>20</option>
+                                <option value="21" {% if request.GET.age_min == "21" %}selected{% endif %}>21</option>
+                                <option value="22" {% if request.GET.age_min == "22" %}selected{% endif %}>22</option>
+                                <option value="23" {% if request.GET.age_min == "23" %}selected{% endif %}>23</option>
+                                <option value="24" {% if request.GET.age_min == "24" %}selected{% endif %}>24</option>
+                                <option value="25" {% if request.GET.age_min == "25" %}selected{% endif %}>25</option>
+                                <option value="26" {% if request.GET.age_min == "26" %}selected{% endif %}>26</option>
+                                <option value="27" {% if request.GET.age_min == "27" %}selected{% endif %}>27</option>
+                                <option value="28" {% if request.GET.age_min == "28" %}selected{% endif %}>28</option>
+                                <option value="29" {% if request.GET.age_min == "29" %}selected{% endif %}>29</option>
+                                <option value="30" {% if request.GET.age_min == "30" %}selected{% endif %}>30</option>
+                                <!-- ... jusqu'à 80 ... -->
+                                <option value="80" {% if request.GET.age_min == "80" %}selected{% endif %}>80</option>
+                                <option value="100" {% if request.GET.age_min == "100" %}selected{% endif %}>{% trans "80 and above" %}</option>
+                            </select>
+                            <select name="age_max" class="form-input">
+                                <option value="">{% trans "Max age" %}</option>
+                                <option value="18" {% if request.GET.age_max == "18" %}selected{% endif %}>18</option>
+                                <option value="19" {% if request.GET.age_max == "19" %}selected{% endif %}>19</option>
+                                <option value="20" {% if request.GET.age_max == "20" %}selected{% endif %}>20</option>
+                                <option value="21" {% if request.GET.age_max == "21" %}selected{% endif %}>21</option>
+                                <option value="22" {% if request.GET.age_max == "22" %}selected{% endif %}>22</option>
+                                <option value="23" {% if request.GET.age_max == "23" %}selected{% endif %}>23</option>
+                                <option value="24" {% if request.GET.age_max == "24" %}selected{% endif %}>24</option>
+                                <option value="25" {% if request.GET.age_max == "25" %}selected{% endif %}>25</option>
+                                <option value="26" {% if request.GET.age_max == "26" %}selected{% endif %}>26</option>
+                                <option value="27" {% if request.GET.age_max == "27" %}selected{% endif %}>27</option>
+                                <option value="28" {% if request.GET.age_max == "28" %}selected{% endif %}>28</option>
+                                <option value="29" {% if request.GET.age_max == "29" %}selected{% endif %}>29</option>
+                                <option value="30" {% if request.GET.age_max == "30" %}selected{% endif %}>30</option>
+                                <!-- ... jusqu'à 80 ... -->
+                                <option value="80" {% if request.GET.age_max == "80" %}selected{% endif %}>80</option>
+                                <option value="100" {% if request.GET.age_max == "100" %}selected{% endif %}>{% trans "80 and above" %}</option>
+                            </select>
+                        </div>
+                        <button type="submit">{% trans "Filter" %}</button>
+                    </form>
+                </div>
+                <div class="profiles-container">
+    
+                    <div class="boosted-profiles">
+                        {% for profile in membres_donner %}
+                            {% if profile.desactivation == False %}
+                            
+                            <div class="profile-card">
+                                <a href="{% url 'detail_profil' profile.id %}" style="text-decoration: none;color: rgba(12, 8, 8, 0.767);">
+                                    <img src="/{{ profile.profil.images }}" alt="Photo de {{ profile.pseudo }}">
+                                    <h3>{% if profile.is_online %}
+                                            <button class="btn_onligne"></button>
+                                        {% else %}
+                                            <span></span>
+                                        {% endif %} {{ profile.pseudo }}</h3>
+                                    <i style="color: #0A2B58;"> <i class="fas fa-location-dot"></i> {{ profile.city }}, {{ profile.country }}</i>
+                                    
+                                    <h5>{% trans "looking for" %}: {% trans "age between" %} {{profile.age_debut}} - {{profile.age_fin}} years</h5>
+                                    <div class="reaction">
+                                        <div>
+                                            <a href="#" class="like-btn" data-id="{{ profile.id }}" style="text-decoration:none;"><i class="like_ fas fa-thumbs-up" style="color:#007FFF"></i></a>
+                                            <span class="like-count-{{ profile.id }}">
+                                                {{ profile.likes_received_count }}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="heart-btn" data-id="{{ profile.id }}" style="text-decoration:none;"><i class="like_ fas fa-heart" style="color:#E11584"></i></a>
+                                            <span class="heart-count-{{ profile.id }}">
+                                                {{ profile.hearts_received_count }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    
+                    
+                    <h2>{% trans "All profiles" %}</h2>
+                    <div class="all-profiles">
+                        
+                        {% for profile in membres_tous %}
+                            {% if profile.desactivation == False %}
+                            <div class="">
+                                <a href="{% url 'detail_profil' profile.id %}" style="text-decoration: none;color: rgba(14, 11, 9, 0.801);">
+                                    <img src="{{ profile.profil.images.url }}" alt="Photo de {{ profile }}">
+                                    <h3>{% if profile.is_online %}
+                                            <button class="btn_onligne"></button>
+                                            <!-- <span class="online-dot">{% trans "I'm online" %}</span> -->
+                                        {% else %}
+                                            <span></span>
+                                        {% endif %}{{ profile.pseudo }}</h3>
+                                    <i style="color: #0A2B58;"> <i class="fas fa-location-dot"></i> {{ profile.city }}, {{ profile.country }}</i>
+                                    
+                                    <h5>{% blocktrans %}looking for: age between {{ profile.age_debut }} - {{profile.age_fin}} years{% endblocktrans %}</h5>
+                                    <div class="reaction">
+                                        <div>
+                                            <a href="#" class="like-btn" data-id="{{ profile.id }}" style="text-decoration:none;"><i class="fas fa-thumbs-up" style="color:#007FFF"></i></a>
+                                            <span class="like-count-{{ profile.id }}">
+                                                {{ profile.likes_received_count }}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="heart-btn" data-id="{{ profile.id }}" style="text-decoration:none;"><i class="fas fa-heart" style="color:#E11584"></i></a>
+                                            <span class="heart-count-{{ profile.id }}">
+                                                {{ profile.hearts_received_count }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <!-- Pagination -->
+                    <div class="pagination" style="text-align:center; margin:2rem 0;display: flex;">
+                        {% if page_obj.has_previous %}
+                            <a href="?{% if request.GET.country %}country={{ request.GET.country }}&{% endif %}{% if request.GET.age_min %}age_min={{ request.GET.age_min }}&{% endif %}{% if request.GET.age_max %}age_max={{ request.GET.age_max }}&{% endif %}page={{ page_obj.previous_page_number }}" class="btn_n">&laquo; {% trans 'Previous' %}</a>
+                        {% endif %}
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <span class="btn" style="background:#e11584;color:white;">{{ num }}</span>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <a href="?{% if request.GET.country %}country={{ request.GET.country }}&{% endif %}{% if request.GET.age_min %}age_min={{ request.GET.age_min }}&{% endif %}{% if request.GET.age_max %}age_max={{ request.GET.age_max }}&{% endif %}page={{ num }}" class="btn">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <a href="?{% if request.GET.country %}country={{ request.GET.country }}&{% endif %}{% if request.GET.age_min %}age_min={{ request.GET.age_min }}&{% endif %}{% if request.GET.age_max %}age_max={{ request.GET.age_max }}&{% endif %}page={{ page_obj.next_page_number }}" class="btn_n">{% trans 'Next' %} &raquo;</a>
+                        {% endif %}
+                    </div>
+                </div>
+    </section>
+
+    <style>
+        .btn_onligne{
+            width: 10px;
+            height: 10px;
+            background-color: green;
+            border: none;
+            border-radius: 100%;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .entete_membres form{
+            margin-top: 6vh;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .entete_membres button{
+            height: 50px;
+            width: 10%;
+            border-radius: 20px;
+            font-size: 1.7vw;
+            border: none;
+            background-color: #ff5e56;
+            color: white;
+            cursor: pointer;
+        }
+        .form2{
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .form2 select{
+            width: 20%;
+            height: 50px;
+            border-radius: 15px;
+            
+        }
+        .form2 h3{
+            color: white;
+            font-size: 2vw;
+        }
+        .profiles-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 1rem;
+        }
+       
+
+        .boosted-profiles {
+            display: flex;
+            /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        .all-profiles{
+            display: grid;
+            /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin: 4rem 0;
+
+        }
+
+        .profile-card {
+            /* background: white;
+            border-radius: 15px; */
+            overflow: hidden;
+            /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
+            /* trition: trform 0.3s; */
+        }
+
+        .profile-card:hover {
+            transform: trlateY(-5px);
+        }
+
+        .profile-card img {
+            /* width: 90%; */
+            width: 16rem;
+            height: 35vh;
+            object-fit: cover;
+            border-radius: 15px;
+            /* border: 1px solid black; */
+            box-shadow: 1px 1px 1px 1px #f1eeee;
+        
+        }
+
+        .profile-card p {
+            /* padding: 0.5rem 1rem; */
+            /* margin: 0; */
+            color: rgba(0, 17, 255, 0.781);
+            margin-top: 2px;
+            height: 5vh;
+        }
+
+        .btn {
+            display: block;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem;
+            margin: 1rem 5px;
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            align-items: center;
+        }
+        .btn_n{
+            display: block;
+            background: #ff6b6b;
+            width: 100px;
+            height: 40px;
+            border-radius: 8px;
+            margin: 1rem 5px;
+            text-align: center;
+            align-items: center;
+            padding: 0.8rem 10px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn:hover {
+            background: #ff8e8e;
+        }
+        .reaction{
+            display: flex;
+            gap: 20px;
+            margin: 10px 2px;
+        }
+        .reaction .fa-thumbs-up{
+            color: blue;
+        }
+        .reaction .fa-heart{
+            color: rgb(255, 0, 0);
+        }
+        .reaction .fa-thumbs-down{
+            color: rgb(72, 255, 0);
+        }
+        .status{
+            position: relative;
+        }
+        .status button{
+                background-color: green;
+                width: 10px;
+                height: 10px;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                border: none;
+                position: absolute;
+                top: -8rem;
+                right: 2rem;
+            }
+        .status span{
+                color: green;
+                position: absolute;
+                top: -5.5rem;
+                right: 2rem;
+            }
+       
+        .age_filter select{
+            width: 10rem;
+        }
+        @media (max-width: 767px) {
+
+            .entete_membres {
+            padding: 20px 0px;
+            /* border-top-left-radius: 15px;
+            border-top-right-radius: 15px; */
+            /* background-image: url(../static/images/bg4.jpg); */
+            background-color: linear-gradient(to right, rgba(244, 242, 239, 0.717), rgba(194, 62, 124, 0.603));
+            /* background-blend-mode: multiply; */
+            /* background-position: center; */
+            /* background-repeat: no-repeat; */
+            /* background-size: cover; */
+            background-attachment: local;
+            }
+            .age_filter{
+                display: flex;
+                margin-bottom: 0.5rem;
+                gap: 2rem;
+            
+            }
+            .container {
+                width: 100%;
+                max-width: 1200px;
+                margin: 0 auto;
+                /* padding: 2rem 1rem; */
+             
+            }
+            .entete_membres {
+                height: auto;
+                position: relative;
+                font-size: 2vw;
+            
+            }
+            .entete_membres form{
+                margin-top: 10vh;
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                /* background: linear-gradient(45deg, #e91e63, transparent); */
+                padding: 10px;
+            }
+
+            .entete_membres select {
+                    width: 169rem;
+                    font-size: 16px;
+                    /* margin-bottom: 1rem; */
+                    color: #000000;
+                    border: 1px solid #e3e3e3;
+                    /* border: none; */
+                    box-shadow: 2px 17px 20px -13px gray;
+            }
+
+            .entete_membres button {
+                width: 39%;
+                font-size: 1.6rem;
+                background-color: white;
+                /* position: relative; */
+                border: none;
+                width: 60%;
+                background-color: #ff5e56;
+                
+            }
+            .entete_membres .svg-inline--fa{
+                position: absolute !important;
+                right: 33px !important;
+                font-size: 8vw !important;
+                top: 12px !important;
+                color: green !important;
+            }
+            .boosted-profiles, .all-profiles {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 2rem;
+                margin: 2rem 0;
+            }
+            
+
+            .form2 {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form2 select {
+                width: 80%;
+                margin-top: 1rem;
+            }
+
+            .form2 h3 {
+                font-size: 1.2rem;
+            }
+
+
+            .profiles-container {
+                padding: 0.5rem;
+            }
+            
+
+            .boosted-profiles, .all-profiles {
+                grid-template-columns: 2fr 2fr;
+                gap: 1rem;
+            }
+
+            .profile-card {
+                margin: 0 auto;
+                max-width: 320px;
+                position: relative;
+                overflow: hidden;
+            }
+           
+            .profile-card img {
+                height: 190px;
+                width: 100%;
+                object-fit: cover;
+                object-position: center;
+                border-radius: 15px;
+            }
+           
+            
+            
+            .entete_membres form {
+                display: flex;
+                gap: 5px;
+            }
+            .status button{
+                background-color: green;
+                width: 10px;
+                height: 10px;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                border: none;
+                position: absolute;
+                top: -23vh;
+                left: 8rem;
+            }
+            .status span{
+                color: green;
+                position: absolute;
+                top: -8.5rem;
+                left: 6rem;
+                width: 4rem;
+    
+            }
+        }
+
+        /* Tablet styles */
+        @media (min-width: 767px) and (max-width: 1024px) {
+            .form2 {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                flex-wrap: wrap;
+                padding: 1rem;
+                margin-top: 10vh !important;
+            }
+
+            .form2 select {
+                width: 30%;
+                margin: 0;
+            }
+
+            .entete_membres button {
+                width: 15%;
+                font-size: 1.2rem;
+            }
+
+            .age_filter {
+                display: flex;
+                gap: 1rem;
+                width: auto;
+            }
+
+            .age_filter select {
+                width: 8rem;
+            }
+
+            .boosted-profiles {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+
+            .all-profiles {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+
+            .profile-card img {
+                width: 100%;
+                height: 25vh;
+            }
+
+            .profile-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .profiles-container {
+                padding: 0 1.5rem;
+            }
+
+            .status button {
+                top: -20vh;
+                right: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* .entete_membres input,
+            .entete_membres button,
+            .form2 select {
+                
+                font-size: 14px;
+            } */
+
+            .profile-card {
+                max-width: 100%;
+                border-radius: 15px;
+                padding: 8px;
+                box-shadow: 1px 1px 10px 1px #D3D3D3;
+            }
+
+            .profile-card h2 {
+                font-size: 1.2rem;
+            }
+
+            .profile-card h3 {
+                font-size: 1rem;
+                color: black;
+                margin-top: 2vh;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.like-btn').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const memberId = this.getAttribute('data-id');
+                    fetch(`/like/${memberId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.querySelector(`.like-count-${memberId}`).textContent = data.likes_count;
+                    });
+                });
+            });
+
+            document.querySelectorAll('.heart-btn').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const memberId = this.getAttribute('data-id');
+                    fetch(`/heart/${memberId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.querySelector(`.heart-count-${memberId}`).textContent = data.hearts_count;
+                    });
+                });
+            });
+        });
+    </script>
+  
+{% endblock "contenu" %}

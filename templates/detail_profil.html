@@ -1,0 +1,1191 @@
+{% extends "layouts/master.html" %}
+{% load i18n %}
+{% load static %}
+{% load custom_filters %}
+{% block "contenu" %}
+<section class="profile-detail-section">
+    <div class="profile-detail-container">
+        <div>
+            <div class="profile-header">
+                <div class="prof" id="autre_profile" style="position:relative;">
+                    <div style="position:relative; display:inline-block;">
+                       
+                        
+                        <img src="/{{profile}}" alt="Photo de profil" class="profile-image">
+                        {% if photo_valider and photo_valider.valider %}
+                        <span class="badge-validation" style="position:absolute; bottom:12px; right:18px; background:#28a745; color:white; border-radius:50%; padding:4px 7px; font-size:18px; border:2px solid #fff; cursor:pointer;" id="badge" title="Profil validé">
+                            <i class="fas fa-check"></i>
+                            <span class="popup-validation">message validé</span>
+                        </span>
+                        {% else %}
+                        <span class="badge-validation" style="position:absolute; bottom:12px; right:18px; background:#dc3545; color:white; border-radius:50%; padding:4px 7px; font-size:18px; border:2px solid #fff; cursor:pointer;" title="Profil non validé">
+                            <i class="fas fa-times"></i>
+                            <span class="popup-validation">message non validé</span>
+                        </span>
+                        {% endif %}
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-count like-count-{{ membre.id }}">{{ membre.likes_received_count }}</span>
+                            <a href="#" class="like-btn" style="text-decoration: none;" data-id="{{ membre.id }}"><i class="fas fa-thumbs-up" style="color:#007FFF"></i></a>
+                        </div>
+                        <div class="stat1">
+                            <span class="stat-count heart-count-{{ membre.id }}">{{ membre.hearts_received_count }}</span>
+                            <a href="#" class="heart-btn" style="text-decoration: none;" data-id="{{ membre.id }}"><i class="fas fa-heart" style="color:#E11584"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-header-info" id="autre_profile">
+                    <span class="popup-validation">{{mombre}}</span>
+                    <h2>{{ membre.pseudo }}</h2>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> {{ membre.city }}, {{ membre.country }}</p>
+                    <div class="profile-actions">
+                        {% if photo_valider %}
+                            {% if photo_valider.valider == False %}
+                                <a href="#" class="action-btn"><i class="fas fa-envelope"></i> {% trans "Waiting for validation" %}</a>
+                            {% endif %}
+                            {% if photo_valider.valider == True %}
+                                <a href="{% url 'message_priver' membre.id %}" class="action-btn"><i class="fas fa-envelope"></i> {% trans "Message" %}</a>
+                            {% endif %}
+                        {% else %}
+                            <button class="action-btn" id="start_camera" style="border: none;"><i class="fas fa-envelope"></i> {% trans "Message" %}</button>
+                            <!-- <p style="color: red; font-size: 0.9rem;" class="alert">{% trans "You must send a photo validated by the administrator to access private messages." %}</p> -->
+                        {% endif %}
+                        <button class="action-btn {% if is_following %}followed-btn{% else %}not-followed-btn{% endif %}" id="follow-member" data-id="{{ membre.id }}" style="border: none;">
+                        {% if is_following %}
+                            <i class="fas fa-user-minus"></i> Ne suivre pas
+                        {% else %}
+                            <i class="fas fa-user-plus"></i> Suivre
+                        {% endif %}
+                        </button>
+                        {% if request.session.client.id != membre.id %}
+                            <button type="button" class="action-btn" id="block-member-profile" style="background: #ff6b6b;border: none;">
+                                {% if user_has_blocked %}
+                                    <i class="fas fa-ban"></i> {% trans "Blocked" %}
+                                {% else %}
+                                    <i class="fas fa-ban"></i> {% trans "Block" %}
+                                {% endif %}
+                            </button>
+                            <button type="button" class="action-btn" id="unblock-member-profile"
+                                    {% if user_has_blocked %}style="background: #4CAF50; display: inline-block;"{% else %}style="background: #4CAF50; display: none;"{% endif %}>
+                                <i class="fas fa-unlock"></i> {% trans "Unblock" %}
+                            </button>
+                        {% endif %}
+                    </div>
+                    {% if additional_info %}
+                    <div class="additional-images-gallery" style="margin-top:1.5rem;">
+                        {% for i in "123456" %}
+                            {% with field_name="additional_image"|add:i %}
+                                {% if additional_info|getattribute:field_name %}
+                                    <img src="/{{ additional_info|getattribute:field_name }}" class="additional-image-thumb" data-index="{{ forloop.counter0 }}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;margin:5px;cursor:pointer;" alt="Additional image {{ forloop.counter }}">
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+                    <div id="additional-image-modal" class="additional-image-modal" style="display:none;">
+                        <span class="close-modal" id="close-additional-modal">&times;</span>
+                        <img id="modal-image" src="" alt="" style="max-width:90vw;max-height:80vh;display:block;margin:auto;width:20rem;height:28vh">
+                        <div class="modal-controls">
+                            <button id="prev-additional" class="modal-nav">&#8592;</button>
+                            <button id="next-additional" class="modal-nav">&#8594;</button>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div id="critere" class="critere-message">
+                    <h2>{% trans "Vérification Faciale – Étape de Sécurité Obligatoire" %}</h2>
+                    <h4 style="margin-bottom: 10px;">{% trans "Dans le souci de garantir l’authenticité des profils et d’assurer la sécurité de notre communauté, une vérification faciale unique est requise." %}</h4>
+                    <h4 style="margin-bottom: 10px;">{% trans "Cette procédure, simple et rapide, est indispensable pour :" %}</h4>
+                    <ul>
+                        <li> {% trans "Confirmer que chaque profil correspond à une personne réelle." %}</li>
+                        <li> {% trans "Prévenir les faux comptes, les tentatives d’escroquerie et les comportements inappropriés." %}</li>
+                        <li>{% trans "Favoriser un environnement de rencontre fiable, respectueux et sécurisé." %}</li>
+                    </ul>
+                    <h3>📸 {% trans "Avant de procéder à la vérification, merci de respecter les consignes suivantes :" %}</h3>
+                    <ul>
+                        <li>{% trans "Installez-vous dans un endroit bien éclairé."%} <p>{% trans "Évitez les contre-jours ainsi que les pièces trop sombres." %}</p></li>
+                        <li>{% trans "Assurez-vous d’être seul(e) sur la photo.Aucune autre personne ne doit apparaître à l’image." %}</li>
+                        <li>{% trans "Veuillez dégager votre visage.Retirez tout accessoire susceptible de le dissimuler (lunettes de soleil, masque, couvre-chef, etc.)." %}</li>
+                        <li>{% trans "Adoptez une apparence naturelle, sans filtres ni effets visuels.L’objectif est de permettre une reconnaissance claire de votre visage." %}</li>
+                        <li>{% trans "Regardez directement la caméra.Votre visage doit être centré et entièrement visible" %}</li>
+                    </ul>
+                    <h3 style="margin-bottom: 10px;">✅ Une fois la vérification validée :</h3>
+                    <ul>
+                        <li>{% trans "Votre profil sera identifié comme « Vérifié », renforçant ainsi la confiance auprès des autres membres." %}</li>
+                        <li>{% trans "Vos données biométriques seront utilisées uniquement à des fins de vérification. Elles ne seront ni conservées au-delà du processus, ni partagées, conformément à notre [Politique de Confidentialité]" %}</li>
+                    </ul>
+                    <div class="critere-actions">
+                        <button class="btn_q" id="quiter">{% trans "Quit" %}</button>
+                        <a href="{% url 'validation_photo' %}">
+                            <button class="btn_a" id="selfie_activer">{% trans "Validate my photo" %}</button>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="profile-info" id="autre_profile">
+            <div class="info-section">
+                <h2 class="section-title"><i class="fas fa-user"></i> {% trans "Personal Information" %}</h2>
+                <div class="info-grid">
+                    <p><strong>{% trans "Country:" %}</strong> {{ membre.country }}</p>
+                    <p><strong>{% trans "City:" %}</strong> {{ membre.city }}</p>
+                    <p><strong>{% trans "Gender:" %}</strong> {{ membre.gender }}</p>
+                    <p><strong>{% trans "Looking for:" %}</strong> {{ membre.looking_for }}</p>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2 class="section-title"><i class="fas fa-eye"></i> {% trans "Appearance" %}</h2>
+                <div class="info-grid">
+                    <p><strong>{% trans "Hair:" %}</strong> {{ profil.cheveux }}</p>
+                    <p><strong>{% trans "Eyes:" %}</strong> {{ profil.yeux }}</p>
+                    <p><strong>{% trans "Height:" %}</strong> {{ profil.taille }} cm</p>
+                    <p><strong>{% trans "Weight:" %}</strong> {{ profil.poids }} kg</p>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2 class="section-title"><i class="fas fa-glass-cheers"></i> {% trans "Lifestyle" %}</h2>
+                <div class="info-grid">
+                    <p><strong>{% trans "Alcohol consumption:" %}</strong> {{ profil.alcool }}</p>
+                    <p><strong>{% trans "Tobacco consumption:" %}</strong> {{ profil.tabac }}</p>
+                    <p><strong>{% trans "Marital status:" %}</strong> {{ profil.situation }}</p>
+                    <p><strong>{% trans "Number of children:" %}</strong> {{ profil.enfants }}</p>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="info-section">
+                <h2 class="section-title"><i class="fas fa-info-circle"></i> {% trans "Description" %}</h2>
+                <div class="info-grid">
+                    <p><strong>{% trans "About:" %}</strong> {{ profil.description }}</p>
+                    <p><strong>{% trans "About the person sought:" %}</strong> {{ profil.recherche }}</p>
+                </div>
+            </div>
+
+            {% if additional_info %}
+                <!-- Additional Information -->
+                <div class="info-section">
+                    <h2 class="section-title"><i class="fas fa-plus-circle"></i> {% trans "Additional Information" %}</h2>
+                    <div class="info-grid">
+                        <p><strong>{% trans "Ethnicity:" %}</strong> {{ additional_info.ethnicite }}</p>
+                        <p><strong>{% trans "Body art:" %}</strong> {{ additional_info.art_corporel }}</p>
+                        <p><strong>{% trans "Children wanted:" %}</strong> {{ additional_info.enfants_souhaites }}</p>
+                        <p><strong>{% trans "Profession:" %}</strong> {{ additional_info.profession }}</p>
+                        <p><strong>{% trans "Living situation:" %}</strong> {{ additional_info.situation_vie }}</p>
+                        <p><strong>{% trans "Willing to move:" %}</strong> {{ additional_info.demenagement }}</p>
+                        <p><strong>{% trans "Relationship sought:" %}</strong> {{ additional_info.relation_recherche }}</p>
+                        <p><strong>{% trans "Education level:" %}</strong> {{ additional_info.niveau_etude }}</p>
+                        <p><strong>{% trans "Religion:" %}</strong> {{ additional_info.religion }}</p>
+                        <p><strong>{% trans "Astrological sign:" %}</strong> {{ additional_info.signe_astrologique }}</p>
+                    </div>
+                   
+                </div>
+            {% endif %}
+        </div>
+        <!-- <div class="followers-section">
+            <h2>Followers</h2>
+            <ul id="followers-list">
+                {% for follower in followers %}
+                    <li id="follower-{{ follower.follower.id }}">
+                        <a href="{% url 'detail_profil' follower.follower.id %}">
+                            {{ follower.follower.pseudo }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if request.session.client.id == membre.id %}
+                <a href="{% url 'list_followers' membre.id %}" class="view-all-followers">{% trans "View all followers" %}</a>
+            {% endif %}
+        </div> -->
+    </div>
+</section>
+
+<style>
+    .profile-detail-section {
+        padding: 2rem;
+        background: #f3f4f6;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .profile-detail-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        /* padding: 2rem; */
+        border-radius: 15px;
+        /* box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); */
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .profile-image {
+        width: 13rem;
+        height: 35vh;
+        border-radius:5px;
+    }
+    .prof{
+        /* box-shadow: 0 10px 15px black; */
+        border-radius: 15px;
+        padding: 20px;
+    }
+
+    .profile-header-info {
+        flex: 1;
+    }
+
+    .profile-header-info h2 {
+        margin: 0;
+        font-size: 2rem;
+        color: #333;
+    }
+
+    .location {
+        font-size: 1rem;
+        color: #777;
+        margin: 0.5rem 0;
+    }
+
+    .profile-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #4361ee;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: background 0.3s ease;
+        cursor: pointer;
+    }
+    .action-btn:hover {
+        background: #ff8e8e;
+    }
+    .followed-btn {
+        background: #28a745 !important;
+        color: #fff !important;
+    }
+    .not-followed-btn {
+        background: #4361ee !important;
+        color: #fff !important;
+    }
+    
+
+    .profile-stats {
+        display: flex;
+        gap: 2rem;
+        /* margin: 0.5rem 2rem; */
+    }
+
+    .stat{
+        text-align: center;
+        color: blue;
+        font-size: 2.5rem;
+
+    }
+    
+
+    .stat-count {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .stat1 .heart-btn{
+        font-size: 2.5rem;
+        color: #ff6b6b;
+    }
+
+    .profile-info {
+        margin-top: 2rem;
+    }
+
+    .info-section {
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .info-grid p {
+        margin: 0;
+        font-size: 1rem;
+        color: #555;
+        background: #f9f9f9;
+        padding: 0.8rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-grid p strong {
+        color: #333;
+    }
+    .selfie_cam{
+        position: absolute;
+        z-index: 200;
+        background-color: #000000;
+        left: 5%;
+        top: -18px;
+        border-radius: 15px;
+        text-align: center;
+        width: 90%;
+        height: 82vh
+    }
+    #capturedImage{
+        position: absolute;
+        top: 18vh;
+    }
+
+    .view-all-followers {
+        display: inline-block;
+        margin-top: 1rem;
+        color: #007bff;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+
+    .view-all-followers:hover {
+        text-decoration: underline;
+    }
+    #video{
+            width: 80%;
+            height: 53vh;
+            margin-bottom: 20px;
+    }
+   
+    #retour{
+        width: 40px;
+        height: 40px;
+        font-size: 29px;
+        border: rad;
+        border-radius: 50px;
+        color: red;
+        margin-left: 33%;
+    }
+    .btn-primary{
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+        margin-left: 5rem;
+        background-color: white;
+        color: red;
+        position: absolute;
+        top: 71vh;
+    }
+
+    @media (max-width: 768px) {
+        .profile-detail-section {
+            padding: 1rem;
+            margin-top: 10vh;
+        }
+
+        .profile-detail-container {
+            border-radius: 10px;
+        }
+
+        .profile-header {
+            flex-direction: column;
+        }
+
+        .prof {
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .profile-image {
+            height: 300px;
+            border-radius: 10px;
+            border-radius: 2px;
+        }
+
+        .profile-stats {
+            justify-content: center;
+        }
+
+        .profile-header-info {
+            text-align: center;
+        }
+
+        .profile-actions {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .action-btn {
+            width: 50vw;
+            justify-content: center;
+            height: 40px;
+        }
+
+        .info-section {
+            padding: 1rem;
+        }
+
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+        #captureImage{
+            top: 67px;
+            left: 6px;
+        }
+        #video{
+            width: 28rem;
+            height: 89vh;
+
+        }
+        
+        .selfie_cam {
+            position: absolute;
+            width: 72vh !important;
+            /* height: 121vh !important; */
+            left: -4%;
+            right: 4%;
+            /* width: 25rem; */
+            background: #251e1e;
+            height: 102vh;
+            top: -102px !important;
+        }
+        .btn-primary {
+            display: block;
+            width: 70px;
+            padding: 0.75rem;
+            background-color: var(--primary);
+            color: var(--background);
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            left: 68%;
+            top: 80vh;;
+            height: 70px;
+            font-size: 12vw;
+        }
+        #retour{
+            background: #cb4915;
+            color: white;
+            position: absolute;
+            top: 77vh;
+            /* right: 33px; */
+            width: 60px;
+            height: 60px;
+            font-size: 9vw;
+            border-radius: 100%;
+            left: -5rem;
+        }
+        .critere-message {
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+            position: absolute;
+            background-color: #fff;
+            height: auto;
+            padding: 30px 20px;
+            top: 10px;
+            width: 100% !important;
+            border-radius: 12px;
+            z-index: 100;
+            color: #222;
+            font-family: 'Segoe UI', sans-serif;
+            margin-left: 0 !important;
+            height: 177vh !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .profile-image {
+            height: 37vh;
+            width: 15rem;
+            border-radius: 5px;
+        }
+
+        .profile-header-info h2 {
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+        }
+
+        .info-grid p {
+            font-size: 0.9rem;
+        }
+        /* .selfie_cam {
+            position: absolute;
+            width: 71vh !important;
+            height: 121vh !important;
+            left: -9%;
+            right: 4%;
+            width: 25rem;
+            background: #251e1e;
+            height: 100vh;
+            top: -163px !important;
+        } */
+        .btn-primary {
+            display: block;
+            width: 70px;
+            padding: 0.75rem;
+            background-color: var(--primary);
+            color: var(--background);
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            left: 68%;
+            top: 74vh;
+            height: 70px;
+            font-size: 12vw;
+        }
+
+        .selfie_cam p{
+            color: white;
+            /* padding-top: 4rem; */
+            position: absolute;
+            top: 3rem;
+            z-index: 2;
+            left: 11rem;
+            font-size: 7vw;
+        }
+        #takePhoto{
+            top: 75vh;
+            left: 12rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fffdfd;
+            box-shadow: 0px 1px 2px 7px #635d5d;
+            border: none;
+            position: absolute;
+        }
+    }
+    .critere-message {
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+        position: absolute;
+        background-color: #fff;
+        height: auto;
+        padding: 30px 20px;
+        top: 8px;
+        width: 70%;
+        border-radius: 12px;
+        z-index: 100;
+        color: #222;
+        font-family: 'Segoe UI', sans-serif;
+        height: 132vh;
+
+        margin-left: 15%;
+    }
+    .critere-message h2 {
+        color: #ff6b6b;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    .critere-message ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem 0;
+    }
+    .critere-message ul li {
+        margin-bottom: 1rem;
+        padding-left: 1.2em;
+        position: relative;
+    }
+    .critere-message ul li:before {
+        content: "✔️ ";
+        position: absolute;
+        left: 0;
+        color: #4caf50;
+    }
+    /* .critere-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+    } */
+    .btn_q, .btn_a {
+        flex: 1;
+        height: 40px;
+        font-size: 1.1rem;
+        border-radius: 10px;
+        border: none;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: background 0.2s;
+        width: 46%;
+    }
+    .btn_q {
+        background-color: #003cff;
+        color: #fff;
+    }
+    .btn_a {
+        background-color: #ff6b6b;
+        color: #fff;
+    }
+    .btn_q:hover, .btn_a:hover {
+        opacity: 0.9;
+    }
+    #critere{
+        display: none;
+    }
+    .additional-images-gallery {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .additional-image-thumb {
+        border: 2px solid #e0b3d1;
+        transition: border 0.2s, box-shadow 0.2s;
+    }
+    .additional-image-thumb:hover {
+        border: 2px solid #aa3073;
+        box-shadow: 0 2px 8px #aa307366;
+    }
+    .additional-images-gallery-scroll {
+        margin-top: 1.2rem;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 8px;
+    }
+    .additional-images-scroll-inner {
+        display: flex;
+        gap: 14px;
+        min-width: 0;
+    }
+    .additional-image-thumb-scroll {
+        width: 110px;
+        height: 110px;
+        min-width: 110px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 2px solid #e0b3d1;
+        transition: border 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+        background: #f9f9f9;
+    }
+    .additional-image-thumb-scroll:hover {
+        border: 2px solid #aa3073;
+        box-shadow: 0 2px 8px #aa307366;
+    }
+    @media (max-width: 900px) {
+        .additional-image-thumb-scroll {
+            width: 90px;
+            height: 90px;
+            min-width: 90px;
+        }
+    }
+    @media (max-width: 600px) {
+        .additional-image-thumb-scroll {
+            width: 70px;
+            height: 70px;
+            min-width: 70px;
+        }
+    }
+    @media (max-width: 400px) {
+        .additional-image-thumb-scroll {
+            width: 55px;
+            height: 55px;
+            min-width: 55px;
+        }
+    }
+    .badge-validation {
+        position: absolute;
+        z-index: 10;
+        transition: box-shadow 0.2s;
+    }
+    .badge-validation:hover {
+        box-shadow: 0 2px 8px #888;
+    }
+    .badge-validation .popup-validation {
+        display: none;
+        position: absolute;
+        bottom: 120%;
+        right: 50%;
+        transform: translateX(50%);
+        background: #222;
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        white-space: nowrap;
+        box-shadow: 0 2px 8px #888;
+        opacity: 0.95;
+    }
+    .badge-validation:hover .popup-validation {
+        display: block;
+    }
+    @media (min-width: 767px) and (max-width: 1024px) {
+        .profile-header{
+            margin-top: 7vh !important;
+        }
+        .profile-image {
+            width: 15rem !important;
+            height: 29vh !important;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        #badge{
+            right: 60px !important;
+        }
+        .profile-actions{
+            margin-right: 10px;
+        }
+    }
+</style>
+
+<script>
+    
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Like button functionality
+        document.querySelectorAll('.like-btn').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const memberId = this.getAttribute('data-id');
+                fetch(`/like/${memberId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector(`.like-count-${memberId}`).textContent = data.likes_count;
+                });
+            });
+        });
+
+        const critere = document.getElementById("critere")
+        const startButton = document.getElementById('start_camera');
+        const quiter = document.getElementById("quiter")
+        const autre_profile = document.querySelectorAll("#autre_profile")
+
+        if (startButton) {
+            startButton.addEventListener('click',async() =>{
+                critere.style.display = "block"
+                autre_profile.forEach(autre =>{
+                    autre.style = "background-color:black;opacity:0"
+                })
+            })
+        }
+        if (quiter) {
+            quiter.addEventListener('click',async() =>{
+                critere.style.display = "none"
+                autre_profile.forEach(autre =>{
+                    autre.style = "background-color:white;opcity:1"
+                })
+            })
+        }
+
+        document.querySelectorAll('.heart-btn').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const memberId = this.getAttribute('data-id');
+                fetch(`/heart/${memberId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector(`.heart-count-${memberId}`).textContent = data.hearts_count;
+                });
+            });
+        });
+
+        // Suivre/Ne suivre pas
+        const followButton = document.getElementById('follow-member');
+        if (followButton) {
+            var isFollowing = "{{ is_following|yesno:'true,false' }}" === "true";
+            function updateFollowBtn(isFollowing) {
+                if (isFollowing) {
+                    followButton.innerHTML = '<i class="fas fa-user-minus"></i> {% trans "Ne suivre pas" %}';
+                    followButton.classList.remove('not-followed-btn');
+                    followButton.classList.add('followed-btn');
+                } else {
+                    followButton.innerHTML = '<i class="fas fa-user-plus"></i> {% trans "Suivre" %}';
+                    followButton.classList.remove('followed-btn');
+                    followButton.classList.add('not-followed-btn');
+                }
+            }
+            updateFollowBtn(isFollowing);
+            followButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                const memberId = followButton.getAttribute('data-id');
+                followButton.disabled = true;
+                // Change button state immediately for better UX
+                isFollowing = !isFollowing;
+                updateFollowBtn(isFollowing);
+                // Utilise toujours le même endpoint pour follow/unfollow
+                let endpoint = `/membres/follow/${memberId}/`;
+                fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    followButton.disabled = false;
+                    if (data.success) {
+                        isFollowing = data.is_following;
+                        updateFollowBtn(isFollowing);
+                        // Ne rien afficher ici (pas de popup de succès)
+                    } else {
+                        showCustomPopup(data.message || '{% trans "Erreur lors du suivi." %}');
+                    }
+                })
+                .catch(error => {
+                    followButton.disabled = false;
+                    let errorDiv = document.createElement('div');
+                    errorDiv.className = 'error-message-follow';
+                    errorDiv.style = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#ff6b6b;color:#fff;padding:1rem 2rem;border-radius:10px;z-index:9999;font-size:1.1rem;box-shadow:0 2px 8px #2222;';
+                    errorDiv.textContent = '';
+                    // document.body.appendChild(errorDiv);
+                    setTimeout(function(){
+                        if (errorDiv.parentNode) errorDiv.parentNode.removeChild(errorDiv);
+                    }, 3500);
+                });
+            });
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // ...existing code...
+        // (On retire le deuxième eventListener sur followButton, la logique est déjà gérée dans le premier document.addEventListener('DOMContentLoaded', ...)
+
+        // Additional images modal logic
+        const thumbs = document.querySelectorAll('.additional-image-thumb');
+        const modal1 = document.getElementById('additional-image-modal');
+        const modalImg1 = document.getElementById('modal-image');
+        const closeModal1 = document.getElementById('close-additional-modal');
+        const prevBtn1 = document.getElementById('prev-additional');
+        const nextBtn1 = document.getElementById('next-additional');
+        let currentIndex1 = 0;
+        let images1 = Array.from(thumbs).map(img => img.src);
+
+        thumbs.forEach((thumb, idx) => {
+            thumb.addEventListener('click', function() {
+                currentIndex1 = idx;
+                modalImg1.src = images1[currentIndex1];
+                modal1.style.display = 'block';
+            });
+        });
+        if (closeModal1) {
+            closeModal1.onclick = function() {
+                modal1.style.display = 'none';
+            };
+        }
+        if (prevBtn1) {
+            prevBtn1.onclick = function() {
+                currentIndex1 = (currentIndex1 - 1 + images1.length) % images1.length;
+                modalImg1.src = images1[currentIndex1];
+            };
+        }
+        if (nextBtn1) {
+            nextBtn1.onclick = function() {
+                currentIndex1 = (currentIndex1 + 1) % images1.length;
+                modalImg1.src = images1[currentIndex1];
+            };
+        }
+        window.addEventListener('click', function(event) {
+            // Sécurisé : aucune utilisation de 'contains', et modal1 existe
+            if (modal1 && event.target === modal1) {
+                modal1.style.display = 'none';
+            }
+        });
+    });
+    // Additional images modal logic (adapted for scroll gallery)
+    const thumbsScroll = document.querySelectorAll('.additional-image-thumb-scroll');
+    const modal2 = document.getElementById('additional-image-modal');
+    const modalImg2 = document.getElementById('modal-image');
+    const closeModal2 = document.getElementById('close-additional-modal');
+    const prevBtn2 = document.getElementById('prev-additional');
+    const nextBtn2 = document.getElementById('next-additional');
+    let currentIndex2 = 0;
+    let images2 = Array.from(thumbsScroll).map(img => img.src);
+
+    thumbsScroll.forEach((thumb, idx) => {
+        thumb.addEventListener('click', function() {
+            currentIndex2 = idx;
+            modalImg2.src = images2[currentIndex2];
+            modal2.style.display = 'block';
+        });
+    });
+    if (closeModal2) {
+        closeModal2.onclick = function() {
+            modal2.style.display = 'none';
+        };
+    }
+    if (prevBtn2) {
+        prevBtn2.onclick = function() {
+            currentIndex2 = (currentIndex2 - 1 + images2.length) % images2.length;
+            modalImg2.src = images2[currentIndex2];
+        };
+    }
+    if (nextBtn2) {
+        nextBtn2.onclick = function() {
+            currentIndex2 = (currentIndex2 + 1) % images2.length;
+            modalImg2.src = images2[currentIndex2];
+        };
+    }
+    window.addEventListener('click', function(event) {
+        // Sécurisé : aucune utilisation de 'contains', et modal2 existe
+        if (modal2 && event.target === modal2) {
+            modal2.style.display = 'none';
+        }
+    });
+    // Ajout de la logique de blocage/déblocage du profil
+    const blockBtnProfile = document.getElementById('block-member-profile');
+    const unblockBtnProfile = document.getElementById('unblock-member-profile');
+    const memberIdProfile = '{{ membre.id }}';
+
+    // Initialiser l'état des boutons selon le contexte serveur
+    var isBlockedProfile = '{{ user_has_blocked|yesno:"true,false" }}' === 'true';
+    setBlockProfileButtons(isBlockedProfile);
+
+    function setBlockProfileButtons(isBlocked) {
+        if (isBlocked) {
+            blockBtnProfile && (blockBtnProfile.style.display = 'none');
+            unblockBtnProfile && (unblockBtnProfile.style.display = 'inline-block');
+        } else {
+            blockBtnProfile && (blockBtnProfile.style.display = 'inline-block');
+            unblockBtnProfile && (unblockBtnProfile.style.display = 'none');
+        }
+    }
+    // Popup confirmation custom
+    function showCustomConfirm(message, onConfirm) {
+        let popup = document.createElement('div');
+        popup.className = 'custom-confirm-popup';
+        popup.innerHTML = `
+            <div class="custom-confirm-content">
+                <p>${message}</p>
+                <div class="custom-confirm-actions">
+                    <button class="custom-confirm-btn confirm">OK</button>
+                    <button class="custom-confirm-btn cancel">Cancel</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(popup);
+        popup.querySelector('.confirm').onclick = function() {
+            document.body.removeChild(popup);
+            onConfirm(true);
+        };
+        popup.querySelector('.cancel').onclick = function() {
+            document.body.removeChild(popup);
+            onConfirm(false);
+        };
+    }
+
+    if (blockBtnProfile) {
+        blockBtnProfile.addEventListener('click', function(e) {
+            e.preventDefault();
+            showCustomConfirm("{% trans 'Do you really want to block this member?' %}", function(confirmed) {
+                if (!confirmed) return;
+                fetch("{% url 'block_member' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    body: 'member_id=' + encodeURIComponent(memberIdProfile)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        setBlockProfileButtons(true);
+                    } else {
+                        showCustomConfirm(data.error || 'Erreur lors du blocage.', function(){});
+                    }
+                })
+                .catch(() => showCustomConfirm('Erreur lors du blocage.', function(){}));
+            });
+        });
+    }
+    if (unblockBtnProfile) {
+        unblockBtnProfile.addEventListener('click', function(e) {
+            e.preventDefault();
+            showCustomPopupConfirm("{% trans 'Do you really want to unblock this member?' %}", function(confirmed) {
+                if (!confirmed) return;
+                fetch("{% url 'unblock_member' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    body: 'member_id=' + encodeURIComponent(memberIdProfile)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        setBlockProfileButtons(false);
+                        showCustomPopup('{% trans "Member unblocked." %}');
+                    } else {
+                        showCustomPopup(data.error || '{% trans "Error while unblocking." %}');
+                    }
+                })
+                .catch(() => showCustomPopup('{% trans "Error while unblocking." %}'));
+            });
+        });
+    }
+
+    // Popup personnalisée de succès
+    function showCustomPopup(message, callback) {
+        let popup = document.createElement('div');
+        popup.className = 'custom-popup';
+        popup.innerHTML = `
+          <div class="custom-popup-content animated-popup">
+            <div class="popup-icon" style="font-size:2.5rem;color:#4CAF50;margin-bottom:0.5rem;">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 style="margin-bottom:0.5rem;color:#222;">{% trans "Success" %}</h3>
+            <p style="font-size:1.15rem;margin-bottom:1.5rem;color:#333;">${message}</p>
+            <button class="custom-popup-btn" style="background:#4361ee;">OK</button>
+          </div>
+        `;
+        document.body.appendChild(popup);
+        popup.querySelector('.custom-popup-btn').onclick = function() {
+          document.body.removeChild(popup);
+          if (callback) callback();
+        };
+    }
+
+    // Popup personnalisée de confirmation Oui/Non
+    function showCustomPopupConfirm(message, onConfirm) {
+        let popup = document.createElement('div');
+        popup.className = 'custom-popup';
+        popup.innerHTML = `
+          <div class="custom-popup-content animated-popup">
+            <div class="popup-icon" style="font-size:2.5rem;color:#ff6b6b;margin-bottom:0.5rem;">
+              <i class="fas fa-question-circle"></i>
+            </div>
+            <h3 style="margin-bottom:0.5rem;color:#222;">{% trans "Confirmation" %}</h3>
+            <p style="font-size:1.15rem;margin-bottom:1.5rem;color:#333;">${message}</p>
+            <div style="display:flex;justify-content:center;gap:1.5rem;">
+              <button class="custom-popup-btn" style="background:#4361ee;" id="confirm-yes">{% trans "Yes" %}</button>
+              <button class="custom-popup-btn" style="background:#ff6b6b;" id="confirm-no">{% trans "No" %}</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(popup);
+        popup.querySelector('#confirm-yes').onclick = function() {
+          document.body.removeChild(popup);
+          onConfirm(true);
+        };
+        popup.querySelector('#confirm-no').onclick = function() {
+          document.body.removeChild(popup);
+          onConfirm(false);
+        };
+    }
+
+    // Style for custom popup
+    var styleConfirm = document.createElement('style');
+    styleConfirm.innerHTML = `
+    .custom-confirm-popup {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.35);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .custom-confirm-content {
+        background: #fff;
+        padding: 2rem 2.5rem;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px #2222;
+        text-align: center;
+        min-width: 280px;
+        max-width: 90vw;
+    }
+    .custom-confirm-content p {
+        font-size: 1.15rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+    .custom-confirm-actions {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+    }
+    .custom-confirm-btn {
+        padding: 0.5rem 1.5rem;
+        border-radius: 8px;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+        background: #4361ee;
+        color: #fff;
+        transition: background 0.2s;
+    }
+    .custom-confirm-btn.cancel {
+        background: #ff6b6b;
+    }
+    .custom-confirm-btn:hover {
+        opacity: 0.85;
+    }
+    `;
+    document.head.appendChild(styleConfirm);
+    // Ajoute un style pour le bouton cœur actif
+var style = document.createElement('style');
+style.innerHTML = `.heart-btn.hearted i { color: #e63946 !important; transform: scale(1.2); transition: 0.2s; }`;
+document.head.appendChild(style);
+    // Empêcher l'envoi du formulaire si aucune image n'est capturée
+    document.addEventListener('DOMContentLoaded', function() {
+        var selfieForm = document.getElementById('selfie-form');
+        var capturedImage = document.getElementById('capturedImage');
+        if (selfieForm) {
+            selfieForm.addEventListener('submit', function(e) {
+                // Vérifie si une image a été capturée
+                if (!capturedImage || !capturedImage.src || capturedImage.src === '' || capturedImage.src.includes('placeholder')) {
+                    e.preventDefault();
+                    showCustomPopup("Veuillez capturer une image avant d'envoyer.");
+                }
+            });
+        }
+    });
+    </script>
+{% endblock "contenu" %}

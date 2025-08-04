@@ -1,0 +1,109 @@
+{% load i18n %}
+
+<footer id="footer">
+    <div class="container">
+        <div class="display foot_1">
+            <a href="{% url 'a_propos' %}"><p class="parafooter para1">{% trans "A Propos" %}</p></a>
+            <a href="{% url 'condition_util' %}"><p class="parafooter para2">{% trans "Termes et confidentialité" %}</p></a>
+           
+        </div>
+        <div class="display foot_2">
+            <a href="{% url 'politique' %}"><p class="parafooter">{% trans "Politique de confidentialité" %}</p></a>
+            <a href="{% url 'contact' %}" class="parafooter">Contact</a>
+        </div>
+        <div class="footer-langue">
+            <form action="{% url 'set_language' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" name="language" value="fr" class="lang-btn" {% if LANGUAGE_CODE == 'fr' %}style="font-weight:bold; text-decoration:underline;"{% endif %}>Français</button>
+                <span style="color:#e11584; font-weight:bold;">|</span>
+                <button type="submit" name="language" value="en" class="lang-btn" {% if LANGUAGE_CODE == 'en' %}style="font-weight:bold; text-decoration:underline;"{% endif %}>English</button>
+            </form>
+        </div>
+        <p>&copy; {{ now|date:'Y' }} LoveMeet. {% trans "Tous droits réservés." %}</p>
+    </div>
+    
+</footer>
+<style>
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 5vh;
+}
+.parafooter{
+    text-decoration: none;
+    color: white;
+}
+.parafooter:hover{
+    text-decoration: underline solid;
+}
+.display{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    justify-content: center;
+    gap: 100px;
+}
+.display a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2em;
+}
+.footer-langue {
+    margin-bottom: 10px;
+}
+.lang-btn {
+    background: none;
+    border: none;
+    color: #e11584;
+    font-size: 1.1em;
+    margin: 0 8px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.lang-btn:hover {
+    color: #028a0f;
+    text-decoration: underline;
+}
+/* Responsive */
+@media (max-width: 768px) {
+    .top-header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-buttons {
+        margin-top: 10px;
+    }
+
+    .hero h2 {
+        font-size: 2em;
+    }
+
+    .about h2 {
+        font-size: 1.6em;
+    }
+    .display{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 50px;
+        /* width: 100%; */
+        grid-template-columns: 2fr,2fr;
+        grid-template: 2fr 2fr 2fr;
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 12px;
+    }
+    /* .para2{
+        margin-bottom: 10px;
+        padding-left: 50px;
+    }
+    .para1{
+        margin-bottom: 10px;
+    } */
+}
+
+</style>
